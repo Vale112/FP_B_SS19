@@ -1,0 +1,12 @@
+build/
+*.pdf
+*.aux
+*.bcf
+*.log
+*.bbl
+*.blg
+*.run.xml
+*.toc
+__pychache__/
+*.vsdx
+*.xlsx
