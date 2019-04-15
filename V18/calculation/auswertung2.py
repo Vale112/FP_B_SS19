@@ -86,7 +86,7 @@ plt.clf()
 #Berechnung der Aktivität am Messtag
 A=ufloat(4130,60) #Aktivität Europium-Quelle am 01.10.2000
 t_halb = ufloat(4943,5) #Halbwertszeit Europium in Tagen
-dt = 18*365.25 + 43 #Zeitintervall in Tagen
+dt = 18*365.25 + 194 #Zeitintervall in Tagen
 A_jetzt=A*unp.exp(-unp.log(2)*dt/t_halb)#Aktivität Versuchstag
 print('Aktivität zum Messzeitpunkt',A_jetzt)
 #Gauß-Funktion für Peakhoehenbestimmung
