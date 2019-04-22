@@ -569,10 +569,3 @@ plt.clf()
 #     label='tab:aktivitaet_e',
 #     filename='build/tables/aktivitaet_e.tex'
 # )
-#
-#
-# print('Ich bin Patrizia und trage gerne schöne Röcke mit Strumpfhosen. ')
-# print('Und dazu auch gerne ein rosa Tütü.')
-#
-# print('muhahaha .. habe deinen evtl Code geändert .. du solltest deinen PC sperren.')
-#
