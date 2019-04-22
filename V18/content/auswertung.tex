@@ -1,22 +1,40 @@
 \newpage
 \section{Auswertung}
+\label{sec:Auswertung}
 
-Zu Beginn des Versuchs wurde zunächst die Probe {}^152 Eu untersucht. Die Messwerte
-sind in Abbildung \ref{fig:Eu_log} logaritmisch dargestellt. Die Messwerte
+Zu Beginn des Versuchs wurde zunächst die Probe ${}^{152}$ Eu untersucht. Die Messwerte
+sind in Abbildung \ref{fig:Eu_log_Kanal} logaritmisch dargestellt. Die Messwerte
 wurden mit den theoretischen Werten verglichen, sodass mit Hilfe einer linearen Ausgleichsrechnung
 eine Zuordnung von Kanal und Energie möglich ist. Die dafür verwendeten Daten sind
-in Tabelle \ref{tab:Kalibration} gelistet und in der Abbildung \ref{fig:Kalibration}
+in Tabelle \ref{tab:kalibration} gelistet und in der Abbildung \ref{fig:kalibration}
 gemeinsam mit der Ausgleichsgeraden eingetragen.
 
 \begin{figure}
  \centering
- \includegraphics[width=\textwidth]{Eu_log.pdf}
- \caption{Die Zählrate $N$ in Abhängigkeit der Kanalnummer für {}^152 Eu mit logaritmirter y-Skala.}
- \label{fig:Eu_log}
+ \includegraphics[width=\textwidth]{Eu_log_Kanal.pdf}
+ \caption{Die Zählrate $N$ in Abhängigkeit der Kanalnummer $i$ für ${}^{152}$ Eu mit logaritmirter y-Skala.}
+ \label{fig:Eu_log_Kanal}
 \end{figure}
 
+\begin{figure}
+ \centering
+ \includegraphics[width=\textwidth]{build/kalibration.pdf}
+ \caption{Die ermittelte Energie anhand des Fits in Abhängigkeit der Kanalnummer.}
+ \label{fig:kalibration}
+\end{figure}
 
-\label{sec:Auswertung}
+\begin{figure}
+ \centering
+ \includegraphics[width=\textwidth]{build/efficiency.pdf}
+ \caption{Die Vollenergienachweiseffizenz des Detektors gegen die Energie aufgetragen.}
+ \label{fig:effizenz}
+\end{figure}
+
+\input{build/tables/zuordnung_Eu.tex}
+\input{build/tables/Gauss-Fit-Parameter.tex}
+\input{build/tables/det_eff.tex}
+
+
 % \subsection{Unterkapiel}
 % \label{sec:Unterkapitel}
 

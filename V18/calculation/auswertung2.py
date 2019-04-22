@@ -54,7 +54,7 @@ plt.xlabel(r'Kanalnummer $i$')
 plt.ylabel(r'Zählrate $N$')
 plt.legend(loc='best')
 plt.yscale('log')
-plt.savefig('build/orginal_Eu_log_Kanal.pdf')
+plt.savefig('build/Eu_log_Kanal.pdf')
 plt.clf()
 
 #Energieeichung: Wird bei jeder Betrachtung eines Spektrums benötigt
@@ -81,7 +81,7 @@ plt.xlabel(r'Energie $E$')
 plt.ylabel(r'Zählrate $N$')
 plt.legend(loc='best')
 plt.yscale('log')
-plt.savefig('build/orginal_Eu_log_Energie.pdf')
+plt.savefig('build/Eu_log_Energie.pdf')
 plt.clf()
 
 #Plotten der Eichung/Kalibrierung am Eu-Spektrum
