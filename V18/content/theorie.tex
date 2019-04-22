@@ -1,8 +1,71 @@
 \section{Zielsetzung}
 \label{sec:Zielsetzung}
+Es wird eine $\gamma$-Spektroskopie mit einem Reinst-Germanium-Detektor vorgenommen.
+Anhand der aufgenommenen Spektren werden charakteristische Eigenschaften des Detektors, wie das Energieauflösungsvermögen, die Effizienz und die spektrale Empfindlichkeit identifiziert.
+Zusätzlich werden anhand Auswertung eines Spektrums rückschließend auf radioaktive Nuklide geschlossen.
 
 \section{Theorie}
 \label{sec:Theorie}
+
+\subsection{Wechselwirkung von Photonen mit Materie}
+Bei der $\gamma$-Spektroskopie werden von Nukliden ausgesandte Photonen untersucht.
+Um diese Photonen zu prüfen ist es nötig, dass sie mit einem Absorber wechselwirken.
+Das Photon verliert nach jeder Wechselwirkung einen Teil seiner ursprünglichen Energie bis die gesamte Energie im Absorber deponiert wird oder das Photon heraus gestreut wird.
+Der Intensitätsverlust des $\gamma$-Strahls hängt von der Schichtdicke des Absorbers, der Zahl $n$ der Elektronen pro Volumeneinheit und dem Wirkungsquerschnitt $\sigma$ ab:
+\begin{equation}
+\label{eq:Absorbtion}
+N(D)=N_0\exp(-n\sigma D)=N_0\exp(-\mu D).
+\end{equation}
+$\mu$ wird Extinktionskoeffizient genannt.
+Dessen Energieabhängigkeit für Germanium ist in Abbildung \ref{fig:Germanium} zu sehen.
+Der Wirkungsquerschnitt gibt an wie wahrscheinlich eine gewisse Wechselwirkung stattfindet.
+In der $\gamma$-Spektroskopie sind die hauptsächlichen Wechselwirkungen der Photoeffekt, der Compton-Effekt und die Paarbildung.
+
+\subsubsection{Photoeffekt}
+Dieser Effekt trifft auf, wenn das $\gamma$-Quant eine höhere Energie als die Bindungsenergie des Elektrons besitzt.
+Die absorbierte Energie des $\gamma$-Quants löst ein Elektron aus der Elektronenhülle, welches jetzt die Energie $E_\gamma-E_e$ besitzt.
+Das Loch in der K-Schale wird von einem Elektron aus einer höheren Schale ausgefüllt, das Loch in der höheren Schale wird von einem Elektron aus der Schale darüber gefüllt usw.
+Die freigewordene Energie wird durch die Emission von charakteristischen Röntgenquanten ausgedrückt.
+Diese $\gamma$-Quanten werden den Absorber nicht verlassen können und deren gesamte Energie im Material übergeben.
+Der Wirkungsquerschnitt des Photoeffekts ist stark von der Kernladungszahl und der Energie der Photonen abhängig:
+\begin{equation*}
+\sigma_{Ph}\propto Z^\alpha E^\delta,
+\end{equation*}
+wobei $4<\alpha<5$ und $\delta\approx -3.5$ für natürliche Strahler.
+
+\subsubsection{Compton-Effekt}
+Der Compton-Effekt beschreibt die elastische Streuung des $\gamma$-Quants an einem freien punktförmigen Elektron, wobei das $\gamma$-Quant einen Teil seiner Energie an das Elektron abgibt.
+Die Energie nach der Streuung bestimmt sich aus
+\begin{equation}
+E_{\gamma'}=E_{\gamma}\frac{1}{1+\frac{E_{\gamma}}{m_e c^2}(1-\cos(\Psi_{\gamma}))}.
+\end{equation}
+Hier ist $m_e$ die Masse des Elektrons, $c$ die Lichtgeschwindigkeit und $\Psi_{\gamma}$ der Streuwinkel $\Psi_{\gamma}$ des gestreuten $\gamma$-Quants.
+Das eintreffende Photon kann also nicht seine gesamte Energie an das Elektron übertragen.
+Der maximale Übertrag findet bei einem Streuwinkel von $180°$ auf und wird Rückstreuung genannt.
+Der Wirkungsquerschnitt $\sigma_{\symup{Co}}$ beträgt:
+\begin{align*}
+      \sigma_{\symup{Co}} = \frac{3}{4}\sigma_{\symup{Th}}\left(\frac{1+\varepsilon}{\varepsilon^2}\left(\frac{2+2\varepsilon}{1+2\varepsilon}-\varepsilon^{-1}\symup{ln}(1+2\varepsilon)\right)
+      + \frac{1}{2\varepsilon}\symup{ln}(1+2\varepsilon) - \frac{1+3\varepsilon}{(1+2\varepsilon)^2}\right),
+\end{align*}
+wobei 
+\begin{equation*}
+\sigma_{\symup{Th}} =\frac{8\pi}{3}r_e^2
+\end{equation*}
+der Thomson-Querschnitt und $r_e$ der Elektronenradius ist.
+
+ \begin{figure}
+   \centering
+   \includegraphics[height=5.5cm]{content/Compton.png}
+   \caption{Compton-Streuprozesses als Schema dargestellt.\cite{V18}}
+   \label{fig:Compton}
+ \end{figure}
+
+\subsubsection{Paarbildung}
+Bei der Paarbildung wandelt sich das Photon in ein Elektron und ein Positron um, falls es die dafür nötige Energie $E_{\gamma}>2m_ec^2$ besitzt.
+Damit dieser Prozess (vom Ruhesystem des Photons ausgehend) stattfinden kann muss zusätzlich noch ein Stoßpartner vorhanden sein.
+Ist dieser Partner ein Elektron benötigt das Photon aufgrund der Rückstoßenergie sogar die vierfache Ruhemasse des Elektrons an Energie damit es zur Paarbildung kommen kann.
+Der Wirkungsquerschnitt $\sigma_{\symup{Pa}}$ ist je nach Ort an dem die Paarerzeugung stattfindet unterschiedlich groß, da zum Beispiel im Bereich der K-Schale das gesamte Coulomb-Feld mitwirkt, bei äußeren Schalen jedoch Abschirmungseffekte eine Rolle spielen, wodurch $\sigma_{\symup{Pa}}$ von der Abschirmung abhängt.
+
 
 % \begin{figure}
 %   \centering
@@ -11,10 +74,77 @@
 %   \label{fig:Bild}
 % \end{figure}
 
-% \subsection{Unterkapitel}
-% \label{sec:UnterKapitel}
+ \begin{figure}
+   \centering
+   \includegraphics[height=23cm]{content/Germanium.png}
+   \caption{Energieabhängigkeit des Extinktionskoeffizienten in Germanium.\cite{V18}}
+   \label{fig:Germanium}
+ \end{figure}
+\subsection{Funktionsweise eines Reinst-Germanium-Detektors}
+Der Reinst-Germanium-Detektor ist ein Halbleiter-Detektor, die Funktionsweise ähnelt also der einer Halbleiterdiode.
+Folglich existieren im Materiel zwei aneinander grenzend unterschiedlich dotierte Schichten, die Elektronenüberschüssige n-dotierte Schicht und die Elektronenarme p-dotierte Schicht.
+Die beweglichen Ladungsträger, die Elektronen und Löcher, nahe der Grenzfläche zwischen den dotierten Bereichen rekombinieren dort.
+Der jetzige Mangel dieser beweglichen Ladungsträgern an der Grenzzone bildet eine ladungsträgerarme Zone oder Sperrschicht, die n-dotierte Seite der Sperrschicht ist positiv und die p-dotierte Seite negativ geladen.
+Es entsteht ein inneres elektrisches Feld, was eine weitere Diffusion von Ladungsträgern verhindert.
+Trifft ein $\gamma$-Quant auf diese ladungsarme Zone ein wird es durch die vorher genannten Effekte mit den Elektronen wechselwirken, die wiederum mit anderen Elektronen im Valenzband wechselwirken.
+Die gestoßenen Elektronen gehen vom Valenzband zum Leitungsband über und hinterlassen Elektron-Loch-Paare.
+Aufgrund des in der Sperrschicht erzeugtem elektrischen Feld werden die Löcher und Elektronen hinreichend schnell getrennt.
+Werden diese Elektronen und Löcher, bevor sie wieder rekombinieren, an Elektroden gesammelt wird ein Ladungsimpuls mit einem Betrag, der von der Energie des $\gamma$-Quants abhängig ist, gemessen.
+Da die Absorptionswahrscheinlichkeit mit der Dicke exponentiell zunimmt (\ref{eq:Absorbtion}) wird eine äußere Spannung angelegt, wodurch die Sperrzone vergrößert wird.
+Hier muss jedoch beachtet werden, dass durch thermische Effekte freie Ladungsträger in der Sperrzone vorhanden sind, die durch die Spannung getrennt und als Signale registriert werden.
+Um diesen Störeffekt zu minimieren wird der Detektor auf $\SI{77}{\kelvin}$ gekühlt.
 
-% \begin{equation}
-% Für Formeln
-%   \label{eqn:Formel}
-% \end{equation}
+Das Auflösungsvermögen ist eine wichtige Kenngröße eines Detektors.
+Es wird durch die Halbwertsbreite $\Delta E_{1/2}$ der gemessenen Peaks bestimt.
+Der Detektor ist fähig zwei Spektrallinien mit Mittelwerten $E_1$ und $E_2$ zu unterschieden, wenn die Differenz mindestens $\Delta E_{1/2}$ beträgt.
+Die Breite der Linien hängt von der Zahl $n$ der erzeugten Elektron-Loch-Paare ab.
+Der Mittelwert $\bar{n}$ entspricht dem Quotienten der Energie $E_{\gamma}$ der einfallenden Photonen und der Bindungsenergie $E_{EL}$ eines Elektron-Loch-Paares.
+Weil Elektron-Loch-Paare nur durch Beteiligung von Phononen erzeugt werden können, ist die vom Photon übertragene Energie auf den Detektor statistisch auf die Phononen- und Elektron-Loch-Paar Erzeugung verteilt.
+Das hat zur Folge, dass der Fehler der (Poisson-) Verteilung durch einen Fano-Faktor korrigiert werden muss:
+\begin{equation*}
+\sigma = \sqrt{F\bar{n}}
+\end{equation*}
+Bei Germanium beträgt $F$ etwa $0.1$.
+Da n sehr viel größer als $1$ ist, kann die Poisson-Verteilung als Gauß-Verteilung approximiert werden.
+Ist $\sigma_E$ die Standardabweichung lässt sich die Halbwertsbreite aus
+\begin{equation}
+\label{eq:aufloesung}
+\Delta E_{1/2} = 2\sqrt{2\symup{ln}2}\,\frac{E_{\gamma}\sigma}{\bar{n}} \approx 2.35\sqrt{0.1\,E_\gamma\,E_{\symup{El}}}
+\end{equation}
+errechnen.
+Die Halbwertsbreite bei einem Germanium-Detektor mit einer typischen $\gamma$-Energie von $\SI{500}{\kilo\electronvolt}$ beträgt somit $\Delta E_{1/2} =\SI{895}{\electronvolt}$.
+Zusätzliche Störeffekte sind Leckstrom des Halbleiterkristalls, Rauschen des Verstärkers (beide werden durch Kühlung minimiert) und Inhomogenitäten des elektrischen Feldes.
+
+Unter der Vollenergienachweiseffizienz wird die Energieabhängigkeit der Nachweiswahrscheinlichkeit eines Photons verstanden.
+Nur Photonen die durch den Photoeffekt wechselwirken deponieren ihre vollständige Energie im Detektor und sind für die Effizient relevant.
+
+ \begin{figure}
+   \centering
+   \includegraphics[height=7cm]{content/Breite.png}
+   \caption{Die Halbwertsbreite als Maß des Auflösungsvermögens eines Detektors.\cite{V18}}
+   \label{fig:Breite}
+ \end{figure}
+
+\subsection{Energiespektrum eines monochromatischen \texorpdfstring{\gamma-}{gamma}Strahlers}
+Ein typisches Spektrum eines monochromatischen Strahlers ist in Abbildung \ref{fig:Spektrum} zu sehen.
+Deutlich zu erkennen sind das "Compton-Kontinuum" mit der "Compton-Kante" und dem "Rückstreupeak" und dem "Photopeak".
+Der Photopeak entsteht, wenn das $\gamma$-Quant durch den Photoeffekt seine vollständige Energie abgibt und ist deswegen die interessantere Messung.
+Dessen Halbwertsbreite $Delta E_{1/2}$ ist das ausschlaggebende Maß für das Auflösungsvermögen des Detektors.
+
+Das Compton-Kontinuum reicht, durch die verschiedenen Streuwinkel der Photonen, von der Energie 0 bis zur Compton-Kante $E_{e,\symup{max}}$ bei $\Psi{gamma}=\SI{180}{\degree}$, mit
+\begin{equation*}
+E_{e,\symup{max}}=E_{\gamma}\frac{2\Epsilon}{1+2\Epsilon}
+\end{equation*}
+und
+\begin{equation*}
+\Epsilon = \frac{E_{\gamma}}{m_e c^2}.
+\end{equation*}
+Der Rückstreupeak entsteht durch Photonen, die erst nach Compton-Streuung mit der Umgebung (Abschirmung des Detektors oder Quelle selbst) in den Detektor gelangen.
+Die dargestellte Empfindlichkeitsgrenze hat ihren Ursprung in der Wechselwirkung der Photonen mit der Schutzhaube und der Oberfläche des Detektors.
+Bei dem hier verwendeten Ge-Detektor liegt diese Grenze bei $40$ bis $\SI{50}{\kilo\electronvolt}$.
+ \begin{figure}
+   \centering
+   \includegraphics[height=9cm]{content/Spektrum.png}
+   \caption{Typisches Spektrum eines Gammastrahlers.\cite{V18}}
+   \label{fig:Spektrum}
+ \end{figure}
