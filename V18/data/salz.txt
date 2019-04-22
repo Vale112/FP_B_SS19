@@ -1,15 +1,4 @@
-$SPEC_ID:
-No sample description was entered.
-$SPEC_REM:
-DET# 1
-DETDESC# MCB 338
-AP# Maestro Version 6.06
-$DATE_MEA:
-04/15/2019 12:49:12
-$MEAS_TIM:
-4510 4519
-$DATA:
-0 8191
+#Messdaten zu unbekanntem Salz, Abstand 7,5+1,3cm, Messdauer 4510s
        0
        0
        0
@@ -8202,17 +8191,3 @@ $DATA:
        1
        1
        0
-$ROI:
-0
-$PRESETS:
-None
-0
-0
-$ENER_FIT:
-0.000000 0.374432
-$MCA_CAL:
-3
-0.000000E+000 3.744323E-001 0.000000E+000 keV
-$SHAPE_CAL:
-3
-6.617742E+000 0.000000E+000 0.000000E+000

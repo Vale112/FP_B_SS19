@@ -26,37 +26,37 @@ if not os.path.isdir('build/tables'):
 data = np.genfromtxt('data/Eu152.txt', unpack=True)
 Ener, Wahr = np.genfromtxt('data/2_0/Test.txt', unpack=True)
 E, W, peaks_ind = np.genfromtxt('data/2_0/Eu.txt', unpack=True)
-make_table(
-        header = [' $E$ / \kilo\electronvolt', ' $W$ / \%', 'Kanalnummer $i$'],
-        data = [E, W, peaks_ind],
-        places = [4.0, 2.1, 4.0],
-        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}. Aufgelistet sind die jeweilige Energie, die Emissionswahrscheinlichkeit $W$ und die zugeordnete Kanalnummer $i$.',
-        label = 'tab:zuordnung_eu',
-        filename = 'build/tables/zuordnung_Eu.tex'
-        )
-# Findet Peaks, zuordnung dann manuelle
-# peaks = find_peaks(data, height=80 , distance=2)
-# indexes = peaks[0]
-# peak_heights = peaks[1]
-# print(indexes)
-
-#verwendete und nicht verwendete peaks
-peaks_v = [309, 614, 740, 861, 1027, 1108, 1939, 2159, 2399, 2702, 2765, 3500] #entsprechen auch peaks_ind
-peaks_n = [106, 218, 919]
-
-#plot von EU mit Kanälen
-x=np.linspace(1,8192,8192)
-plt.bar(x, data, label='Messdaten')
-plt.plot(peaks_v, data[peaks_v], 'rx', label='Verwendete Peaks')
-plt.plot(peaks_n, data[peaks_n], 'yx', label='Nicht verwendete Peaks')
-plt.xlim(0, 4000)
-plt.xlabel(r'Kanalnummer $i$')
-plt.ylabel(r'Zählrate $N$')
-plt.legend(loc='best')
-plt.yscale('log')
-plt.savefig('build/Eu_log_Kanal.pdf')
-plt.clf()
-
+# make_table(
+#         header = [' $E$ / \kilo\electronvolt', ' $W$ / \%', 'Kanalnummer $i$'],
+#         data = [E, W, peaks_ind],
+#         places = [4.0, 2.1, 4.0],
+#         caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}. Aufgelistet sind die jeweilige Energie, die Emissionswahrscheinlichkeit $W$ und die zugeordnete Kanalnummer $i$.',
+#         label = 'tab:zuordnung_eu',
+#         filename = 'build/tables/zuordnung_Eu.tex'
+#         )
+# # Findet Peaks, zuordnung dann manuelle
+# # peaks = find_peaks(data, height=80 , distance=2)
+# # indexes = peaks[0]
+# # peak_heights = peaks[1]
+# # print(indexes)
+# 
+# #verwendete und nicht verwendete peaks
+# peaks_v = [309, 614, 740, 861, 1027, 1108, 1939, 2159, 2399, 2702, 2765, 3500] #entsprechen auch peaks_ind
+# peaks_n = [106, 218, 919]
+# 
+# #plot von EU mit Kanälen
+# x=np.linspace(1,8192,8192)
+# plt.bar(x, data, label='Messdaten')
+# plt.plot(peaks_v, data[peaks_v], 'rx', label='Verwendete Peaks')
+# plt.plot(peaks_n, data[peaks_n], 'yx', label='Nicht verwendete Peaks')
+# plt.xlim(0, 4000)
+# plt.xlabel(r'Kanalnummer $i$')
+# plt.ylabel(r'Zählrate $N$')
+# plt.legend(loc='best')
+# plt.yscale('log')
+# plt.savefig('build/Eu_log_Kanal.pdf')
+# plt.clf()
+# 
 #Energieeichung: Wird bei jeder Betrachtung eines Spektrums benötigt
 #Lineare Funktion für Ausgleichsgeraden
 def lin(x,m,b):
@@ -72,38 +72,38 @@ print('Achsenabschnitt b =', params[1], '±', errors[1])
 #Zusammenfassen der Werte und Ungenauigkeiten der Fit-Parameter
 m=ufloat(params[0],errors[0])
 b=ufloat(params[1],errors[1])
-
-#Plotten des vom Detektor aufgenommenen Spektrums + logarithmische y-Achse evtl mit Enegrie
-x=np.linspace(1,8192,8192)
-plt.bar(lin(x,*params), data, label='Messdaten')
-plt.xlim(0, 1600)
-plt.xlabel(r'Energie $E$')
-plt.ylabel(r'Zählrate $N$')
-plt.legend(loc='best')
-plt.yscale('log')
-plt.savefig('build/Eu_log_Energie.pdf')
-plt.clf()
-
-#Plotten der Eichung/Kalibrierung am Eu-Spektrum
-x=np.linspace(250,3700,3450)
-plt.plot(x, lin(x,*params),'r-',label='Fit')
-plt.errorbar(peaks_ind, E, yerr=20, fillstyle= None, fmt=' x', label='Daten')
-plt.ylim(0,1500)
-plt.xlim(0, 4000)
-plt.xlabel(r'Kanalnummer $i$')
-plt.grid()
-plt.ylabel(r'E$_\gamma\:/\: \mathrm{keV}$')
-plt.legend()
-plt.savefig('build/kalibration.pdf')
-plt.clf()
-
-#------------Berechnen der Detektoreffizenz
-#Berechnung der Aktivität am Messtag
-A=ufloat(4130,60) #Aktivität Europium-Quelle am 01.10.2000
-t_halb = ufloat(4943,5) #Halbwertszeit Europium in Tagen
-dt = 18*365.25 + 194 #Zeitintervall in Tagen
-A_jetzt=A*unp.exp(-unp.log(2)*dt/t_halb)#Aktivität Versuchstag
-print('Aktivität zum Messzeitpunkt',A_jetzt)
+# 
+# #Plotten des vom Detektor aufgenommenen Spektrums + logarithmische y-Achse evtl mit Enegrie
+# x=np.linspace(1,8192,8192)
+# plt.bar(lin(x,*params), data, label='Messdaten')
+# plt.xlim(0, 1600)
+# plt.xlabel(r'Energie $E$')
+# plt.ylabel(r'Zählrate $N$')
+# plt.legend(loc='best')
+# plt.yscale('log')
+# plt.savefig('build/Eu_log_Energie.pdf')
+# plt.clf()
+# 
+# #Plotten der Eichung/Kalibrierung am Eu-Spektrum
+# x=np.linspace(250,3700,3450)
+# plt.plot(x, lin(x,*params),'r-',label='Fit')
+# plt.errorbar(peaks_ind, E, yerr=20, fillstyle= None, fmt=' x', label='Daten')
+# plt.ylim(0,1500)
+# plt.xlim(0, 4000)
+# plt.xlabel(r'Kanalnummer $i$')
+# plt.grid()
+# plt.ylabel(r'E$_\gamma\:/\: \mathrm{keV}$')
+# plt.legend()
+# plt.savefig('build/kalibration.pdf')
+# plt.clf()
+# 
+# #------------Berechnen der Detektoreffizenz
+# #Berechnung der Aktivität am Messtag
+# A=ufloat(4130,60) #Aktivität Europium-Quelle am 01.10.2000
+# t_halb = ufloat(4943,5) #Halbwertszeit Europium in Tagen
+# dt = 18*365.25 + 194 #Zeitintervall in Tagen
+# A_jetzt=A*unp.exp(-unp.log(2)*dt/t_halb)#Aktivität Versuchstag
+# print('Aktivität zum Messzeitpunkt',A_jetzt)
 #Gauß-Funktion für Peakhoehenbestimmung
 def gauss(x,sigma,h,a,mu):
  return a+h*np.exp(-((x-mu)/sigma)**2)
@@ -130,148 +130,142 @@ def gaussian_fit_peaks(test_ind):
      sigma.append(sigma_fit)
      peak_inhalt.append(h_fit*sigma_fit*np.sqrt(2*np.pi))
  return index_fit, peak_inhalt, hoehe, unter, sigma
-index_f, peakinhalt, hoehe, unter, sigma = gaussian_fit_peaks(peaks_ind.astype('int'))
-E_det =[]
-for i in range(len(index_f)):
- E_det.append(lin(index_f[i],*params))
+# index_f, peakinhalt, hoehe, unter, sigma = gaussian_fit_peaks(peaks_ind.astype('int'))
+# E_det =[]
+# for i in range(len(index_f)):
+#  E_det.append(lin(index_f[i],*params))
+# 
+# #Berechnung des Raumwinkels
+# a=ufloat(0.073+0.015, 0.001) #in m
+# r=ufloat(0.0225, 0) #in m
+# omega_4pi = (1-a/(a**2+r**2)**(0.5))/2
+# print('Raumwinkel',omega_4pi)
+# 
+# #Berechnung Detektoreffizienz für jeden Energiepeak
+# Q=[]
+# Z=[]
+# for i in range(len(W)):
+#  Z.append(np.sqrt(2*np.pi)*hoehe[i]*sigma[i])
+#  Q.append(Z[i]/(omega_4pi*A_jetzt*W[i]/100*4676))
+# 
+# #Erstellen einer Tabelle der Fit-Parameter des Gauß-Fits
+# make_table(
+#  header= ['$\mu_i$', '$a$', '$h_i$', '$\sigma_i$'],
+#  data=[index_f, unter, hoehe, sigma],
+#  caption='Parameter des durchgeführten Gauss-Fits pro Kanal. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und $a$ der Zählraten-Offset (Untergrund).',
+#  label='tab:gauss_parameter',
+#  places=[(4.2, 1.2), (2.2, 1.2), (4.2, 2.2), (3.2, 1.2)],
+#  filename='build/tables/Gauss-Fit-Parameter.tex'
+#  )
+# 
+# #Erstellen einer Tabelle der Detektoreffizenz und den dazu verwendeten Werten
+# make_table(
+#  header=['$Z_i$', '$E_i$ / \kilo\electronvolt' ,'W/\%', '$Q_i$ / \\becquerel '],
+#  data=[Z, E_det, W, Q],
+#  caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
+#  label = 'tab:det_eff',
+#  places = [ (5.2, 3.2), (4.2, 1.2), 2.1, (1.2, 1.2)],
+#  filename = 'build/tables/det_eff.tex'
+#  )
+# 
+# #Betrachte Exponential-Fit für Beziehnung zwischen Effizienz und Energie
+# # Lasse erste Werte weg
+# # Q=Q[1:]
+# # E=E[1:]
+# # E_det=E_det[1:]
+# 
+# #Potenzfunktion für Fit
+# def potenz(x,a,b,c,e):
+#  return a*(x-b)**e+c
+# 
+# #Durchführung des Exponential-Fits und Ausgabe der Parameter
+# #print('Daten für den Exponentialfit:')
+# #print(noms(Q), noms(E_det))
+# params2, covariance2= curve_fit(potenz,noms(E_det),noms(Q),sigma=sdevs(Q), p0=[1, 0.1, 0, 0.5])
+# errors2 = np.sqrt(np.diag(covariance2))
+# #Zusammenfassen der Fit-Parameter
+# a=ufloat(params2[0],errors2[0])
+# b=ufloat(params2[1],errors2[1])
+# c=ufloat(params2[2],errors2[2])
+# e=ufloat(params2[3],errors2[3])
+# 
+# #Ausgabe der Fit-Parameter
+# print('\nKalibrationswerte Potenzfunktion:')
+# print(f'Steigung a = {a}')
+# print(f'Verschiebung_x b = {b}')
+# print(f'Verschiebung_y c = {c}')
+# print(f'Exponent e = {e}')
+# 
+# #Plotten der Effizenz gegen die Energie mit Exponential-Fit-Funktion
+# x=np.linspace(1,1600,10000)
+# plt.plot(x, potenz(x,*params2),'r-',label='Fit')
+# plt.errorbar(E,noms(Q), yerr=sdevs(Q),fmt=' x', ecolor='b',label='Daten')
+# plt.legend()
+# plt.xlabel(r'Energie $E \:/\: \mathrm{keV}$')
+# plt.grid()
+# plt.ylabel(r'Effizentz $Q(E)$')
+# plt.savefig('build/efficiency.pdf')
+# plt.clf()
+# 
+# 
+#-----------------------Teilaufgabe b) {Untersuchung des Cs-Spektrums}
+data_b = np.genfromtxt('data/Cs137.txt', unpack=True)
+x_plot = np.linspace(0, len(data_b), len(data_b))
 
-#Berechnung des Raumwinkels
-a=ufloat(0.073+0.015, 0.001) #in m
-r=ufloat(0.0225, 0) #in m
-omega_4pi = (1-a/(a**2+r**2)**(0.5))/2
-print('Raumwinkel',omega_4pi)
+#Finde Peaks in Spektrum und ordne sie der Energie zu
+peaks_2 = find_peaks(data_b, height=60, distance=20)
+indexes_2 = peaks_2[0]
+peak_heights_2 = peaks_2[1]
+energie_2 = lin(indexes_2, *params)
 
-#Berechnung Detektoreffizienz für jeden Energiepeak
-Q=[]
-Z=[]
-for i in range(len(W)):
- Z.append(np.sqrt(2*np.pi)*hoehe[i]*sigma[i])
- Q.append(Z[i]/(omega_4pi*A_jetzt*W[i]/100*4676))
+print('Indices der peaks: ', indexes_2)
+#Identifiziere die charakteristischen Energie-Peaks
+e_photo=energie_2[-1]
+print('Photo: ', energie_2[-1], indexes_2[-1])
+e_compton=energie_2[-2]
+print('Compton: ', energie_2[-2], indexes_2[-2])
+e_rueck=energie_2[14]
+print('Rueckstreu: ', energie_2[14], indexes_2[14])
 
-#Erstellen einer Tabelle der Fit-Parameter des Gauß-Fits
-make_table(
- header= ['$\mu_i$', '$a$', '$h_i$', '$\sigma_i$'],
- data=[index_f, unter, hoehe, sigma],
- caption='Parameter des durchgeführten Gauss-Fits pro Kanal. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und $a$ der Zählraten-Offset (Untergrund).',
- label='tab:gauss_parameter',
- places=[(4.2, 1.2), (2.2, 1.2), (4.2, 2.2), (3.2, 1.2)],
- filename='build/tables/Gauss-Fit-Parameter.tex'
- )
+#print(len(energie_2), len(indexes_2))
+#print(e_rueck, e_compton, e_photo)
+#print(indexes_2[-4], indexes_2[-2], indexes_2[-1])
+e_photo_t = 661.59 #theoretischer Photoenergiepeak
+m_e = 511   #Elektronenmasse in keV
+#Vergleiche zwischen gemessenen und theoretischen Werten der Peaks
+e_compton_theo = 2*e_photo_t**2/(m_e*(1+2*e_photo_t/m_e))
+vgl_compton = 1-e_compton/e_compton_theo
+print(f'Ein Vergleich des theoretischen E_compton {e_compton_theo} mit dem gemessenen E_compton {e_compton}, beträgt: {vgl_compton} ')
+e_rueck_theo = e_photo_t/(1+2*e_photo_t/m_e)
+vgl_rueck = 1-e_rueck/e_rueck_theo
+print(f'Ein Vergleich des theoretischen E_rueck {e_rueck_theo} mit dem gemessenen E_compton {e_rueck}, beträgt: {vgl_rueck} ')
 
-#Erstellen einer Tabelle der Detektoreffizenz und den dazu verwendeten Werten
-make_table(
- header=['$Z_i$', '$E_i$ / \kilo\electronvolt' ,'W/\%', '$Q_i$ / \\becquerel '],
- data=[Z, E_det, W, Q],
- caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
- label = 'tab:det_eff',
- places = [ (5.2, 3.2), (4.2, 1.2), 2.1, (1.2, 1.2)],
- filename = 'build/tables/det_eff.tex'
- )
-
-#Betrachte Exponential-Fit für Beziehnung zwischen Effizienz und Energie
-# Lasse erste Werte weg
-# Q=Q[1:]
-# E=E[1:]
-# E_det=E_det[1:]
-
-#Potenzfunktion für Fit
-def potenz(x,a,b,c,e):
- return a*(x-b)**e+c
-
-#Durchführung des Exponential-Fits und Ausgabe der Parameter
-#print('Daten für den Exponentialfit:')
-#print(noms(Q), noms(E_det))
-params2, covariance2= curve_fit(potenz,noms(E_det),noms(Q),sigma=sdevs(Q), p0=[1, 0.1, 0, 0.5])
-errors2 = np.sqrt(np.diag(covariance2))
-#Zusammenfassen der Fit-Parameter
-a=ufloat(params2[0],errors2[0])
-b=ufloat(params2[1],errors2[1])
-c=ufloat(params2[2],errors2[2])
-e=ufloat(params2[3],errors2[3])
-
-#Ausgabe der Fit-Parameter
-print('\nKalibrationswerte Potenzfunktion:')
-print(f'Steigung a = {a}')
-print(f'Verschiebung_x b = {b}')
-print(f'Verschiebung_y c = {c}')
-print(f'Exponent e = {e}')
-
-#Plotten der Effizenz gegen die Energie mit Exponential-Fit-Funktion
-x=np.linspace(1,1600,10000)
-plt.plot(x, potenz(x,*params2),'r-',label='Fit')
-plt.errorbar(E,noms(Q), yerr=sdevs(Q),fmt=' x', ecolor='b',label='Daten')
-plt.legend()
-plt.xlabel(r'$E \:/\: keV$')
-plt.grid()
-plt.ylabel(r'$Q(E)$')
-plt.savefig('build/efficiency.pdf')
+#Plotten des vom Detektor aufgenommenen Cs-Spektrums + logarithmische y_Achse
+plt.bar(lin(x_plot, *params), data_b, label='Messwerte')
+plt.plot(lin(indexes_2[14], *params), energie_2[14], 'rx', label='Rückstreupeak')
+plt.bar(lin(indexes_2[-2], *params), energie_2[-2], label='Comptonkante')
+plt.plot(lin(indexes_2[-1], *params), energie_2[-1], 'yx', label='Vollenergiepeak')
+plt.xlim(0, 800)
+plt.xlabel(r'Energie $E \:/\: \mathrm{keV}$')
+plt.ylabel(r'Zählrate $N$')
+plt.legend(loc='best')
+plt.yscale('log')
+plt.savefig('build/Cs_log.pdf')
 plt.clf()
 
-
-# #-----------------------Teilaufgabe b) {Untersuchung des Cs-Spektrums}
-# data_b = np.genfromtxt('data/Cs.txt', unpack=True)
-# x_plot = np.linspace(0, len(data_b), len(data_b))
-#
-# #Plotten des vom Detektor aufgenommenen Cs-Spektrums + logarithmische y_Achse
-# plt.bar(x_plot, data_b)
-# plt.xlim(0, 1800)
-# plt.xlabel(r'Energie $E$')
-# plt.ylabel(r'Zählrate $N$')
-# plt.savefig('build/spektrum_Cs.pdf')
-# plt.yscale('log')
-# plt.savefig('build/spektrum_Cs_log.pdf')
-# plt.clf()
-#
-# #Finde Peaks in Spektrum und ordne sie der Energie zu
-# peaks_2 = find_peaks(data_b, height=60, distance=20)
-# indexes_2 = peaks_2[0]
-# peak_heights_2 = peaks_2[1]
-# energie_2 = lin(indexes_2, *params)
-# print('Indices der peaks: ', indexes_2)
-#
-# #Identifiziere die charakteristischen Energie-Peaks
-# e_rueck=energie_2[-4]
-# print('Rueckstreu: ', energie_2[-4], indexes_2[-4])
-# e_compton=energie_2[-2]
-# print('Compton: ', energie_2[-2], indexes_2[-2])
-# e_photo=energie_2[-1]
-# print('Photo: ', energie_2[-1], indexes_2[-1])
-# #print(len(energie_2), len(indexes_2))
-# #print(e_rueck, e_compton, e_photo)
-# #print(indexes_2[-4], indexes_2[-2], indexes_2[-1])
-#
-#
-# e_photo = 661.59
-# m_e = 511
-# #Vergleiche zwischen gemessenen und theoretischen Werten der Peaks
-# e_compton_theo = 2*e_photo**2/(m_e*(1+2*e_photo/m_e))
-# vgl_compton = 1-e_compton/e_compton_theo
-# print(f'Ein Vergleich des theoretischen E_compton {e_compton_theo} mit dem gemessenen E_compton {e_compton}, beträgt: {vgl_compton} ')
-#
-# e_rueck_theo = e_photo/(1+2*e_photo/m_e)
-# vgl_rueck = 1-e_rueck/e_rueck_theo
-# print(f'Ein Vergleich des theoretischen E_rueck {e_rueck_theo} mit dem gemessenen E_compton {e_rueck}, beträgt: {vgl_rueck} ')
-#
-#
-#
-# #Führe wieder Gausß-Fit für den Vollenergiepeak durch, um Peakhöhe bestimmen zu können
-# a=indexes_2[-1].astype('int')-50
-# b=indexes_2[-1].astype('int')+50
-#
-# params_gauss_b,covariance_gauss_b=curve_fit(gauss,lin(np.arange(a,b+1),*params),data_b[a:b+1],p0=[1,data_b[indexes_2[-1]],0,lin(indexes_2[-1]-0.1,*params)])
-# errors_gauss_b = np.sqrt(np.diag(covariance_gauss_b))
-#
-#
-# #Fasse Wert und Ungenauigkeit der Fit-Parameter wieder jeweils zusammen
-# sigma_fit=ufloat(params_gauss_b[0],errors_gauss_b[0])
-# h_fit=ufloat(params_gauss_b[1],errors_gauss_b[1])
-# a_fit=ufloat(params_gauss_b[2],errors_gauss_b[2])
-# mu_fit=ufloat(params_gauss_b[3],errors_gauss_b[3])
-#
-# Z_photo=h_fit*sigma_fit*np.sqrt(2*np.pi)
-# print(f'Die Rate des Vollenergiepeaks liegt bei {Z_photo} keV.')
-#
-# #-------------------------------------------------------------------------------
+#Führe wieder Gausß-Fit für den Vollenergiepeak durch, um Peakhöhe bestimmen zu können
+a=indexes_2[-1].astype('int')-50
+b=indexes_2[-1].astype('int')+50
+params_gauss_b,covariance_gauss_b=curve_fit(gauss,lin(np.arange(a,b+1),*params),data_b[a:b+1],p0=[1,data_b[indexes_2[-1]],0,lin(indexes_2[-1]-0.1,*params)])
+errors_gauss_b = np.sqrt(np.diag(covariance_gauss_b))
+#Fasse Wert und Ungenauigkeit der Fit-Parameter wieder jeweils zusammen
+sigma_fit=ufloat(params_gauss_b[0],errors_gauss_b[0])
+h_fit=ufloat(params_gauss_b[1],errors_gauss_b[1])
+a_fit=ufloat(params_gauss_b[2],errors_gauss_b[2])
+mu_fit=ufloat(params_gauss_b[3],errors_gauss_b[3])
+Z_photo=h_fit*sigma_fit*np.sqrt(2*np.pi)
+print(f'Die Rate des Vollenergiepeaks liegt bei {Z_photo} keV.')
+#-------------------------------------------------------------------------------
 #
 # Z_3 = data_b[a:b+1]*sigma_fit*np.sqrt(2*np.pi)
 # plt.plot(lin(np.arange(a,b+1),*params), gauss(lin(np.arange(a,b+1),*params), *params_gauss_b)*noms(sigma_fit)*np.sqrt(2*np.pi), 'k-', label='Fit')
@@ -280,7 +274,7 @@ plt.clf()
 # plt.axhline(y=0.5*data_b[indexes_2[-1]]*noms(sigma_fit)*np.sqrt(2*np.pi), xmin = 0.31, xmax = 0.675, color='g',linestyle='dashed', label='Halbwertsbreite')
 # plt.axhline(y=0.1*data_b[indexes_2[-1]]*noms(sigma_fit)*np.sqrt(2*np.pi), xmin = 0.158, xmax = 0.81,color='r',linestyle='dashed', label='Zehntelbreite')
 # plt.ylabel('Peakhöhe $Z$')
-# plt.xlabel('Energie $E$/keV')
+# plt.xlabel('Energie $E \:/\: \mathrm{keV}$')
 # plt.legend(loc='best')
 # plt.grid()
 # plt.savefig('build/test_2.pdf')
@@ -362,7 +356,7 @@ plt.clf()
 # plt.plot(lin(x, *params), data_d,'r-',label='Detektor')
 # plt.plot(lin(indexes_3, *params),data_d[indexes_3],'bx',label='Peaks')
 # print('Peaks des Barium-Spektrums bei : ', lin(indexes_3, *params) , 'mit Inhalt: ', data_d[indexes_3])
-# plt.xlabel(r'Energie $E\:/\:$keV')
+# plt.xlabel(r'Energie $E \:/\: \mathrm{keV}$')
 # plt.ylabel(r'Einträge')
 # plt.xlim(0, 500)
 # plt.yscale('log')
