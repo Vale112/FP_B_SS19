@@ -24,6 +24,7 @@ if not os.path.isdir('build/tables'):
 
 #------------------------Aufgabenteil a) {Untersuchung des Eu-Spektrums}
 data = np.genfromtxt('data/Eu152.txt', unpack=True)
+Ener, Wahr = np.genfromtxt('data/2_0/Test.txt', unpack=True)
 E, peaks_ind, W = np.genfromtxt('data/2_0/Eu.txt', unpack=True)
 make_table(
         header = [' $E$ / \kilo\electronvolt', ' $W$ / \%', 'Bin-Index $i$'],
@@ -34,9 +35,43 @@ make_table(
         filename = 'build/tables/anleitung_eu.tex'
         )
 
-peaks = find_peaks(data, height=5, distance=10)
+peaks = find_peaks(data, height=5 , distance=10)
 indexes = peaks[0]
 peak_heights = peaks[1]
+print(indexes)
+
+# Test der gefundenen Peaks
+x=np.linspace(1,8192,8192)
+plt.bar(indexes, data[indexes], label='Messdaten', color='red')
+# plt.bar(lin(indexes,*params),data[indexes])
+plt.xlim(0, 1200)
+plt.legend(loc='best')
+plt.yscale('log')
+plt.savefig('build/Peaks_log.pdf')
+plt.clf()
+
+#plot aller Peaks
+x=np.linspace(1,8192,8192)
+plt.bar(x, data, label='Messdaten' )
+# plt.bar(lin(indexes,*params),data[indexes])
+plt.xlim(0, 1200)
+plt.xlabel(r'Bin-Indizes')
+plt.ylabel(r'Zählrate $N$')
+plt.legend(loc='best')
+plt.savefig('build/orginal_Eu.pdf')
+plt.yscale('log')
+plt.savefig('build/Eu_log_nE.pdf')
+plt.clf()
+
+# nPeaks aus Anleitung (soll)
+plt.bar(Ener, Wahr, label='Messdaten', color='red')
+# plt.bar(lin(indexes,*params),data[indexes])
+# plt.xlim(0, 1600)
+plt.legend(loc='best')
+plt.yscale('log')
+plt.savefig('build/test.pdf')
+plt.clf()
+
 
 
 #Energieeichung: Wird bei jeder Betrachtung eines Spektrums benötigt
@@ -82,125 +117,125 @@ plt.legend()
 plt.savefig('build/kalibation.pdf')
 plt.clf()
 
-#------------Berechnen der Detektoreffizenz
-#Berechnung der Aktivität am Messtag
-A=ufloat(4130,60) #Aktivität Europium-Quelle am 01.10.2000
-t_halb = ufloat(4943,5) #Halbwertszeit Europium in Tagen
-dt = 18*365.25 + 194 #Zeitintervall in Tagen
-A_jetzt=A*unp.exp(-unp.log(2)*dt/t_halb)#Aktivität Versuchstag
-print('Aktivität zum Messzeitpunkt',A_jetzt)
-#Gauß-Funktion für Peakhoehenbestimmung
-def gauss(x,sigma,h,a,mu):
-    return a+h*np.exp(-((x-mu)/sigma)**2)
-
-#Verwende Gauß-Fit in jedem Bin des Spektrums um Peakhöhe zu erhalten
-def gaussian_fit_peaks(test_ind):
-    peak_inhalt = []
-    index_fit = []
-    hoehe = []
-    unter = []
-    sigma = []
-    for i in test_ind:
-        a=i-40
-        b=i+40
-
-
-        params_gauss,covariance_gauss=curve_fit(gauss,np.arange(a,b+1),data[a:b+1],p0=[1,data[i],0,i-1])
-        errors_gauss = np.sqrt(np.diag(covariance_gauss))
-
-        sigma_fit=ufloat(params_gauss[0],errors_gauss[0])
-        h_fit=ufloat(params_gauss[1],errors_gauss[1])
-        a_fit=ufloat(params_gauss[2],errors_gauss[2])
-        mu_fit=ufloat(params_gauss[3],errors_gauss[3])
-        #print(h_fit*sigma_fit*np.sqrt(2*np.pi)
-        index_fit.append(mu_fit)
-        hoehe.append(h_fit)
-        unter.append(a_fit)
-        sigma.append(sigma_fit)
-        peak_inhalt.append(h_fit*sigma_fit*np.sqrt(2*np.pi))
-    return index_fit, peak_inhalt, hoehe, unter, sigma
-
-index_f, peakinhalt, hoehe, unter, sigma = gaussian_fit_peaks(peaks_ind.astype('int'))
-
-
-E_det =[]
-for i in range(len(index_f)):
-    E_det.append(lin(index_f[i],*params))
-
-#Berechnung des Raumwinkels
-a=ufloat(0.073+0.015, 0.001) #in m
-r=ufloat(0.0225, 0) #in m
-omega_4pi = (1-a/(a**2+r**2)**(0.5))/2
-print('Raumwinkel',omega_4pi)
-
-#Berechnung Detektoreffizienz für jeden Energiepeak
-Q=[]
-Z=[]
-for i in range(len(W)):
-    Z.append(np.sqrt(2*np.pi)*hoehe[i]*sigma[i])
-    Q.append(Z[i]/(omega_4pi*A_jetzt*W[i]/100*3600))
-
-
-#Erstellen einer Tabelle der Fit-Parameter des Gauß-Fits
-make_table(
-    header= ['$a$', '$h_i$', '$\mu_i$', '$\sigma_i$'],
-    data=[unter, hoehe, index_f, sigma],
-    caption='Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Zählraten-Offset.',
-    label='tab:gauss_parameter',
-    places=[(2.2, 1.2), (4.2, 2.2), (4.2, 1.2), (3.2, 1.2)],
-    filename='build/tables/Gauss-Fit-Parameter.tex'
-    )
-
-#Erstellen einer Tabelle der Detektoreffizenz und den dazu verwendeten Werten
-make_table(
-    header=['$Z_i$', '$E_i$ / \kilo\electronvolt' ,'$Q_i$ / \\becquerel ', 'W/\%'],
-    data=[Z, E_det, Q, W],
-    caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
-    label = 'tab:det_eff',
-    places = [ (5.2, 3.2), (4.2, 1.2), (1.2, 1.2), 2.1],
-    filename = 'build/tables/det_eff.tex'
-    )
-
-
-#Betrachte Exponential-Fit für Beziehnung zwischen Effizienz und Energie
-#Lasse erste Werte weg
-#Q=Q[1:]
-#E=E[1:]
-#E_det=E_det[1:]
-
-#Potenzfunktion für Fit
-def potenz(x,a,b,c,e):
-    return a*(x-b)**e+c
-
-#Durchführung des Exponential-Fits und Ausgabe der Parameter
-#print('Daten für den Exponentialfit:')
-#print(noms(Q), noms(E_det))
-params2, covariance2= curve_fit(potenz,noms(E_det),noms(Q),sigma=sdevs(Q), p0=[1, 0.1, 0, 0.5])
-errors2 = np.sqrt(np.diag(covariance2))
-#Zusammenfassen der Fit-Parameter
-a=ufloat(params2[0],errors2[0])
-b=ufloat(params2[1],errors2[1])
-c=ufloat(params2[2],errors2[2])
-e=ufloat(params2[3],errors2[3])
-
-#Ausgabe der Fit-Parameter
-print('\nKalibrationswerte Potenzfunktion:')
-print(f'Steigung a = {a}')
-print(f'Verschiebung b = {b}')
-print(f'Verschiebung c = {c}')
-print(f'Exponent e = {e}')
-
-#Plotten der Effizenz gegen die Energie mit Exponential-Fit-Funktion
-x=np.linspace(1,1600,10000)
-plt.plot(x, potenz(x,*params2),'r-',label='Fit')
-plt.errorbar(E,noms(Q), yerr=sdevs(Q),fmt=' x', ecolor='b',label='Daten')
-plt.legend()
-plt.xlabel(r'$E \:/\: keV$')
-plt.grid()
-plt.ylabel(r'$Q(E)$')
-plt.savefig('build/efficiency.pdf')
-plt.clf()
-
+# #------------Berechnen der Detektoreffizenz
+# #Berechnung der Aktivität am Messtag
+# A=ufloat(4130,60) #Aktivität Europium-Quelle am 01.10.2000
+# t_halb = ufloat(4943,5) #Halbwertszeit Europium in Tagen
+# dt = 18*365.25 + 194 #Zeitintervall in Tagen
+# A_jetzt=A*unp.exp(-unp.log(2)*dt/t_halb)#Aktivität Versuchstag
+# print('Aktivität zum Messzeitpunkt',A_jetzt)
+# #Gauß-Funktion für Peakhoehenbestimmung
+# def gauss(x,sigma,h,a,mu):
+#     return a+h*np.exp(-((x-mu)/sigma)**2)
+#
+# #Verwende Gauß-Fit in jedem Bin des Spektrums um Peakhöhe zu erhalten
+# def gaussian_fit_peaks(test_ind):
+#     peak_inhalt = []
+#     index_fit = []
+#     hoehe = []
+#     unter = []
+#     sigma = []
+#     for i in test_ind:
+#         a=i-40
+#         b=i+40
+#
+#
+#         params_gauss,covariance_gauss=curve_fit(gauss,np.arange(a,b+1),data[a:b+1],p0=[1,data[i],0,i-1])
+#         errors_gauss = np.sqrt(np.diag(covariance_gauss))
+#
+#         sigma_fit=ufloat(params_gauss[0],errors_gauss[0])
+#         h_fit=ufloat(params_gauss[1],errors_gauss[1])
+#         a_fit=ufloat(params_gauss[2],errors_gauss[2])
+#         mu_fit=ufloat(params_gauss[3],errors_gauss[3])
+#         #print(h_fit*sigma_fit*np.sqrt(2*np.pi)
+#         index_fit.append(mu_fit)
+#         hoehe.append(h_fit)
+#         unter.append(a_fit)
+#         sigma.append(sigma_fit)
+#         peak_inhalt.append(h_fit*sigma_fit*np.sqrt(2*np.pi))
+#     return index_fit, peak_inhalt, hoehe, unter, sigma
+#
+# index_f, peakinhalt, hoehe, unter, sigma = gaussian_fit_peaks(peaks_ind.astype('int'))
+#
+#
+# E_det =[]
+# for i in range(len(index_f)):
+#     E_det.append(lin(index_f[i],*params))
+#
+# #Berechnung des Raumwinkels
+# a=ufloat(0.073+0.015, 0.001) #in m
+# r=ufloat(0.0225, 0) #in m
+# omega_4pi = (1-a/(a**2+r**2)**(0.5))/2
+# print('Raumwinkel',omega_4pi)
+#
+# #Berechnung Detektoreffizienz für jeden Energiepeak
+# Q=[]
+# Z=[]
+# for i in range(len(W)):
+#     Z.append(np.sqrt(2*np.pi)*hoehe[i]*sigma[i])
+#     Q.append(Z[i]/(omega_4pi*A_jetzt*W[i]/100*3600))
+#
+#
+# #Erstellen einer Tabelle der Fit-Parameter des Gauß-Fits
+# make_table(
+#     header= ['$a$', '$h_i$', '$\mu_i$', '$\sigma_i$'],
+#     data=[unter, hoehe, index_f, sigma],
+#     caption='Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Zählraten-Offset.',
+#     label='tab:gauss_parameter',
+#     places=[(2.2, 1.2), (4.2, 2.2), (4.2, 1.2), (3.2, 1.2)],
+#     filename='build/tables/Gauss-Fit-Parameter.tex'
+#     )
+#
+# #Erstellen einer Tabelle der Detektoreffizenz und den dazu verwendeten Werten
+# make_table(
+#     header=['$Z_i$', '$E_i$ / \kilo\electronvolt' ,'$Q_i$ / \\becquerel ', 'W/\%'],
+#     data=[Z, E_det, Q, W],
+#     caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
+#     label = 'tab:det_eff',
+#     places = [ (5.2, 3.2), (4.2, 1.2), (1.2, 1.2), 2.1],
+#     filename = 'build/tables/det_eff.tex'
+#     )
+#
+#
+# #Betrachte Exponential-Fit für Beziehnung zwischen Effizienz und Energie
+# #Lasse erste Werte weg
+# #Q=Q[1:]
+# #E=E[1:]
+# #E_det=E_det[1:]
+#
+# #Potenzfunktion für Fit
+# def potenz(x,a,b,c,e):
+#     return a*(x-b)**e+c
+#
+# #Durchführung des Exponential-Fits und Ausgabe der Parameter
+# #print('Daten für den Exponentialfit:')
+# #print(noms(Q), noms(E_det))
+# params2, covariance2= curve_fit(potenz,noms(E_det),noms(Q),sigma=sdevs(Q), p0=[1, 0.1, 0, 0.5])
+# errors2 = np.sqrt(np.diag(covariance2))
+# #Zusammenfassen der Fit-Parameter
+# a=ufloat(params2[0],errors2[0])
+# b=ufloat(params2[1],errors2[1])
+# c=ufloat(params2[2],errors2[2])
+# e=ufloat(params2[3],errors2[3])
+#
+# #Ausgabe der Fit-Parameter
+# print('\nKalibrationswerte Potenzfunktion:')
+# print(f'Steigung a = {a}')
+# print(f'Verschiebung b = {b}')
+# print(f'Verschiebung c = {c}')
+# print(f'Exponent e = {e}')
+#
+# #Plotten der Effizenz gegen die Energie mit Exponential-Fit-Funktion
+# x=np.linspace(1,1600,10000)
+# plt.plot(x, potenz(x,*params2),'r-',label='Fit')
+# plt.errorbar(E,noms(Q), yerr=sdevs(Q),fmt=' x', ecolor='b',label='Daten')
+# plt.legend()
+# plt.xlabel(r'$E \:/\: keV$')
+# plt.grid()
+# plt.ylabel(r'$Q(E)$')
+# plt.savefig('build/efficiency.pdf')
+# plt.clf()
+#
 # #-----------------------Teilaufgabe b) {Untersuchung des Cs-Spektrums}
 # data_b = np.genfromtxt('data/Cs.txt', unpack=True)
 # x_plot = np.linspace(0, len(data_b), len(data_b))
