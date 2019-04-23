@@ -9,8 +9,7 @@ from uncertainties import ufloat
 import sympy
 from uncertainties import correlated_values, correlation_matrix
 from scipy.integrate import quad
-from uncertainties.unumpy import nominal_values as noms
-from uncertainties.unumpy import std_devs as sdevs
+from uncertainties.unumpy import (nominal_values as noms, std_devs as sdevs)
 import scipy.constants as con
 from scipy.constants import physical_constants as pcon
 from scipy.signal import find_peaks
@@ -403,14 +402,21 @@ index_ba, peakinhalt_ba, hoehe_ba, unter_ba, sigma_ba = gaussian_fit_peaks_d(pea
 E_ba_det = []
 for i in range(len(index_ba)):
     E_ba_det.append(lin(index_ba[i],*params))
-print(E_ba_det)
-print(W_Ba)
+
+
+def potenz2(x, a, b, c, e):
+    return e * a * (x-b)**(e-1)
+
 #Berechne aktivität der Quelle am Messtag
 #print(f'\nDaten zur Berechnung der Akivität: {E_ba_det}, {params2}')
-A=peakinhalt_ba[4:]/(3600*omega_4pi*W_Ba[4:]/100*potenz(E_ba_det[4:],*params2)) #nur die mit E>150keV mitnehmen
+A=peakinhalt_ba[4:]/(3205*omega_4pi*W_Ba[4:]/100*potenz(noms(E_ba_det[4:]),*params2)) #nur die mit E>150keV mitnehmen
+# A_Fehler = peakinhalt_ba[4:]/(3205*omega_4pi*W_Ba[4:]/100*potenz2(noms(E_ba_det[4:]),*params2))*sdevs(E_ba_det[4:])
+# print(A)
+# print(A_Fehler)
+# A = unp.uarray(A, A_Fehler)
 A_det = []
 #for i in range(0,2):
-A_det.append(ufloat(0, 0))
+# A_det.append(ufloat(0, 0))
 for i in A:
     A_det.append(i)
 #print('A_det', A_det)
@@ -425,33 +431,35 @@ make_table(
     label='tab:Ba',
     filename='build/tables/Ba.tex'
 )
-# #berechnung der neuen Effizienz
-# Z_d = [ufloat(0, 0)]
-# Q_d = [ufloat(0, 0)]
-# for i in range(1, len(W_ba)):
-#     Z_d.append(np.sqrt(2*np.pi)*hoehe_ba[i]*sigma_ba[i])
-#     Q_d.append(Z[i]/(omega_4pi*A_det[i]*W_ba[i]/100*3600))
-# #print('Z_d: ', Z_d)
-# #print('Q_d: ', noms(Q_d), sdevs(Q_d))
-# #Trage Ergebnisse der Aktivitätsbestimmung in Tabelle ein
-# #make_table(
-# #    header= ['$W$\/\%', '$Z_i$', '$E_i$ / \kilo\electronvolt ', '$A_i$ / \\becquerel '],
-# #    data=[W_ba,  unter_ba, peakinhalt_ba, A_det],
-# #    places=[2.1, (2.2, 2.2), (4.2, 3.1), (4.0, 2.2)],
-# #    caption='Berechnete Aktivitäten für jeden Bin mit dazu benötigten Werten.',
-# #    label ='plt:aktivitaet_ba',
-# #    filename ='build/tables/aktivitaet-ba.tex'
-# #)
-# make_table(
-#     header= ['$W\/\%$', 'Q', '$Z_i$', '$E_i$ / \kilo\electronvolt', '$A_i$ / \\becquerel'],
-#     data=[W_ba, Q_d ,Z_d, E_ba_det, A_det],
-#     places=[2.1, (1.3, 1.3), (5.2 , 2.2), (3.2, 1.2), (4.0, 2.0)],
-#     caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
-#     label='tab:aktivitaet_ba',
-#     filename='build/tables/aktivitaet_ba.tex'
-# )
-# A_gem = ufloat(np.mean(noms(A)),np.mean(sdevs(A)))
-# print('gemittelte Aktivität',A_gem
+#berechnung der neuen Effizienz
+Z_d = []
+Q_d = []
+for i in range(4, len(W_Ba)):
+    Z_d.append(np.sqrt(2*np.pi)*hoehe_ba[i]*sigma_ba[i])
+    Q_d.append(Z[i]/(omega_4pi*A_det[i-4]*W_Ba[i]/100*3205))
+#print('Z_d: ', Z_d)
+#print('Q_d: ', noms(Q_d), sdevs(Q_d))
+#Trage Ergebnisse der Aktivitätsbestimmung in Tabelle ein
+#make_table(
+#    header= ['$W$\/\%', '$Z_i$', '$E_i$ / \kilo\electronvolt ', '$A_i$ / \\becquerel '],
+#    data=[W_ba,  unter_ba, peakinhalt_ba, A_det],
+#    places=[2.1, (2.2, 2.2), (4.2, 3.1), (4.0, 2.2)],
+#    caption='Berechnete Aktivitäten für jeden Bin mit dazu benötigten Werten.',
+#    label ='plt:aktivitaet_ba',
+#    filename ='build/tables/aktivitaet-ba.tex'
+#)
+make_table(
+    header= ['$W\/\%$', 'Q', '$Z_i$', '$E_i$ / \kilo\electronvolt', '$A_i$ / \\becquerel'],
+    data=[W_Ba[4:], Q_d ,Z_d, E_ba_det[4:], A_det],
+    places=[2.1, (1.3, 1.3), (5.2 , 2.2), (3.2, 1.2), (4.0, 3.0)],
+    caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
+    label='tab:aktivitaet_ba',
+    filename='build/tables/aktivitaet_ba.tex'
+)
+A_gem = ufloat(np.mean(noms(A)),np.mean(sdevs(A)))
+print('gemittelte Aktivität',A_gem)
+
+
 # #-------------Aufgabenteil e) {Was das? Gucken wir mal}
 # data_e = np.genfromtxt('data/unbekannt.txt', unpack=True)
 #
@@ -514,8 +522,8 @@ make_table(
 # A_e=[]
 # for i in range(0, len(W_e)):
 #     Z_e.append(np.sqrt(2*np.pi)*hoehe_e[i]*sigma_e[i])
-#     A_e.append(Z_e[i]/(3600*omega_4pi*W_e[i]/100*potenz(E_e_det[i],*params2)))
-#     Q_e.append(Z[i]/(omega_4pi*A_e[i]*W_e[i]/100*3600))
+#     A_e.append(Z_e[i]/(451*omega_4pi*W_e[i]/100*potenz(E_e_det[i],*params2)))
+#     Q_e.append(Z[i]/(omega_4pi*A_e[i]*W_e[i]/100*4510))
 #
 # print(f'\nDaten zur Berechnung der Akivität: {E_e}, {params2}, den Peakinhalt Z {Z_e}, die Effizienz Q {Q_e} und der Aktivität {A_e}')
 #
