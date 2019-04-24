@@ -66,14 +66,6 @@ Damit dieser Prozess (vom Ruhesystem des Photons ausgehend) stattfinden kann mus
 Ist dieser Partner ein Elektron benötigt das Photon aufgrund der Rückstoßenergie sogar die vierfache Ruhemasse des Elektrons an Energie damit es zur Paarbildung kommen kann.
 Der Wirkungsquerschnitt $\sigma_{\symup{Pa}}$ ist je nach Ort an dem die Paarerzeugung stattfindet unterschiedlich groß, da zum Beispiel im Bereich der K-Schale das gesamte Coulomb-Feld mitwirkt, bei äußeren Schalen jedoch Abschirmungseffekte eine Rolle spielen, wodurch $\sigma_{\symup{Pa}}$ von der Abschirmung abhängt.
 
-
-% \begin{figure}
-%   \centering
-%   \includegraphics[height=5.5cm]{content/Bild.png}
-%   \caption{Bilduterschrift}
-%   \label{fig:Bild}
-% \end{figure}
-
  \begin{figure}
    \centering
    \includegraphics[height=23cm]{content/Germanium.png}
@@ -129,18 +121,24 @@ Nur Photonen die durch den Photoeffekt wechselwirken deponieren ihre vollständi
 Ein typisches Spektrum eines monochromatischen Strahlers ist in Abbildung \ref{fig:Spektrum} zu sehen.
 Deutlich zu erkennen sind das "Compton-Kontinuum" mit der "Compton-Kante" und dem "Rückstreupeak" und dem "Photopeak".
 Der Photopeak entsteht, wenn das $\gamma$-Quant durch den Photoeffekt seine vollständige Energie abgibt und ist deswegen die interessantere Messung.
-Dessen Halbwertsbreite $Delta E_{1/2}$ ist das ausschlaggebende Maß für das Auflösungsvermögen des Detektors.
+Dessen Halbwertsbreite $\Delta E_{1/2}$ ist das ausschlaggebende Maß für das Auflösungsvermögen des Detektors.
 
-Das Compton-Kontinuum reicht, durch die verschiedenen Streuwinkel der Photonen, von der Energie 0 bis zur Compton-Kante $E_{e,\symup{max}}$ bei $\Psi{gamma}=\SI{180}{\degree}$, mit
+Das Compton-Kontinuum reicht, durch die verschiedenen Streuwinkel der Photonen, von der Energie 0 bis zur Compton-Kante $E_{e,\symup{max}}$ bei $\Psi{\gamma}=\SI{180}{\degree}$, mit
 \begin{equation}
 \label{eqn:Com_Kante}
-E_{e,\symup{max}}=E_{\gamma}\frac{2\Epsilon}{1+2\Epsilon}
+E_{e,\symup{max}}=E_{\gamma}\frac{2\epsilon}{1+2\epsilon}
 \end{equation}
 und
 \begin{equation*}
-\Epsilon = \frac{E_{\gamma}}{m_e c^2}.
+\epsilon = \frac{E_{\gamma}}{m_e c^2}.
 \end{equation*}
 Der Rückstreupeak entsteht durch Photonen, die erst nach Compton-Streuung mit der Umgebung (Abschirmung des Detektors oder Quelle selbst) in den Detektor gelangen.
+Dessen Energie ist:
+\begin{equation}
+  \label{eqn:rueck}
+  E_\text{Rück, theo} = \frac{1}{1+2\epsilon} \cdot E_{\gamma}
+\end{equation}
+
 Die dargestellte Empfindlichkeitsgrenze hat ihren Ursprung in der Wechselwirkung der Photonen mit der Schutzhaube und der Oberfläche des Detektors.
 Bei dem hier verwendeten Ge-Detektor liegt diese Grenze bei $40$ bis $\SI{50}{\kilo\electronvolt}$.
  \begin{figure}
@@ -149,8 +147,3 @@ Bei dem hier verwendeten Ge-Detektor liegt diese Grenze bei $40$ bis $\SI{50}{\k
    \caption{Typisches Spektrum eines Gammastrahlers.\cite{V18}}
    \label{fig:Spektrum}
  \end{figure}
-
-\begin{equation}
-  \label{eqn:rueck}
-  E_\text{Rück, theo} = \frac{1}{1+2\Epsilon} \cdot E_{\gamma}
-\end{equation}
