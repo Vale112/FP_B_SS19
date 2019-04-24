@@ -322,8 +322,8 @@ mu_comp = ufloat(0.36, 0.07)
 l=3.9   #Länge des Detektors
 abs_wahrsch_ph = 1-unp.exp(-mu_ph*l)
 abs_wahrsch_comp = 1-unp.exp(-mu_comp*l)
-print(f'Die absolute Wahrscheinlichkeit eine Vollenergiepeaks liegt bei: {abs_wahrsch_ph} Prozent')
-print(f'Die absolute Wahrscheinlichkeit eine Comptonpeaks liegt bei: {abs_wahrsch_comp} Prozent\n')
+print(f'Die absolute Wahrscheinlichkeit eine Vollenergiepeaks auf Grund des Photoeffekts liegt bei: {abs_wahrsch_ph*100} Prozent')
+print(f'Die absolute Wahrscheinlichkeit eine Vollenergiepeaks auf Grund des Comptoneffekts liegt bei: {abs_wahrsch_comp*100} Prozent\n')
 
 
 #------------------Aufgabenteil d) {Barium oder Antimon? Wir werden es erfahren.}

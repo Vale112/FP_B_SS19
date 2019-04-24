@@ -26,14 +26,14 @@ In der Abbildung \ref{fig:kalibration} ist das Ergebnis der Ausgleichsrechnung g
 dargestellt, dabei befindet sich auf der x-Achse die Kanalnummer und auf der
 y-Achse die errechnete Energie.
 
-\begin{figure}
+\begin{figure}[htb]
  \centering
  \includegraphics[width=\textwidth]{Eu_log_Kanal.pdf}
  \caption{Die Zählrate $N$ in Abhängigkeit der Kanalnummer $i$ für ${}^{152}$Eu mit logaritmirter y-Skala.}
  \label{fig:Eu_log_Kanal}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htb]
  \centering
  \includegraphics[width=\textwidth]{build/kalibration.pdf}
  \caption{Die ermittelte Energie anhand der Daten in Abhängigkeit der Kanalnummer.}
@@ -41,7 +41,6 @@ y-Achse die errechnete Energie.
 \end{figure}
 
 \input{build/tables/zuordnung_Eu.tex}
-\input{build/tables/Gauss-Fit-Parameter.tex}
 
 
 \subsection{Vollenergienachweiseffizenz}
@@ -51,7 +50,7 @@ Die Aktivität der Probe am $15.04.2019$, dem Versuchstag lässt sich mit
   A = A_0 \cdot \exp{\left(-\lambda \cdot tv\right)}
 \end{equation}
 berechnen, hierbei ist $A_0$ die Aktivität am Produktionstag, $\lambda$ die Zerfallskonstante und $t$ die Zeit.
-Es ist aus \ref{V18} bekannt, dass die Probe am Produktionstag, dem
+Es ist aus \cite{V18} bekannt, dass die Probe am Produktionstag, dem
 $01.10.2000$ eine Aktivität von $\SI{4130(60)}{\becquerel}$ besaß.
 Die Aktivität am Versuchstag beläuft sich damit auf
 \begin{equation}
@@ -96,23 +95,74 @@ durchführen. Die Parametre ergeben sich dabei zu
 \end{gather}
 Eine graphische Darstellung dieser Ausgleichsrechnung ist in Abbildung \ref{fig:effizenz} zu finden.
 
-\begin{figure}
+\begin{figure}[htb]
  \centering
  \includegraphics[width=\textwidth]{build/efficiency.pdf}
  \caption{Die Vollenergienachweiseffizenz des Detektors gegen die Energie aufgetragen.}
  \label{fig:effizenz}
 \end{figure}
 
+\input{build/tables/Gauss-Fit-Parameter.tex}
 \input{build/tables/det_eff.tex}
+\FloatBarrier
 
 
 \subsection{Detektoreigenschaften}
 \label{sec:Detektoreigenschaften}
-{}^{137}Cs Messzeit \SI{3365}{\second}
+Um die Detektoreigenschaften genauer zu untersuchen wurde das Spektrum von ${}^{137}$Cs über eine Zeit
+von $t_\text{mess} = \SI{3365}{\second}$ aufgenommen. Wie in Abbildung \ref{fig:Cs_log} zu erkennen, besitzt Cäsium
+ein monochromatisches Spektrum. Im Folgendem wird dieser und die beiden anderen charakteristischen Peaks, der Rückstreupeak
+sowie die Comptonkante näher untersucht. Die detektierten Peaks sind in Tabelle \ref{tab:zuordnung_Cs} zugeordnet worden. 
+Die theoretischen Emissionsenergie des Cäsium liegt bei \SI{661.657(3)}{\kilo\electronvolt} \cite{referenz1}. Mit Hilfe
+ihrer, kann nach Formel \ref{eqn:Com_Kante} der theoretische Wert der Comptonkante auf $\SI{477.27}{\kilo\electronvolt}$
+bestimmt werden. Des Weiteren lässt sich nach Formel \ref{eqn:rueck} auch der theoretische Wert für den Rückstreupeak
+auf \SI{184.32} ermitteln.
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=\textwidth]{build/Cs_log.pdf}
+ \caption{Das augenommen Spektrum des ${}^{137}$Cs-Stahlers in Abhängigkeit der Energie.}
+ \label{fig:Cs_log}
+\end{figure}
+\input{data/2_0/Cs_Zuordnung.tex}
+Eine weiter wichtige Größe des Detektors ist Halbwertsbreite $E_{\sfrac{1}{2}}$, welche ein Maß für das Auflösungsverhalten ist
+und den Ge-Detektor auszeichnet. Diese, sowie die Zehntelbreite $E_{\sfrac{1}{10}}$ lassen sich aus Abbildung \ref{fig:Halb} ablesen, 
+dabei ergibt sich 
 \begin{gather}
-  x_{\sfrac{1}{2}} = \num{2.2(1)} \\
-  x_{\sfrac{1}{10}} = \num{3.9(1)}
+  E_{\sfrac{1}{2}} = \SI{2.2(1)}{\kilo\electronvolt} \\
+  E_{\sfrac{1}{10}} = \SI{3.9(1)}{\kilo\electronvolt}.
 \end{gather}
+Der Quotient dieser beiden Größen ist ein Maß für das Energieauflösungsvermögen des Detektors. Der hier ermittelte 
+Quotient
+\begin{equation}
+  \frac{E_{\sfrac{1}{10}}}{E_{\sfrac{1}{2}}} = \num{1.77(9)}
+\end{equation}
+der gemessenen Größen stehen im Vergleich zum theoretischen Wert \cite{V18} von
+\begin{equation}
+  \frac{E_{\sfrac{1}{10}}}{E_{\sfrac{1}{2}}} = \num{1.82}.
+\end{equation}
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=\textwidth]{build/vollpeak.pdf}
+ \caption{Der Vollenergiepeak des Cäsium zur Bestimmung der Halbwerts-/Zehntelsbreite.}
+ \label{fig:Halb}
+\end{figure}
+Der Vollenergiepeak kann maßgeblich durch den Photo- und Comptoneffekt entstehen. Mit Hilfe der Formel \ref{eq:Absorbtion} und 
+der Extinktionskoeffizienten, welche aus Abbildung \ref{fig:Germanium} abgelesen werden, lassen sich die Absorbtionwahrscheinlichkeiten
+zu
+\begin{align}
+  p_\text{Ph} = \SI{3(1)}{\percent} \\
+  p_\text{Com} = \SI{75(7)}{\percent}.
+\end{align}
+Die Extinktionskoeffizienten liesen sich zuvor auf 
+\begin{gather}
+  \mu_\text{Ph} = \SI{0.007(3)}{\per\centi\meter} \\
+  \mu_\text{Com} = \SI{0.037(7)}{\per\centi\meter}
+\end{gather}
+bestimmen, die Länge des detektors wurde aus Abbildung \ref{fig:Detektor} entnommen und betrug \SI{3.9}{\centi\meter}.
+
+Der Inhalt des Vollenergiepeaks, sowie des Comptonkontiuums lässt sich analog zu Abschnitt \ref{sec:Vollenergienachweiseffizenz}
+bestimmen. Dabei beträgt dieser für den Vollenergiepeak \SI{3.89(7)e4}{\kilo\electronvolt} und für das Comptonkontiuum 
+\SI{1.75(14)e5}{\kilo\electronvolt}.
 
 
 \subsection{mystery1}

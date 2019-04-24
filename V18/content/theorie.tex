@@ -132,9 +132,10 @@ Der Photopeak entsteht, wenn das $\gamma$-Quant durch den Photoeffekt seine voll
 Dessen Halbwertsbreite $Delta E_{1/2}$ ist das ausschlaggebende Maß für das Auflösungsvermögen des Detektors.
 
 Das Compton-Kontinuum reicht, durch die verschiedenen Streuwinkel der Photonen, von der Energie 0 bis zur Compton-Kante $E_{e,\symup{max}}$ bei $\Psi{gamma}=\SI{180}{\degree}$, mit
-\begin{equation*}
+\begin{equation}
+\label{eqn:Com_Kante}
 E_{e,\symup{max}}=E_{\gamma}\frac{2\Epsilon}{1+2\Epsilon}
-\end{equation*}
+\end{equation}
 und
 \begin{equation*}
 \Epsilon = \frac{E_{\gamma}}{m_e c^2}.
@@ -148,3 +149,8 @@ Bei dem hier verwendeten Ge-Detektor liegt diese Grenze bei $40$ bis $\SI{50}{\k
    \caption{Typisches Spektrum eines Gammastrahlers.\cite{V18}}
    \label{fig:Spektrum}
  \end{figure}
+
+\begin{equation}
+  \label{eqn:rueck}
+  E_\text{Rück, theo} = \frac{1}{1+2\Epsilon} \cdot E_{\gamma}
+\end{equation}
