@@ -1,12 +1,13 @@
 all:  build/main.pdf
 
-main.pdf: build/kalibration.pdf build/Eu_log_Kanal.pdf build/tables/zuordnung_Eu.tex build/tables/Gauss-Fit-Parameter.tex build/tables/det_eff.tex build/efficiency,pdf
+build/main.pdf: build/kalibration.pdf build/Eu_log_Kanal.pdf build/tables/zuordnung_Eu.tex build/tables/Gauss-Fit-Parameter.tex build/tables/det_eff.tex build/efficiency.pdf
+
+build/kalibration.pdf: data/Eu152.txt
 	python calculation/auswertung.py
+
 
 build:
 	mkdir -p build
-
-build/main.pdf:
 
 
 build/main.pdf: FORCE | build

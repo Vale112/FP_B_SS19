@@ -33,8 +33,8 @@
 \usepackage[
     left=3cm,
     right=3cm,
-    top=1.5cm,
-    bottom=2cm,
+    top=1cm,
+    bottom=1.5cm,
     includeheadfoot
 ]{geometry}
 
@@ -173,6 +173,9 @@
 \sisetup{mode=text,range-phrase={\text{ bis }}}
 % Neue Buchstaben bei SIunitx
 \sisetup{math-micro=\text{µ},text-micro=µ}
+
+% Neue Einheit definieren
+\DeclareSIUnit{\kanal}{\text{Kanal}}  
 
 % Bilder von Text umfließen lassen
 \usepackage{wrapfig}

@@ -29,7 +29,7 @@ make_table(
         header = [' $E$ / \kilo\electronvolt', ' $W$ / \%', 'Kanalnummer $i$'],
         data = [E, W, peaks_ind],
         places = [4.0, 2.1, 4.0],
-        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}. Aufgelistet sind die jeweilige Energie, die Emissionswahrscheinlichkeit $W$ und die zugeordnete Kanalnummer $i$.',
+        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{referenz2}. Aufgelistet sind die jeweilige Energie, die Emissionswahrscheinlichkeit $W$ und die zugeordnete Kanalnummer $i$.',
         label = 'tab:zuordnung_eu',
         filename = 'build/tables/zuordnung_Eu.tex'
         )
@@ -149,11 +149,11 @@ for i in range(len(W)):
 
 #Erstellen einer Tabelle der Fit-Parameter des Gauß-Fits
 make_table(
- header= ['$\mu_i$', '$a$', '$h_i$', '$\sigma_i$'],
- data=[index_f, unter, hoehe, sigma],
- caption='Parameter des durchgeführten Gauss-Fits pro Kanal. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und $a$ der Zählraten-Offset (Untergrund).',
+ header= ['$i$', '$\mu_i$', '$a$', '$h_i$', '$\sigma_i$'],
+ data=[peaks_v, index_f, unter, hoehe, sigma],
+ caption='Parameter des durchgeführten Gauss-Fits pro Kanal.',
  label='tab:gauss_parameter',
- places=[(4.2, 1.2), (2.2, 1.2), (4.2, 2.2), (3.2, 1.2)],
+ places=[3.0, (4.2, 1.2), (2.2, 1.2), (4.2, 2.2), (3.2, 1.2)],
  filename='build/tables/Gauss-Fit-Parameter.tex'
  )
 

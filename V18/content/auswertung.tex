@@ -9,16 +9,19 @@ sind in Abbildung \ref{fig:Eu_log_Kanal} logaritmisch dargestellt.
 Die für die Kalibrierung verwendeten Peaks sind mit roten Kreuzen makiert. Die Messwerte
 wurden mit den theoretischen Werten verglichen, sodass mit Hilfe einer linearen Ausgleichsrechnung
 eine Zuordnung von Kanal und Energie möglich ist. Die dafür verwendeten Daten sind
-gemeinsam mit den Emissionswahrscheinlichkeit in Tabelle \ref{tab:kalibration}
+gemeinsam mit den Emissionswahrscheinlichkeit in Tabelle \ref{tab:zuordnung_eu}
 gelistet, dabei wurden Energien mit einer Emissionswahrscheinlichkeit $W$
 kleiner als \SI{2}{\percent} vernachlässigt. Für die Ausgleichsrechnung wurde
 eine Gerade der Form
 \begin{equation}
   E = m \cdot i + b
 \end{equation}
-verwendet, wobei die Steigung $m$ zu \SI{0.40303(7)}{\kilo\electronvolt} und der
-y-Achsenabschnitt $b$ zu \SI{-2.7(1)}{\kilo\electronvolt} bestimmt wurde.
-
+verwendet, wobei $m$ die Steigung und $b$ der y-Achsenabschnitt ist. Dabei liesen sich die Parameter zu
+\begin{gather}
+  m = \SI{0.40303(7)}{\kilo\electronvolt\per\kanal} \\
+  b = \SI{-2.7(1)}{\kilo\electronvolt}
+\end{gather}
+bestimmen.
 In der Abbildung \ref{fig:kalibration} ist das Ergebnis der Ausgleichsrechnung graphisch
 dargestellt, dabei befindet sich auf der x-Achse die Kanalnummer und auf der
 y-Achse die errechnete Energie.
@@ -26,21 +29,45 @@ y-Achse die errechnete Energie.
 \begin{figure}
  \centering
  \includegraphics[width=\textwidth]{Eu_log_Kanal.pdf}
- \caption{Die Zählrate $N$ in Abhängigkeit der Kanalnummer $i$ für ${}^{152}$ Eu mit logaritmirter y-Skala.}
+ \caption{Die Zählrate $N$ in Abhängigkeit der Kanalnummer $i$ für ${}^{152}$Eu mit logaritmirter y-Skala.}
  \label{fig:Eu_log_Kanal}
 \end{figure}
 
 \begin{figure}
  \centering
  \includegraphics[width=\textwidth]{build/kalibration.pdf}
- \caption{Die ermittelte Energie anhand des Fits in Abhängigkeit der Kanalnummer.}
+ \caption{Die ermittelte Energie anhand der Daten in Abhängigkeit der Kanalnummer.}
  \label{fig:kalibration}
 \end{figure}
 
 \input{build/tables/zuordnung_Eu.tex}
 \input{build/tables/Gauss-Fit-Parameter.tex}
 
-Die in Tabelle \ref{tab:kalibration} gelisteten Peaks wurden mit Hilfe der
+
+\subsection{Vollenergienachweiseffizenz}
+\label{sec:Vollenergienachweiseffizenz}
+Die Aktivität der Probe am $15.04.2019$, dem Versuchstag lässt sich mit
+\begin{equation}
+  A = A_0 \cdot \exp{\left(-\lambda \cdot tv\right)}
+\end{equation}
+berechnen, hierbei ist $A_0$ die Aktivität am Produktionstag, $\lambda$ die Zerfallskonstante und $t$ die Zeit.
+Es ist aus \ref{V18} bekannt, dass die Probe am Produktionstag, dem
+$01.10.2000$ eine Aktivität von $\SI{4130(60)}{\becquerel}$ besaß.
+Die Aktivität am Versuchstag beläuft sich damit auf
+\begin{equation}
+  \SI{1599(23)}{\becquerel}.
+\end{equation}
+Des Weiteren lässt sich mit Hilfe der Formel \ref{eqn:raum} der Raumwinkel errechnen.
+Dabei beträgt $a~=~\SI{8.8(1)}{\centi\meter}$, was sich aus dem Abstand der Probe zum
+Aluminiumgehäuse (\SI{7.3(1)}{\centi\meter}) und dem Abstand des Gehäuses zum Detektor 
+(\SI{1.5}{\centi\meter}) ergibt. Der Radius $r$ des Detektors betrug \SI{2.25}{\centi\meter}, was sich
+aus der Abbildung \ref{fig:Detektor} ablesen lässt. Damit lässt sich der Raumwinkel zu
+\begin{equation}
+  \frac{\Omega}{4\pi} = \num{0.0156(3)}
+\end{equation}
+bestimmen.
+
+Die in Tabelle \ref{tab:zuordnung_eu} gelisteten Peaks wurden mit Hilfe der
 Gauss-Funktion der Form
 \begin{equation}
   g(i) = h \cdot \exp{\left(\frac{\left(i - \mu\right)^2}{2 \cdot \sigma^2}\right)} + a
@@ -48,6 +75,27 @@ Gauss-Funktion der Form
 gefittet. Die Ergebnisse dieses Fits sind in Tabelle \ref{tab:gauss_parameter}
 dargestellt, dabei bezeichnet $\mu$ den Mittelwert, $h$ die Höhe des Peaks, $\sigma$
 die Standardabweichung und $a$ ein Parameter, welcher den Untergrund darstellt.
+Unter zu Hilfe nahme von
+\begin{equation}
+  Z_\text{i} = \sqrt{2\pi} h_\text{i} \sigma_{i}
+\end{equation}
+lässt sich der Peakinhalt $Z_\text{i}$ bestimmen. Nun lässt sich mit Formel \ref{eqn:eff}
+die Nachweiswahrscheinlichkeit des Detektors errechnen. Dabei ist die Messzeit von $t_\text{mess} = \SI{4676}{\second}$
+zu berücksichtigen. Die sich ergeben Werte sind in Tabelle \ref{tab:det_eff} gelistet.
+
+Anhand der Werte aus Tabelle \ref{tab:det_eff} lässt sich ein Fit der Form
+\begin{equation}
+  Q(E) = a \cdot \left(E-b \right)^c + d
+\end{equation}
+durchführen. Die Parametre ergeben sich dabei zu
+\begin{gather}
+  a = \num{0.01(5)} \\
+  b = \num{121.8(6)} \\
+  c = \num{0.5(6)} \\
+  d = \num{0.43(31)}.
+\end{gather}
+Eine graphische Darstellung dieser Ausgleichsrechnung ist in Abbildung \ref{fig:effizenz} zu finden.
+
 \begin{figure}
  \centering
  \includegraphics[width=\textwidth]{build/efficiency.pdf}
@@ -55,27 +103,26 @@ die Standardabweichung und $a$ ein Parameter, welcher den Untergrund darstellt.
  \label{fig:effizenz}
 \end{figure}
 
-
-\subsection{Vollenergienachweiseffizenz}
-\label{sec:Vollenergienachweiseffizenz}
-Die Messzeit betrug \SI{ 4676}{\second}. Der Abstand $a$ der Probe zum Detektor betrug
-\SI{9.8(1)}{\centi\meter}, dabei wurde die Probe \SI{7.3}{\centi\meter} oberhalb
-des Aluminumgehäuses befestigt. Von der Aluminiumhaube zur Probe sind es dann noch
-einmal \SI{1.5}{\centi\meter}. Der Radius $r$ des Detektors betrug \SI{2.25}{\centi\meter}.
 \input{build/tables/det_eff.tex}
+
 
 \subsection{Detektoreigenschaften}
 \label{sec:Detektoreigenschaften}
-{}^{137}Cs 
-\begin{align}
-  x_{\sfrac{1}{2}} = \num{2.2(1)}
+{}^{137}Cs Messzeit \SI{3365}{\second}
+\begin{gather}
+  x_{\sfrac{1}{2}} = \num{2.2(1)} \\
   x_{\sfrac{1}{10}} = \num{3.9(1)}
-\end{align}
+\end{gather}
 
 
 \subsection{mystery1}
 \label{sec:}
 Peak bei ca. 275 keV (Kanal 692) kp woher
+Messzeit \SI{3205}{\second}
+
+\subsection{Unbekanntes Salz}
+\label{sec:Salz}
+Messzeit \SI{4510}{\second}
 
 % \subsection{Unterkapiel}
 % \label{sec:Unterkapitel}
