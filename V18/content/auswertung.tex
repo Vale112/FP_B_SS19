@@ -1,6 +1,9 @@
 \newpage
 \section{Auswertung}
 \label{sec:Auswertung}
+Die gesamte Auswertung wird mit Hilfe der Bibilotheken \cite{matplotlib}, \cite{numpy}, \cite{scipy} und
+\cite{uncertainties} in \textit{python} durchgeführt.
+
 
 \subsection{Energiekalibration}
 \label{sec:Energiekalibration}
@@ -16,7 +19,7 @@ eine Gerade der Form
 \begin{equation}
   E = m \cdot i + b
 \end{equation}
-verwendet, wobei $m$ die Steigung und $b$ der y-Achsenabschnitt ist. Dabei liesen sich die Parameter zu
+verwendet, wobei $m$ die Steigung und $b$ der y-Achsenabschnitt ist. Dabei lassen sich die Parameter zu
 \begin{gather}
   m = \SI{0.40303(7)}{\kilo\electronvolt\per\kanal} \\
   b = \SI{-2.7(1)}{\kilo\electronvolt}
@@ -39,15 +42,14 @@ y-Achse die errechnete Energie.
  \caption{Die ermittelte Energie anhand der Daten in Abhängigkeit der Kanalnummer.}
  \label{fig:kalibration}
 \end{figure}
-
 \input{build/tables/zuordnung_Eu.tex}
-
+\FloatBarrier
 
 \subsection{Vollenergienachweiseffizenz}
 \label{sec:Vollenergienachweiseffizenz}
 Die Aktivität der Probe am $15.04.2019$, dem Versuchstag lässt sich mit
 \begin{equation}
-  A = A_0 \cdot \exp{\left(-\lambda \cdot tv\right)}
+  A = A_0 \cdot \exp{\left(-\lambda \cdot t\right)}
 \end{equation}
 berechnen, hierbei ist $A_0$ die Aktivität am Produktionstag, $\lambda$ die Zerfallskonstante und $t$ die Zeit.
 Es ist aus \cite{V18} bekannt, dass die Probe am Produktionstag, dem
@@ -91,7 +93,7 @@ durchführen. Die Parametre ergeben sich dabei zu
   a = \num{0.01(5)} \\
   b = \num{121.8(6)} \\
   c = \num{0.5(6)} \\
-  d = \num{0.43(31)}.
+  d = \num{0.4(3)}.
 \end{gather}
 Eine graphische Darstellung dieser Ausgleichsrechnung ist in Abbildung \ref{fig:effizenz} zu finden.
 
@@ -163,7 +165,7 @@ bestimmen, die Länge des detektors wurde aus Abbildung \ref{fig:Detektor} entno
 Der Inhalt des Vollenergiepeaks, sowie des Comptonkontiuums lässt sich analog zu Abschnitt \ref{sec:Vollenergienachweiseffizenz}
 bestimmen. Dabei beträgt dieser für den Vollenergiepeak \SI{3.89(7)e4}{\kilo\electronvolt} und für das Comptonkontiuum 
 \SI{1.75(14)e5}{\kilo\electronvolt}.
-
+\FloatBarrier
 
 \subsection{Aktivitätsbestimmung}
 \label{sec:Aktiv}
@@ -173,7 +175,7 @@ die Peaks dem passendem Spektrum mit ihrer Emissionswahrscheinlichkeit zugeordne
 dargestellt ist. Der vergleich mit der Literatur \cite{referenz1} zeigt, dass es sich um Barium handelt. Die Emissionswahrscheinlichkeiten
 wurden der Referenz \cite{referenz2} entnommen um damit die Aktivität zu bestimmen. 
 Des Weiteren wird der Inhalt der Peaks bestimmt und mit Hilfe der Formel 
-\ref{eq:eff} die Aktivität bestimmt. Mit der Messzeit von \SI{3205}{\second} ergeben sich die Werte in Tabelle 
+\ref{eqn:eff} die Aktivität bestimmt. Mit der Messzeit von \SI{3205}{\second} ergeben sich die Werte in Tabelle 
 \ref{tab:aktivitaet_ba}. Die verwendeten Parameter des durchgeführten Gauß-Fits ergeben sich zu den in Tabelle \ref{tab:Ba} 
 gegebenen Werten. Die gemittelte Aktivität ergibt sich zu
 \begin{equation}
@@ -188,7 +190,7 @@ gegebenen Werten. Die gemittelte Aktivität ergibt sich zu
  \caption{Das Spektrum des zu bestimmenden Strahlers.}
  \label{fig:mystery1}
 \end{figure}
-
+\FloatBarrier
 
 
 
@@ -201,6 +203,14 @@ Mit Hilfe von \cite{referenz1} werden diese identifiziert und ihrem Emissionsele
 ebenfalls in der Tabelle \ref{tab:Salz} zu erkennen.
 Auf Grund der Absorbtion durch die Aluminiumhaube und der äußeren Schicht des Detektors ist eine Aktivitätsbestimmung
 nur ab einer Energie von \SI{150}{\kilo\electronvolt} möglich und ist in Tabelle \ref{tab:aktivitaet_e} aufgeführt.
+Die mittleren Aktivitäten der Nuklide lassen sich auf
+\begin{align}
+  A_\text{Pa} & = \SI{1.5(8)e2}{\becquerel} \\
+  A_\text{Ra} & = \SI{7.0(2)e3}{\becquerel} \\
+  A_\text{Pd} & = \SI{5.82(16)e3}{\becquerel} \\
+  A_\text{Bi} & = \SI{3.8(2)e3}{\becquerel}
+\end{align}
+bestimmen.
 \input{data/2_0/Salz_Peaks.tex}
 \begin{figure}[htb]
  \centering

@@ -26,10 +26,10 @@ data = np.genfromtxt('data/Eu152.txt', unpack=True)
 # Ener, Wahr = np.genfromtxt('data/2_0/Test.txt', unpack=True)
 E, W, peaks_ind = np.genfromtxt('data/2_0/Eu_Zuordnung.txt', unpack=True)
 make_table(
-        header = [' $E$ / \kilo\electronvolt', ' $W$ / \%', 'Kanalnummer $i$'],
+        header = [' $E_\\text{i}$ / \kilo\electronvolt', ' $W_\\text{i}$\;/\;\si{\percent}', 'Kanalnummer $i$'],
         data = [E, W, peaks_ind],
         places = [4.0, 2.1, 4.0],
-        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{referenz2}. Aufgelistet sind die jeweilige Energie, die Emissionswahrscheinlichkeit $W$ und die zugeordnete Kanalnummer $i$.',
+        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{referenz2}.',
         label = 'tab:zuordnung_eu',
         filename = 'build/tables/zuordnung_Eu.tex'
         )
@@ -149,21 +149,21 @@ for i in range(len(W)):
 
 #Erstellen einer Tabelle der Fit-Parameter des Gauß-Fits
 make_table(
- header= ['$i$', '$\mu_i$', '$a$', '$h_i$', '$\sigma_i$'],
+ header= ['$i$', '$\mu_\\text{i}$', '$a_\\text{i}$', '$h_\\text{i}$', '$\sigma_\\{text{i}$'],
  data=[peaks_v, index_f, unter, hoehe, sigma],
  caption='Parameter des durchgeführten Gauss-Fits pro Kanal.',
  label='tab:gauss_parameter',
- places=[3.0, (4.2, 1.2), (2.2, 1.2), (4.2, 2.2), (3.2, 1.2)],
+ places=[3.0, (4.2, 1.2), (2.1, 1.1), (4.0, 2.0), (3.2, 1.2)],
  filename='build/tables/Gauss-Fit-Parameter.tex'
  )
 
 #Erstellen einer Tabelle der Detektoreffizenz und den dazu verwendeten Werten
 make_table(
- header=['$Z_i$', '$E_i$ / \kilo\electronvolt' ,'W/\%', '$Q_i$ / \\becquerel '],
+ header=['$Z_\\text{i}$', '$E_\\text{i}$ / \kilo\electronvolt' ,'$W_\\text{i}$\;/\;\si{\percent}', '$Q_\\text{i}$ / \\becquerel '],
  data=[Z, E_det, W, Q],
  caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
  label = 'tab:det_eff',
- places = [ (5.2, 3.2), (4.2, 1.2), 2.1, (1.2, 1.2)],
+ places = [ (5.0, 3.0), (4.2, 1.2), 2.1, (1.3, 1.3)],
  filename = 'build/tables/det_eff.tex'
  )
 
@@ -349,9 +349,9 @@ E_Ba_n, W_Ba_n, peaks_Ba = np.genfromtxt('data/2_0/Ba_Zuordnung.txt', dtype=int,
 E_Ba_ist = lin(peaks_Ba, *params)
 
 make_table(
-        header = ['$E_\text{theo}$ / \kilo\electronvolt', '$W$ / \%', 'Kanalnummer $i$', '$E_\text{fit}$ / \kilo\electronvolt'],
+        header = ['$E_\\text{theo}$ / \kilo\electronvolt', '$W_\\text{i}$ / \%', 'Kanalnummer $i$', '$E_\\text{fit}$ / \kilo\electronvolt'],
         data = [E_Ba, W_Ba, peaks_Ba, E_Ba_ist],
-        places = [4.0, 2.1, 4.0, 3.2],
+        places = [3.0, 2.1, 3.0, 3.0],
         caption = 'Die Zuordnung zum Spektrum des ${}^{133}$Ba.',
         label = 'tab:zuordnung_Ba',
         filename = 'build/tables/zuordnung_Ba.tex'
@@ -424,9 +424,9 @@ for i in A:
 #print(peakinhalt_ba)
 #Fasse Fit-Parameter in Tabelle zusammen
 make_table(
-    header= ['Kanalnummer $i$', '$E_\gamma$ / \kilo\electronvolt', '$h_\text{i}$', '$\sigma_\text{i}$ / \kilo\electronvolt'],
+    header= ['Kanalnummer $i$', '$E_\gamma$ / \kilo\electronvolt', '$h_\\text{i}$', '$\sigma_\\text{i}$ / \kilo\electronvolt'],
     data=[noms(index_ba), E_ba_det, hoehe_ba, sigma_ba],
-    places=[3.0, (3.2, 1.2), (4.2, 2.2), (1.2, 1.2)],
+    places=[3.0, (3.3, 1.3), (4.0, 2.0), (1.2, 1.2)],
     caption='Parameter des Gauß-Fits für das gegeben Spektrum',
     label='tab:Ba',
     filename='build/tables/Ba.tex'
@@ -449,7 +449,7 @@ for i in range(4, len(W_Ba)):
 #    filename ='build/tables/aktivitaet-ba.tex'
 #)
 make_table(
-    header= ['$W\/\%$', 'Q', '$Z_i$', '$E_i$ / \kilo\electronvolt', '$A_i$ / \\becquerel'],
+    header= ['$W_\\text{i}$\;/\;\si{\percent}', '$Q_\\text{i}$', '$Z_\\text{i}$', '$E_\\text{i}$ / \kilo\electronvolt', '$A_\\text{i}$ / \\becquerel'],
     data=[W_Ba[4:], Q_d ,Z_d, E_ba_det[4:], A_det],
     places=[2.1, (1.3, 1.3), (5.2 , 2.2), (3.2, 1.2), (4.0, 3.0)],
     caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
@@ -531,11 +531,11 @@ for i in range(3, len(W_e)):
 # print(E_e_det)
 # print(potenz(noms(E_e_det[11]),*params2))
 #print(f'\nDaten zur Berechnung der Akivität: {E_e}, {params2}, \n den Peakinhalt Z {Z_e},\n die Effizienz Q {Q_e} \n und der Aktivität {A_e}')
-print('Aktivitäten des Nuklids', A_e)
-print('gemittelte Aktivität für das Salz: ', np.mean(A_e[0:9]))
+# print('Aktivitäten des Nuklids', A_e)
+# print('gemittelte Aktivität für das Salz: ', np.mean(A_e[0:9]))
 
 make_table(
-    header= ['$W_{\symup{i}}\/\percent$', 'Q', '$Z_\symup{i}$', '$E_\symup{i}$ / \kilo\electronvolt', '$A_\text{i}$ / \\becquerel'],
+    header= ['$W_\\text{i}$\;/\;\si{\percent}', 'Q', '$Z_\\text{i}$', '$E_\\text{i}$ / \kilo\electronvolt', '$A_\\text{i}$ / \\becquerel'],
     data=[W_e[3:], Q_e ,Z_e, E_e[3:], A_e],
     places=[2.2, (1.3, 1.3), (4.2 , 3.2), 4.1, (3.0, 2.0)],
     caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
@@ -543,10 +543,11 @@ make_table(
     filename='build/tables/aktivitaet_e.tex'
 )
 make_table(
-    header= ['$E_i$ / \kilo\electronvolt', '$W_\text{i}$ / \percent', 'Kanalnummer $i$'],
+    header= ['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', 'Kanalnummer $i$'],
     data=[E_e, W_e, peaks_ind_e],
     places=[4.0, 2.1, 4.0],
     caption='Die ermittelten Peaks zur Nuklid Bestimmung.',
     label='tab:Salz',
     filename='build/tables/Salz_Peaks.tex'
 )
+print(f'gemittelte Aktivitäten: \n Pa234 {A_e[0]} \n Ra226 {A_e[1]} \n Pb234 {np.mean(A_e[2:4])} \n Bi214 {np.mean(A_e[5:9])}')
