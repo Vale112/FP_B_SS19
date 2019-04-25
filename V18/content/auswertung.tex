@@ -165,14 +165,49 @@ bestimmen. Dabei beträgt dieser für den Vollenergiepeak \SI{3.89(7)e4}{\kilo\e
 \SI{1.75(14)e5}{\kilo\electronvolt}.
 
 
-\subsection{mystery1}
-\label{sec:}
-Peak bei ca. 275 keV (Kanal 692) kp woher
-Messzeit \SI{3205}{\second}
+\subsection{Aktivitätsbestimmung}
+\label{sec:Aktiv}
+In der Abbildung \ref{fig:mystery1} ist das Spektrum eines Strahlers dargestellt. Es soll herausgefunden werden,
+ob es sich um ${}^{133}$Ba oder ${}^{125}$Sb handelt, dafür wird die Aktivität der Peaks bestimmt. Dazu werden
+die Peaks dem passendem Spektrum mit ihrer Emissionswahrscheinlichkeit zugeordnet, was in Tabelle \ref{tab:zuordnung_Ba}
+dargestellt ist. Der vergleich mit der Literatur \cite{referenz1} zeigt, dass es sich um Barium handelt. Die Emissionswahrscheinlichkeiten
+wurden der Referenz \cite{referenz2} entnommen um damit die Aktivität zu bestimmen. 
+Des Weiteren wird der Inhalt der Peaks bestimmt und mit Hilfe der Formel 
+\ref{eq:eff} die Aktivität bestimmt. Mit der Messzeit von \SI{3205}{\second} ergeben sich die Werte in Tabelle 
+\ref{tab:aktivitaet_ba}. Die verwendeten Parameter des durchgeführten Gauß-Fits ergeben sich zu den in Tabelle \ref{tab:Ba} 
+gegebenen Werten. Die gemittelte Aktivität ergibt sich zu
+\begin{equation}
+  A = \SI{1.32(17)e3}{\becquerel}
+\end{equation}
+\input{build/tables/zuordnung_Ba.tex} 
+\input{build/tables/aktivitaet_ba.tex}
+\input{build/tables/Ba.tex}
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=\textwidth]{build/mystery1_log.pdf}
+ \caption{Das Spektrum des zu bestimmenden Strahlers.}
+ \label{fig:mystery1}
+\end{figure}
+
+
+
 
 \subsection{Unbekanntes Salz}
 \label{sec:Salz}
-Messzeit \SI{4510}{\second}
+Es soll nun das Spektrum eines unbekannten Strahlers untersucht werden. Hierzu wird das in Abbildung \ref{fig:Salz}
+dargestellte Spektrum, welches über eine Zeit von \SI{4510}{\second} gemessen wurde näher untersucht.
+Als erstes werden die auftretenden Peaks identifiziert, diese sind in Tabelle \ref{tab:Salz} dargestellt.
+Mit Hilfe von \cite{referenz1} werden diese identifiziert und ihrem Emissionselement zugeordnet. Die Zuordnung ist
+ebenfalls in der Tabelle \ref{tab:Salz} zu erkennen.
+Auf Grund der Absorbtion durch die Aluminiumhaube und der äußeren Schicht des Detektors ist eine Aktivitätsbestimmung
+nur ab einer Energie von \SI{150}{\kilo\electronvolt} möglich und ist in Tabelle \ref{tab:aktivitaet_e} aufgeführt.
+\input{data/2_0/Salz_Peaks.tex}
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=\textwidth]{build/Uran.pdf}
+ \caption{Das Spektrum eines unbekannten Nuklids.}
+ \label{fig:Salz}
+\end{figure}
 
 % \subsection{Unterkapiel}
 % \label{sec:Unterkapitel}

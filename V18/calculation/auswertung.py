@@ -329,14 +329,14 @@ print(f'Die absolute Wahrscheinlichkeit eine Vollenergiepeaks auf Grund des Comp
 #------------------Aufgabenteil d) {Barium oder Antimon? Wir werden es erfahren.}
 #Betrachte zuerst Orginalaufnahmen des Detektors
 data_d = np.genfromtxt('data/mystery1.txt', unpack=True)
-x_plot = np.linspace(1, 8192, 8192)
-plt.bar(lin(x_plot, *params), data_d)
-plt.xlim(0, 8192)
-plt.xlabel(r'Energie $E \:/\: \mathrm{keV}$')
-plt.ylabel('Zählrate $N$')
-plt.yscale('log')
-plt.savefig('build/Ba_Sb_orginal_log.pdf')
-plt.clf()
+# x_plot = np.linspace(1, 8192, 8192)
+# plt.bar(lin(x_plot, *params), data_d)
+# plt.xlim(0, 8192)
+# plt.xlabel(r'Energie $E \:/\: \mathrm{keV}$')
+# plt.ylabel('Zählrate $N$')
+# plt.yscale('log')
+# plt.savefig('build/Ba_Sb_orginal_log.pdf')
+# plt.clf()
 
 #Finde höchste Peaks und ordne sie den passenden Energien des Spektrums zu
 # peaks_3 = find_peaks(data_d, height=120, distance=1)
@@ -349,10 +349,10 @@ E_Ba_n, W_Ba_n, peaks_Ba = np.genfromtxt('data/2_0/Ba_Zuordnung.txt', dtype=int,
 E_Ba_ist = lin(peaks_Ba, *params)
 
 make_table(
-        header = ['$E_\symup{theo}$ / \kilo\electronvolt', '$W$ / \%', 'Kanalnummer $i$', '$E_\symup{fit}$ / \kilo\electronvolt'],
+        header = ['$E_\text{theo}$ / \kilo\electronvolt', '$W$ / \%', 'Kanalnummer $i$', '$E_\text{fit}$ / \kilo\electronvolt'],
         data = [E_Ba, W_Ba, peaks_Ba, E_Ba_ist],
         places = [4.0, 2.1, 4.0, 3.2],
-        caption = 'Das Spektrum des {}^{133}Ba. Aufgelistet sind die jeweilige Energie, die Emissionswahrscheinlichkeit $W$ und die zugeordnete Kanalnummer $i$, sowie die daraus resultierende gefittete Energie',
+        caption = 'Die Zuordnung zum Spektrum des ${}^{133}$Ba.',
         label = 'tab:zuordnung_Ba',
         filename = 'build/tables/zuordnung_Ba.tex'
         )
@@ -424,10 +424,10 @@ for i in A:
 #print(peakinhalt_ba)
 #Fasse Fit-Parameter in Tabelle zusammen
 make_table(
-    header= ['Kanalnummer $i$', '$E_\gamma$ / \kilo\electronvolt', '$h_i$', '$\sigma_i$ / \kilo\electronvolt'],
+    header= ['Kanalnummer $i$', '$E_\gamma$ / \kilo\electronvolt', '$h_\text{i}$', '$\sigma_\text{i}$ / \kilo\electronvolt'],
     data=[noms(index_ba), E_ba_det, hoehe_ba, sigma_ba],
     places=[3.0, (3.2, 1.2), (4.2, 2.2), (1.2, 1.2)],
-    caption='Parameter des Gauß-Fits. Dabei ist $\sigma_i$ die Standardabweichung.',
+    caption='Parameter des Gauß-Fits für das gegeben Spektrum',
     label='tab:Ba',
     filename='build/tables/Ba.tex'
 )
@@ -457,7 +457,7 @@ make_table(
     filename='build/tables/aktivitaet_ba.tex'
 )
 A_gem = ufloat(np.mean(noms(A)),np.mean(sdevs(A)))
-print('gemittelte Aktivität',A_gem)
+print('gemittelte Aktivität für Barium',A_gem)
 
 
 #-------------Aufgabenteil e) {Was das? Gucken wir mal}
@@ -530,14 +530,23 @@ for i in range(3, len(W_e)):
     Q_e.append(Z_e[i-3]/(omega_4pi*A_e[i-3]*W_e[i]/100*4510))
 # print(E_e_det)
 # print(potenz(noms(E_e_det[11]),*params2))
-print(f'\nDaten zur Berechnung der Akivität: {E_e}, {params2}, \n den Peakinhalt Z {Z_e},\n die Effizienz Q {Q_e} \n und der Aktivität {A_e}')
-print('gemittelte Aktivität für Cobalt: ', np.mean(A_e[0:9]))
+#print(f'\nDaten zur Berechnung der Akivität: {E_e}, {params2}, \n den Peakinhalt Z {Z_e},\n die Effizienz Q {Q_e} \n und der Aktivität {A_e}')
+print('Aktivitäten des Nuklids', A_e)
+print('gemittelte Aktivität für das Salz: ', np.mean(A_e[0:9]))
 
 make_table(
-    header= ['$W\/\%$', 'Q', '$Z_i$', '$E_i$ / \kilo\electronvolt', '$A_i$ / \\becquerel'],
+    header= ['$W_{\symup{i}}\/\percent$', 'Q', '$Z_\symup{i}$', '$E_\symup{i}$ / \kilo\electronvolt', '$A_\text{i}$ / \\becquerel'],
     data=[W_e[3:], Q_e ,Z_e, E_e[3:], A_e],
     places=[2.2, (1.3, 1.3), (4.2 , 3.2), 4.1, (3.0, 2.0)],
     caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
     label='tab:aktivitaet_e',
     filename='build/tables/aktivitaet_e.tex'
+)
+make_table(
+    header= ['$E_i$ / \kilo\electronvolt', '$W_\text{i}$ / \percent', 'Kanalnummer $i$'],
+    data=[E_e, W_e, peaks_ind_e],
+    places=[4.0, 2.1, 4.0],
+    caption='Die ermittelten Peaks zur Nuklid Bestimmung.',
+    label='tab:Salz',
+    filename='build/tables/Salz_Peaks.tex'
 )
