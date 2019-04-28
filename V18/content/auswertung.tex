@@ -12,8 +12,8 @@ mit den relvanten Peaks dargestellt.
 Zu Beginn des Versuchs wurde zunächst die Probe ${}^{152}$ Eu untersucht. Die Messwerte
 sind in Abbildung \ref{fig:Eu_log_Kanal} logaritmisch dargestellt.
 Die für die Kalibrierung verwendeten Peaks sind mit roten Kreuzen makiert. Die Messwerte
-werden mit den theoretischen Werten \cite{referenz2} verglichen, sodass mit Hilfe einer linearen Ausgleichsrechnung
-eine Zuordnung von Kanal und Energie möglich ist. Diese Daten sind
+werden mit den theoretischen Werten \cite{referenz1} verglichen, sodass mit Hilfe einer linearen Ausgleichsrechnung
+eine Zuordnung von Kanalnummer $i$ und Energie $E$ möglich ist. Diese Daten sind
 gemeinsam mit den Emissionswahrscheinlichkeit in Tabelle \ref{tab:zuordnung_eu}
 gelistet, dabei werden Energien mit einer Emissionswahrscheinlichkeit $W$
 kleiner als \SI{2}{\percent} vernachlässigt.
@@ -157,7 +157,7 @@ Quotient der gemessenen Größen beläuft sich auf
 Die theoretischen Werte ergeben sich aus der Standardabweichung $\sigma$ des Fits. Da aber nur der Quotient interessiert, 
 kürzt sich diese und es ergibt sich
 \begin{equation}
-  \frac{E_{\sfrac{1}{10}}}{E_{\sfrac{1}{2}}} = \frac{\sqrt{8 \cdot \log{(10)}} \cdot \sigma_\text{fit}}{\sqrt{8 \cdot \log{(2)}} \cdot \sigma_\text{fit}} = \frac{\log{(10)}}{\log{(2)}} = \num{1.823}
+  \frac{E_{\sfrac{1}{10}}}{E_{\sfrac{1}{2}}} = \frac{\sqrt{8 \cdot \log{(10)}} \cdot \sigma_\text{fit}}{\sqrt{8 \cdot \log{(2)}} \cdot \sigma_\text{fit}} = \sqrt{\frac{\log{(10)}}{\log{(2)}}} = \num{1.823}
 \end{equation}
 als theoretischer Wert.
 \begin{figure}[htb]
@@ -194,7 +194,7 @@ In der Abbildung \ref{fig:mystery1} ist das Spektrum eines Strahlers dargestellt
 ob es sich um ${}^{133}$Ba oder ${}^{125}$Sb handelt, dafür wird die Aktivität der Peaks bestimmt. Dazu werden
 die Peaks dem passendem Spektrum mit ihrer Emissionswahrscheinlichkeit zugeordnet, was in Tabelle \ref{tab:zuordnung_Ba}
 dargestellt ist. Der Vergleich mit der Literatur \cite{referenz1} zeigt, dass es sich um Barium handelt. 
-Die Emissionswahrscheinlichkeiten werden der Referenz \cite{referenz2} entnommen um damit die Aktivität zu bestimmen. 
+Die Emissionswahrscheinlichkeiten werden der Referenz \cite{referenz1} entnommen um damit die Aktivität zu bestimmen. 
 Des Weiteren wird der Inhalt der Peaks bestimmt und mit Hilfe der Formel 
 \ref{eqn:eff} die Aktivität errechnet. Mit der Messzeit von \SI{3205}{\second} ergeben sich die Werte in Tabelle 
 \ref{tab:aktivitaet_ba}. Die verwendeten Parameter des durchgeführten Gauß-Fits ergeben sich zu den in Tabelle \ref{tab:Ba} 

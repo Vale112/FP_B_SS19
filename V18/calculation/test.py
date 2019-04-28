@@ -37,7 +37,7 @@ errors = np.sqrt(np.diag(covariance))
 #Zusammenfassen der Werte und Ungenauigkeiten der Fit-Parameter
 m=ufloat(params[0],errors[0])
 b=ufloat(params[1],errors[1])
-
+params_test = unp.uarray(params, errors) 
 #------------Berechnen der Detektoreffizenz
 #Berechnung der Aktivität am Messtag
 A=ufloat(4130,60) #Aktivität Europium-Quelle am 01.10.2000
@@ -181,19 +181,27 @@ print(f'Die absolute Wahrscheinlichkeit eine Vollenergiepeaks liegt bei: {abs_wa
 print(f'Die absolute Wahrscheinlichkeit eine Comptonpeaks liegt bei: {abs_wahrsch_comp} Prozent\n')
 
 #-------------Aufgabenteil e) {Was das? Gucken wir mal}
+print('\n-------------Uranspektrum-----------------')
 data_e = np.genfromtxt('data/salz.txt', unpack=True)
-# peaks_4 = find_peaks(data_e, height=75, distance=30)
-# indexes_4 = peaks_4[0]
+E_e, dE_e, W_e, dW_e, peaks_ind_e = np.genfromtxt('data/2_0/salz_Zuordnung.txt', unpack=True)
+E_e = unp.uarray(E_e, dE_e)
+W_e = unp.uarray(W_e, dW_e)
+# print(lin(peaks_ind_e, *params))
+# data_e_2 = data_e[4500:]
+# peaks_4 = find_peaks(data_e_2, height=9, distance=5)
+# indexes_4 = peaks_4[0]+4500
 # peak_heights_4 = peaks_4[1]
 # energie_4 = lin(indexes_4,*params)
-indexes_plot=np.array([164, 236, 319, 468, 551, 607, 739, 880, 1518, 1912, 2324, 2788, 3424, 4386], dtype='int')
-indexes_plot.astype('int')
+# print(indexes_4,'\n', energie_4)
+# plt.plot(lin(indexes_4, *params),data_e[indexes_4],'yx',label='test')
+
+peaks_plot=np.array(peaks_ind_e, dtype='int')
 x=np.linspace(1,8192,8192)
 plt.bar(lin(x,*params), data_e,label='Messdaten')
-plt.plot(lin(indexes_plot, *params),data_e[indexes_plot],'rx',label='verwendete Peaks')
+plt.plot(lin(peaks_plot, *params),data_e[peaks_plot],'rx',label='verwendete Peaks')
 plt.xlabel(r'E$_\gamma\:/\: \mathrm{keV}$')
 plt.ylabel(r'Zählrate $N$')
-plt.xlim(0, 2500)
+plt.xlim(0, 2400)
 plt.yscale('log')
 plt.legend()
 plt.grid()
@@ -235,29 +243,46 @@ def gaussian_fit_peaks_e(test_ind):
         peak_inhalt.append(h_fit*sigma_fit*np.sqrt(2*np.pi))
     return index_fit, peak_inhalt, hoehe, unter, sigma
 
-E_e, W_e, peaks_ind_e = np.genfromtxt('data/2_0/salz_Zuordnung.txt', unpack=True)
+
 index_e, peakinhalt_e, hoehe_e, unter_e, sigma_e = gaussian_fit_peaks_e(peaks_ind_e.astype('int'))
+
+
 # print(f'Peakinhalt {peakinhalt_e} Hoehe {hoehe_e}, Sigma {sigma_e}')
 E_e_det = []
-for i in range(len(W_e)):
-    E_e_det.append(lin(index_e[i], *params))
+for i in range(len(index_e)):
+    E_e_det.append(lin(index_e[i],*params_test))
+
 Z_e=[]
 Q_e=[]
 A_e=[]
-for i in range(3, len(W_e)):
+for i in range(len(W_e)):
     Z_e.append(np.sqrt(2*np.pi)*hoehe_e[i]*sigma_e[i])
-    A_e.append(Z_e[i-3]/(4510*omega_4pi*W_e[i]/100*potenz(noms(E_e_det[i]),*params2))) # für Index 2 wird Potenz negativ wieso? dadurch Aktivität etc negativ
-    Q_e.append(Z_e[i-3]/(omega_4pi*A_e[i-3]*W_e[i]/100*4510))
+    A_e.append(Z_e[i]/(4510*omega_4pi*W_e[i]/100*potenz(noms(E_e_det[i]),*params2))) # für Index 2 wird Potenz negativ wieso? dadurch Aktivität etc negativ
+    Q_e.append(Z_e[i]/(omega_4pi*A_e[i]*W_e[i]/100*4510))
+print(Q_e)
+print(potenz(noms(E_e_det),*params2))
 # print(E_e_det)
 # print(potenz(noms(E_e_det[11]),*params2))
-print(f'\nDaten zur Berechnung der Akivität: {E_e}, {params2}, \n den Peakinhalt Z {Z_e},\n die Effizienz Q {Q_e} \n und der Aktivität {A_e}')
-print('gemittelte Aktivität für Cobalt: ', np.mean(A_e[0:9]))
+#print(f'\nDaten zur Berechnung der Akivität: {E_e}, {params2}, \n den Peakinhalt Z {Z_e},\n die Effizienz Q {Q_e} \n und der Aktivität {A_e}')
+# print('Aktivitäten des Nuklids', A_e)
+# print('gemittelte Aktivität für das Salz: ', np.mean(A_e[0:9]))
 
 make_table(
-    header= ['$W\/\%$', 'Q', '$Z_i$', '$E_i$ / \kilo\electronvolt', '$A_i$ / \\becquerel'],
+    header= ['$W_\\text{i}$\;/\;\si{\percent}', '$Q_\\text{i}$', '$Z_\\text{i}$ / \kilo\electronvolt', '$E_\\text{i}$ / \kilo\electronvolt', '$A_\\text{i}$ / \\becquerel'],
     data=[W_e[3:], Q_e ,Z_e, E_e[3:], A_e],
     places=[2.2, (1.3, 1.3), (4.2 , 3.2), 4.1, (3.0, 2.0)],
     caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
     label='tab:aktivitaet_e',
     filename='build/tables/aktivitaet_e.tex'
 )
+make_table(
+    header= ['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$i$', '$E_\\text{i,fit}$ / \kilo\electronvolt'],
+    data=[E_e, W_e, peaks_ind_e, lin(peaks_ind_e, *params_test)],
+    places=[4.2, 2.2, 4.0, (4.2, 1, 2)],
+    caption='Die ermittelten Peaks zur Nuklid Bestimmung.',
+    label='tab:Salz',
+    filename='build/tables/Salz_Peaks.tex'
+)
+print(len(A_e))
+print(A_e)
+print(f'gemittelte Aktivitäten: \n     TH234 zugeringe Energien \n     Ra226 {np.mean(A_e[2:6])} \n     Pb214 {np.mean(A_e[8:18])} \n     Bi214 {np.mean(A_e[19:24])}')
