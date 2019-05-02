@@ -3,8 +3,8 @@
 \label{sec:Durchfuehrung}
 \subsection{Aufbau des Germanium-Detektors}
 Der Querschnitt des verwendeten Detektors ist in Abbildung \ref{fig:Detektor} zu sehen.
-Er ist zylinderförmig aufgebaut und besitzt eine mit Lithium-Atomen diffundierte n-dotierte Oberfläche und eine mit Gold-Atomen diffundierte p-dotierte Innenfläche.
-Der Detektor ist für eine gute thermische Isolierung von einer Aluminiumschicht umgeben, weswegen erst ab einer bestimmten Energie $\gamma-$Quanten registriert werden können (Empfindlichkeitsgrenze).
+Er ist zylinderförmig aufgebaut und besitzt eine mit Lithium-Atomen n-dotierte Oberfläche und eine mit Gold-Atomen p-dotierte Innenfläche.
+Der Detektor ist für eine gute thermische Isolierung von einer Aluminiumhaube gekapselt, weswegen erst ab einer bestimmten Energie $\gamma-$Quanten registriert werden können (Empfindlichkeitsgrenze).
  \begin{figure}
    \centering
    \includegraphics[height=9cm]{content/Detektor.png}
@@ -16,13 +16,13 @@ Der Detektor nimmt Ladungsimpulse wahr, die proportional zur eingehenden Energie
 Ein rückgekoppelter Operationsverstärker erzeugt durch elektrische Integration einen proportionalen Spannungspegel.
 Der dafür benutzte Integrationskondensator muss nach jedem Quantennachweis regelmäßig entladen werden, da die Spannung sonst stufenförmig steigen würde und eine Höhenanalyse nicht möglich wäre.
 Das geschieht durch eine optoelektronische Rückkopplung.
-All dies bildet den Vorverstärker.
+All dies bildet den Vorverstärker, welcher im Aluminiumgehäuse sitzt.
 
 Nach dem Vorverstärker ist der Hauptverstärker angeschlossen.
 Der Hauptverstärker normiert die empfangenen Spannungssignale auf eine Höhe von $0$ bis $\SI{10}{\volt}$, damit der Analog-Digital-Converter (ADC) brauchbare Daten verarbeiten kann.
 Als pile-up wird das aufsummieren von Impulsen bezeichnet, die in einem kurzen Zeitintervall registriert werden.
 Damit der dadurch viel zu hohe Impuls das Energie-Spektrum nicht verfälscht sperrt der Hauptverstärker für eine kurze Zeit den ADC.
-Infolge dessen wird eine kleine Zählrate registriert, weswegen eine eventuelle Totzeit-Korrektur für die Auswertung notwendig ist.
+Infolge dessen wird eine kleine Zählrate nicht registriert, weswegen eine eventuelle Totzeit-Korrektur für die Auswertung notwendig ist.
 
 Das Signal gelangt vom Hauptverstärker schließlich in den Vielkanal-Analysator, der die Impulse nach ihrer Höhe und Häufigkeit sortiert.
 Die Daten werden auf verschiedenen Kanälen gespeichert und ein angeschlossener Computer zeigt die gemessenen Signale als Impulshöhenspektrum dar.
@@ -42,9 +42,9 @@ Durch eine lineare Ausgleichsrechnung kann eine Zuordnung der Kanalnummer zu den
 Die Nachweiswahrscheinlichkeit des Detektors errechnet sich aus der Formel
 \begin{equation}
 \label{eqn:eff} 
-Q = 4\pi\,\cdot Z\,(\Omega\cdot A\cdot W\cdot t_{mess})^{-1}.
+Q = 4\pi\,\cdot Z\,(\Omega\cdot A\cdot W\cdot t_{\symup{mess}})^{-1}.
 \end{equation}
-Hier steht W für die Emissionswahrscheinlichkeit einer bestimmten $\gamma-$Energie, Z für die Summe der Impulse, A für die Aktivität des Strahlers, $\Omega$ für den Raumwinkel, unter dem der Detektor den Strahler sieht und $t_{\symup{mess}}$ für die Messzeit.
+Hier steht W für die Emissionswahrscheinlichkeit einer bestimmten $\gamma-$Energie, $Z$ für die Summe der Impulse, $A$ für die Aktivität des Strahlers, $\Omega$ für den Raumwinkel, unter dem der Detektor den Strahler sieht und $t_{\symup{mess}}$ für die Messzeit.
 
 Die Aktivität des Strahlers ist vom Hersteller angegeben und wird für unbekannte Nuklide später selber bestimmt.
 Der Raumwinkel $\Omega$ errechnet sich aus
@@ -52,12 +52,11 @@ Der Raumwinkel $\Omega$ errechnet sich aus
 \label{eqn:raum}
 \frac{\Omega}{4\pi}=\frac12\left(1-\frac a{\sqrt{a²+r²}}\right).
 \end{equation}
-Der Radius des Detektors $r$ ist in Abbildung \ref{fig:Detektor} einzusehen.
+Der Radius des Detektors $r$ ist in Abbildung \ref{fig:Detektor} einzusehen und $a$ ist der Abstand zwischen Detektor und Strahler.
 \subsection{Durchführung}
 Um die Kalibrierung des Detektors vornehmen zu können wird zunächst das bekannte Spektrum eines $\ce{^{152}}\symup{Eu}$-Strahlers aufgenommen.
 Daraufhin wird das Spektrum des $\ce{^{137}}\symup{Cs}$-Strahlers gemessen.
-Darin wird versucht das Compton-Kontinuum und den Photopeak zu erkennen.
-Der dritte untersuchte Strahler ist entweder $\ce{^{125}}\symup{Sb}-$ oder $\ce{^{133}}\symup{Ba}-$.
-Hier wird die Aktivität bestimmt.
+Darin wird versucht das Compton-Kontinuum, den Rückstreupeak und den Photopeak zu erkennen.
+Bei dem dritten untersuchten Strahler soll bestimmt werden ob es sich um $\ce{^{125}}\symup{Sb}$ oder $\ce{^{133}}\symup{Ba}$ handelt.
 Abschließend wird ein unbekannter Strahler untersucht aus dessen Spektrum eine Nuklidbestimmung erfolgt.
 Jeder Strahler wird ungefähr eine Stunde lang gemessen.
