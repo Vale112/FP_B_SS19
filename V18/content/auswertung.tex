@@ -4,14 +4,14 @@
 Die gesamte Auswertung wird mit Hilfe der Bibilotheken \cite{matplotlib}, \cite{numpy}, \cite{scipy} und
 \cite{uncertainties} in \textit{python} durchgeführt. Bei den abgebildeten Spektren handelt es sich stets um 
 Ausschnitte der gesamt Spektren, welche \num{8192} Kanäle besitzen. Es ist stets nur der markante Bereich
-mit den relvanten Peaks dargestellt.
+mit den relevanten Peaks dargestellt.
 
 
 \subsection{Energiekalibration}
 \label{sec:Energiekalibration}
 Zu Beginn des Versuchs wurde zunächst die Probe ${}^{152}$ Eu untersucht. Die Messwerte
-sind in Abbildung \ref{fig:Eu_log_Kanal} logaritmisch dargestellt.
-Die für die Kalibrierung verwendeten Peaks sind mit roten Kreuzen makiert. Die Messwerte
+sind in Abbildung \ref{fig:Eu_log_Kanal} logarithmisch dargestellt.
+Die für die Kalibrierung verwendeten Peaks sind mit roten Kreuzen markiert. Die Messwerte
 werden mit den theoretischen Werten \cite{referenz1} verglichen, sodass mit Hilfe einer linearen Ausgleichsrechnung
 eine Zuordnung von Kanalnummer $i$ und Energie $E$ möglich ist. Diese Daten sind
 gemeinsam mit den Emissionswahrscheinlichkeit in Tabelle \ref{tab:zuordnung_eu}
@@ -43,7 +43,7 @@ y-Achse die errechnete Energie $E_\text{i}$.
 \begin{figure}[htb]
  \centering
  \includegraphics[width=\textwidth]{Eu_log_Kanal.pdf}
- \caption{Die Zählrate $N$ in Abhängigkeit der Kanalnummer $i$ für ${}^{152}$Eu mit logaritmirter y-Skala.}
+ \caption{Die Zählrate $N$ in Abhängigkeit der Kanalnummer $i$ für ${}^{152}$Eu mit logarithmierter y-Skala.}
  \label{fig:Eu_log_Kanal}
 \end{figure}
 
@@ -57,7 +57,7 @@ y-Achse die errechnete Energie $E_\text{i}$.
 \input{data/2_0/Gauss-Fit-Parameter.tex}
 \FloatBarrier
 
-\subsection{Vollenergienachweiseffizenz}
+\subsection{Vollenergienachweiseffizienz}
 \label{sec:Vollenergienachweiseffizenz}
 Die Aktivität der Probe am $15.04.2019$, dem Versuchstag lässt sich mit
 \begin{equation}
@@ -106,7 +106,7 @@ Eine graphische Darstellung dieser Ausgleichsrechnung ist in Abbildung \ref{fig:
 \begin{figure}[htb]
  \centering
  \includegraphics[width=\textwidth]{build/efficiency.pdf}
- \caption{Die Vollenergienachweiseffizenz des Detektors gegen die Energie aufgetragen.}
+ \caption{Die Vollenergienachweiseffizienz des Detektors gegen die Energie aufgetragen.}
  \label{fig:effizenz}
 \end{figure}
 \input{data/2_0/det_eff.tex}
@@ -117,7 +117,7 @@ Eine graphische Darstellung dieser Ausgleichsrechnung ist in Abbildung \ref{fig:
 \label{sec:Detektoreigenschaften}
 Um die Detektoreigenschaften genauer zu untersuchen wird das Spektrum von ${}^{137}$Cs über eine Zeit
 von $t_\text{mess} = \SI{3365}{\second}$ aufgenommen. Wie in Abbildung \ref{fig:Cs_log} zu erkennen, besitzt Cäsium
-ein monochromatisches Spektrum. Im Folgendem wird dieser und die beiden anderen Charakteristiker, der Rückstreupeak
+ein monochromatisches Spektrum. Im Folgendem wird dieser und die beiden anderen Charakteristika, der Rückstreupeak
 sowie die Comptonkante näher untersucht. Die detektierten Peaks sind in Tabelle \ref{tab:zuordnung_Cs} zugeordnet. 
 Die theoretischen Emissionsenergie des Cäsium liegt bei \SI{661.657(3)}{\kilo\electronvolt} \cite{referenz1}. Mit Hilfe
 ihrer, kann nach Formel \ref{eqn:Com_Kante} der theoretische Wert der Comptonkante auf $\SI{477.27}{\kilo\electronvolt}$
@@ -127,7 +127,7 @@ der Referenz \cite{codata} entnommen.
 \begin{figure}[htb]
  \centering
  \includegraphics[width=\textwidth]{build/Cs_log.pdf}
- \caption{Das augenommene Spektrum des ${}^{137}$Cs-Stahlers in Abhängigkeit der Energie mit logaritmirter y-Achse.}
+ \caption{Das aufgenommene Spektrum des ${}^{137}$Cs-Strahlers in Abhängigkeit der Energie mit logarithmierter y-Achse.}
  \label{fig:Cs_log}
 \end{figure}
 \input{data/2_0/Cs_Zuordnung.tex}
@@ -170,7 +170,7 @@ als theoretischer Wert.
 \end{figure}
 
 Der Vollenergiepeak kann maßgeblich durch den Photo- und Comptoneffekt entstehen. Mit Hilfe der Formel \ref{eq:Absorbtion} und 
-der Extinktionskoeffizienten, welche aus Abbildung \ref{fig:Germanium} abgelesen werden, lassen sich die Absorbtionwahrscheinlichkeiten
+der Extinktionskoeffizienten, welche aus Abbildung \ref{fig:Germanium} abgelesen werden, lassen sich die Absorptionswahrscheinlichkeiten
 zu
 \begin{align*}
   p_\text{Ph} = \SI{2.7(11)}{\percent} \\
@@ -183,7 +183,7 @@ Die Extinktionskoeffizienten lassen sich auf
   \mu_\text{Com} = \SI{0.37(7)}{\per\centi\meter}
 \end{gather*}
 bestimmen, die Länge des Detektors wurde aus Abbildung \ref{fig:Detektor} entnommen und beträgt \SI{3.9}{\centi\meter}.
-Das Verhältnis der Absorbtionwahrscheinlichkeiten beträgt $\num{28(12)}$.
+Das Verhältnis der Absorptionwahrscheinlichkeiten beträgt $\num{28(12)}$.
 Der Inhalt des Vollenergiepeaks lässt sich bestimmen, in dem analog zu Abschnitt \ref{sec:Vollenergienachweiseffizenz} 
 vorgegangen wird. Dabei werden die auf beiden Seiten nächstliegenden \num{50} Kanäle verwendet.
 Für das Comptonkontiuums wird die numerischen Integration im Bereich von
@@ -233,7 +233,7 @@ Die mittleren Aktivitäten der Nuklide lassen sich auf
   A_\text{Bi} & = \SI{3.74(17)e3}{\becquerel}
 \end{align*}
 bestimmen. Dabei werden nur die Werte im Bereich der \SIrange{150}{1700}{\kilo\electronvolt} verwendet, 
-da nur in diesem Bereich die Effizentz nach Abschnitt \ref{sec:Vollenergienachweiseffizenz} ihre Gültigkeit besitzt.
+da nur in diesem Bereich die Effizienz nach Abschnitt \ref{sec:Vollenergienachweiseffizenz} ihre Gültigkeit besitzt.
 Auf Grund der auftretenden Elemente lässt sich auf die Zerfallsreihe
 von ${}^{238}$Ur schließen, was mit \cite{referenz1} bestätigt wird.
 \input{data/2_0/Salz_Peaks.tex}
