@@ -1,11 +1,47 @@
 \section{Diskussion}
 \label{sec:Diskussion}
-Ba-Peak bei ca. 275 keV (Kanal 692) kp woher
+Im Abschnitt \ref{sec:Energiekalibration} lässt sich in Abbildung \ref{fig:kalibration}
+erkennen, dass die Ausgleichsrechnung für die Zuordnung von Kanal zu Energie
+sehr gut passt. Alle Punkte liegen auf der Geraden, die Fehlerbalken der
+verwendeten Daten sind nicht direkt zu erkennen, da die Fehler im Vergleich zu
+den Werten deutlich kleiner sind. Dies ist auch in den folgenden Abbildungen
+der Fall. Ebenso lässt sich dies auch an den kleinen Fehlern der Parameter erkennen.
+Auch bei den Parametern der Gauß-Fits für die Peaks, welche in Tabelle
+\ref{tab:gauss_parameter} dargestellt sind, sind die Fehler sehr klein.
 
-Eigentlich sollte zur berechnung der Effizentz, der erste Wert aus \ref{tab:det_eff} nicht verwendet werden, dann konvergiert das verfahren aber nicht...
+In Abschnitt \ref{sec:Vollenergienachweiseffizenz} lässt sich für die Ausgleichsrechnung nach
+der Potenzfunktion \ref{eqn:Potenz} nur eine Konvergenz erzwingen, wenn der erste Wert
+berücksichtigt wird, obwohl er unter der Grenze von \SI{150}{\kilo\electronvolt}
+liegt, ab der die Quanten die Hülle und äußere Schicht des Detektors nahezu ungehindert 
+durchdringen. Wie in Abbildung \ref{fig:effizenz} und an den Fehlern der 
+Parametern, welche meist größer als der Wert sind, zu erkennen ist, handelt es sich
+eher um eine Näherung des Verhaltens der Messdaten.
 
-Fehlerbalk oft nicht zu erkennen, da Fehler deutlich kleiener als Messwert
+Die Abweichung des ermittelten Wertes \SI{187.2(14)}{\kilo\electronvolt} der
+Position des Rückstreupeaks des ${}^{137}$Cs-Spektrums vom
+berechneten Wert \SI{184.32}{\kilo\electronvolt} ist nur sehr gering. Noch
+geringer ist die Abweichung für die Bestimmung der Energie des Vollenergiepeaks
+von nur \SI{0.95}{\kilo\electronvolt}. Es ergibt sich allerdings eine
+größere Abweichung von etwa \SI{10}{\kilo\electronvolt} für die Position
+der Comptonkante.
+Das Verhältnis von der Halbwertsbreite zur Zehntelsbreite weicht auch nur 
+um \SI{-2.9}{\percent} vom erwarteten Wert \num{1.823} ab. 
+Aus dem Verhältnis der Absorptionswahrscheinlichkeiten lässt sich darauf schließen,
+dass das $\gamma$-Quant zunächst durch den Compton-Effekt seine Energie reduziert
+um anschließend vollständig mit Hilfe des Photoeffekts seine Energie abgibt.
+Dies ist möglich, da im linken Bereich der Abbildung \ref{fig:Germanium}
+die Wahrscheinlichkeit für den Photoeffekt, die des Comptoneffekts
+übertrifft.
 
-Bei Detektoreffizentz eigentlich ohne ersten Wert, aber dann keine Konvergenz
+In Abbildung \ref{fig:mystery1} lässt sich das Spektrum von 
+${}^{133}$Ba gut erkennen, allerdings lässt sich ein makanter 
+Peak bei etwa \SI{275}{\kilo\electronvolt} keinem Nuklid 
+mit Hilfe von \cite{referenz1} zuordnen. Die Aktivität besitzt auch
+einen realistischen Wert.
 
-In Tabelle \ref{tab:aktivitaet_e} keien fehler für $Q_\text{i}$ da im bereich \num{e-17}
+Bei der Untersuchung des unbekannten Strahlers in Abschnitt \ref{sec:Salz}
+lässt sich auf Grund der auftretenden Emissionslinien auf die Zerfallsreihe
+von ${}^{138}$Ur schließen. Das Spektrum enthält einige gut erkennbare
+Peaks, welche alle den angegbenen Strahlern zugeordnet werden können.
+In Tabelle \ref{tab:aktivitaet_e} wird kein Fehler für $Q_\text{i}$
+angegeben, da diese sich im Bereich \num{e-17} und kleiner befinden.

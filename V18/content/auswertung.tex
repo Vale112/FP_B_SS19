@@ -89,6 +89,7 @@ die Nachweiswahrscheinlichkeit des Detektors errechnen. Dabei ist die Messzeit v
 zu berücksichtigen. Die sich ergeben Werte sind in Tabelle \ref{tab:det_eff} gelistet.
 Anhand der Werte aus Tabelle \ref{tab:det_eff} lässt sich ein Fit der Form
 \begin{equation}
+  \label{eqn:Potenz}
   Q(E) = a \cdot \left(\frac{E-b}{\SI{1}{\kilo\electronvolt}}\right)^c + d
 \end{equation}
 durchführen. Dabei werden nur Peaks der Energie $E_\text{i} > \SI{150}{\kilo\electronvolt}$ berücksichtigt,
@@ -215,7 +216,6 @@ gegebenen Werten. Die gemittelte Aktivität ergibt sich zu
  \label{fig:mystery1}
 \end{figure}
 \FloatBarrier
-
 
 
 \subsection{Unbekanntes Salz}

@@ -175,7 +175,7 @@ make_table(
 
 #Erstellen einer Tabelle der Detektoreffizenz und den dazu verwendeten Werten
 make_table(
- header=['$Z_\\text{i}$ / \kilo\electronvolt', '$E_\\text{i}$ / \kilo\electronvolt' ,'$W_\\text{i}$\;/\;\si{\percent}', '$Q_\\text{i}$ / \\becquerel '],
+ header=['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$Z_\\text{i}$ / \kilo\electronvolt' , '$Q_\\text{i}$ / \\becquerel '],
  data=[E_det, W, Z, Q],
  caption = 'Peakinhalt, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
  label = 'tab:det_eff',
