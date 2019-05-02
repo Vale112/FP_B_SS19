@@ -266,7 +266,7 @@ print('E_rueck,theo', e_rueck_theo, '\nE_compton,gemessen', e_rueck, '\n     rel
 plt.bar(lin(x_plot, *params), data_b, label='Messwerte')
 plt.bar(lin(indexes_2[14], *params), noms(energie_2[-2]), label='Rückstreupeak')
 plt.bar(lin(indexes_2[-2], *params), noms(energie_2[-2]), label='Comptonkante')
-plt.bar(lin(indexes_2[-1], *params), noms(energie_2[-1])+500, label='Vollenergiepeak')
+plt.bar(lin(indexes_2[-1], *params), noms(energie_2[-1])+2100, label='Vollenergiepeak')
 plt.xlim(0, 800)
 plt.xlabel(r'Energie $E \:/\: \mathrm{keV}$')
 plt.ylabel(r'Zählrate $N$')
