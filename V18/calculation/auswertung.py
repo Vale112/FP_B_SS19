@@ -479,9 +479,9 @@ for i in range(4, len(W_Ba)):
 #    filename ='build/tables/aktivitaet-ba.tex'
 #)
 make_table(
-    header= ['$W_\\text{i}$\;/\;\si{\percent}', '$Q_\\text{i}$', '$Z_\\text{i}$ / \kilo\electronvolt', '$E_\\text{i}$ / \kilo\electronvolt', '$A_\\text{i}$ / \\becquerel'],
-    data=[W_Ba[4:], Q_d ,Z_d, E_ba_det[4:], A_det],
-    places=[(2.3, 1.3), (1.4, 1.4), (5.0 , 2.0), (3.2, 1.2), (4.0, 3.0)],
+    header= ['$W_\\text{i}$\;/\;\si{\percent}', '$E_\\text{i}$ / \kilo\electronvolt', '$Q_\\text{i}$', '$Z_\\text{i}$ / \kilo\electronvolt', '$A_\\text{i}$ / \\becquerel'],
+    data=[W_Ba[4:], E_ba_det[4:], Q_d ,Z_d, A_det],
+    places=[(2.3, 1.3), (3.2, 1.2), (1.4, 1.4), (5.0 , 2.0), (4.0, 3.0)],
     caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
     label='tab:aktivitaet_ba',
     filename='build/tables/aktivitaet_ba.tex'
