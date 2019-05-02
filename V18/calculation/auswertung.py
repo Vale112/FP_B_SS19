@@ -67,7 +67,7 @@ def lin(x,m,b):
 print('\n--------------Kalibration---------------')
 #Gauß-Funktion für Peakhoehenbestimmung
 def gauss(x,sigma,h,a,mu):
- return a+h*np.exp(-((x-mu)/sigma)**2)
+ return a+h*np.exp(-((x-mu)/(sigma))**2)
 #Verwende Gauß-Fit in jedem Bin des Spektrums um Peakhöhe zu erhalten
 def gaussian_fit_peaks(test_ind):
  peak_inhalt = []
@@ -169,17 +169,17 @@ make_table(
  data=[peaks_v, index_f, unter, hoehe, sigma],
  caption='Parameter des durchgeführten Gauss-Fits pro Kanal.',
  label='tab:gauss_parameter',
- places=[3.0, (4.3, 1.3), (2.1, 1.1), (4.0, 2.0), (3.3, 1.3)],
+ places=[4.0, (4.3, 1.3), (2.1, 1.1), (4.0, 2.0), (1.3, 1.3)],
  filename='build/tables/Gauss-Fit-Parameter.tex'
  )
 
 #Erstellen einer Tabelle der Detektoreffizenz und den dazu verwendeten Werten
 make_table(
  header=['$Z_\\text{i}$ / \kilo\electronvolt', '$E_\\text{i}$ / \kilo\electronvolt' ,'$W_\\text{i}$\;/\;\si{\percent}', '$Q_\\text{i}$ / \\becquerel '],
- data=[Z, E_det, W, Q],
+ data=[E_det, W, Z, Q],
  caption = 'Peakinhalt, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
  label = 'tab:det_eff',
- places = [ (5.0, 3.0), (4.2, 1.2), (2.3, 1.3), (1.3, 1.3)],
+ places = [(4.2, 1.2), (2.3, 1.3), (5.0, 3.0), (1.3, 1.3)],
  filename = 'build/tables/det_eff.tex'
  )
 
@@ -264,9 +264,9 @@ print('E_rueck,theo', e_rueck_theo, '\nE_compton,gemessen', e_rueck, '\n     rel
 
 #Plotten des vom Detektor aufgenommenen Cs-Spektrums + logarithmische y_Achse
 plt.bar(lin(x_plot, *params), data_b, label='Messwerte')
-plt.plot(lin(indexes_2[14], *params), noms(energie_2[14]), 'rx', label='Rückstreupeak')
+plt.bar(lin(indexes_2[14], *params), noms(energie_2[-2]), label='Rückstreupeak')
 plt.bar(lin(indexes_2[-2], *params), noms(energie_2[-2]), label='Comptonkante')
-plt.plot(lin(indexes_2[-1], *params), noms(energie_2[-1]), 'yx', label='Vollenergiepeak')
+plt.bar(lin(indexes_2[-1], *params), noms(energie_2[-1])+500, label='Vollenergiepeak')
 plt.xlim(0, 800)
 plt.xlabel(r'Energie $E \:/\: \mathrm{keV}$')
 plt.ylabel(r'Zählrate $N$')
@@ -454,9 +454,9 @@ for i in A:
 #print(peakinhalt_ba)
 #Fasse Fit-Parameter in Tabelle zusammen
 make_table(
-    header= ['$E_\\text{i}$', '$\mu_\\text{i}$ / \kilo\electronvolt', '$h_\\text{i}$', '$\sigma_\\text{i}$ / \kilo\electronvolt', '$a_\\text{i}$ / \kilo\electronvolt'],
+    header= ['$E_\\text{i}$', '$\mu_\\text{i}$ / \kilo\electronvolt', '$h_\\text{i}$', '$\sigma_\\text{i}$ / \kilo\electronvolt', '$a_\\text{i}$'],
     data=[lin(peaks_Ba, *params_test), E_ba_det, hoehe_ba, sigma_ba, unter_ba],
-    places=[(3.2, 1.2), (3.2, 1.2), (4.0, 2.0), (1.3, 1.3), (2.2, 2.2)],
+    places=[(3.2, 1.2), (3.2, 1.2), (4.0, 2.0), (1.3, 1.3), (2.2, 1.2)],
     caption='Parameter des Gauß-Fits für das gegeben Spektrum',
     label='tab:Ba',
     filename='build/tables/Ba.tex'
@@ -481,7 +481,7 @@ for i in range(4, len(W_Ba)):
 make_table(
     header= ['$W_\\text{i}$\;/\;\si{\percent}', '$Q_\\text{i}$', '$Z_\\text{i}$ / \kilo\electronvolt', '$E_\\text{i}$ / \kilo\electronvolt', '$A_\\text{i}$ / \\becquerel'],
     data=[W_Ba[4:], Q_d ,Z_d, E_ba_det[4:], A_det],
-    places=[(2.3, 1.3), (1.3, 1.3), (5.2 , 2.2), (3.2, 1.2), (4.0, 3.0)],
+    places=[(2.3, 1.3), (1.4, 1.4), (5.0 , 2.0), (3.2, 1.2), (4.0, 3.0)],
     caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
     label='tab:aktivitaet_ba',
     filename='build/tables/aktivitaet_ba.tex'
@@ -575,11 +575,16 @@ for i in range(len(W_e)):
 #print(f'\nDaten zur Berechnung der Akivität: {E_e}, {params2}, \n den Peakinhalt Z {Z_e},\n die Effizienz Q {Q_e} \n und der Aktivität {A_e}')
 # print('Aktivitäten des Nuklids', A_e)
 # print('gemittelte Aktivität für das Salz: ', np.mean(A_e[0:9]))
-
+E_e_tab = np.delete(E_e, [0,1,4,5,6,7,18,19,26], None)
+W_e_tab = np.delete(W_e, [0,1,4,5,6,7,18,19,26], None)
+Z_e_tab = np.delete(Z_e, [0,1,4,5,6,7,18,19,26], None)
+Q_e_tab = np.delete(Q_e, [0,1,4,5,6,7,18,19,26], None)
+A_e_tab = np.delete(A_e, [0,1,4,5,6,7,18,19,26], None)
+print(Q_e_tab)
 make_table(
-    header= ['$W_\\text{i}$\;/\;\si{\percent}', '$Q_\\text{i}$', '$Z_\\text{i}$ / \kilo\electronvolt', '$E_\\text{i}$ / \kilo\electronvolt', '$A_\\text{i}$ / \\becquerel'],
-    data=[W_e[3:], Q_e[3:] ,Z_e[3:], E_e[3:], A_e[3:]],
-    places=[(2.2, 1.2), (1.3, 1.3), (4.2 , 3.2), (4.1, 1.1), (3.0, 2.0)],
+    header= ['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$Z_\\text{i}$ / \kilo\electronvolt', '$Q_\\text{i}$', '$A_\\text{i}$ / \\becquerel'],
+    data=[E_e_tab, W_e_tab, Z_e_tab, noms(Q_e_tab) , A_e_tab],
+    places=[(4.3, 1.3), (2.3, 1.3), (5.0 , 3.0), 1.3, (5.0, 4.0)],
     caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
     label='tab:aktivitaet_e',
     filename='build/tables/aktivitaet_e.tex'
@@ -587,7 +592,7 @@ make_table(
 make_table(
     header= ['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$i$', '$E_\\text{i,fit}$ / \kilo\electronvolt'],
     data=[E_e, W_e, peaks_ind_e, lin(peaks_ind_e, *params_test)],
-    places=[(4.3, 1.3), (2.2, 1.2), 4.0, (4.2, 1, 2)],
+    places=[(4.4, 1.4), (2.3, 1.3), 4.0, (4.2, 1.2)],
     caption='Die ermittelten Peaks zur Nuklid Bestimmung.',
     label='tab:Salz',
     filename='build/tables/Salz_Peaks.tex'

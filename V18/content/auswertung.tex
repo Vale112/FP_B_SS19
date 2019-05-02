@@ -19,7 +19,7 @@ gelistet, dabei werden Energien mit einer Emissionswahrscheinlichkeit $W$
 kleiner als \SI{2}{\percent} vernachlässigt.
 Da die Peaks einen Gauß-Glocken förmigen Verlauf haben, wird zunächst ein Gauß-Fit der Form
 \begin{equation}
-  N(i) = h \cdot \exp{\left(\frac{\left(i - \mu\right)^2}{2 \cdot \sigma^2}\right)} + a
+  N(i) = h \cdot \exp{\left(-\frac{\left(i - \mu\right)^2}{\sigma^2}\right)} + a
 \end{equation}
 über die identifizierten Peaks durchgeführt. Die Ergebnisse dieses Fits sind in Tabelle \ref{tab:gauss_parameter}
 dargestellt, dabei bezeichnet $\mu$ den Mittelwert, $h$ die Höhe des Peaks, $\sigma$ die Standardabweichung und 
@@ -53,8 +53,8 @@ y-Achse die errechnete Energie $E_\text{i}$.
  \caption{Die ermittelte Energie anhand der Daten in Abhängigkeit der Kanalnummer.}
  \label{fig:kalibration}
 \end{figure}
-\input{build/tables/zuordnung_Eu.tex}
-\input{build/tables/Gauss-Fit-Parameter.tex}
+\input{build/data/2_0/zuordnung_Eu.tex}
+\input{build/data/2_0/Gauss-Fit-Parameter.tex}
 \FloatBarrier
 
 \subsection{Vollenergienachweiseffizenz}
@@ -63,7 +63,8 @@ Die Aktivität der Probe am $15.04.2019$, dem Versuchstag lässt sich mit
 \begin{equation}
   A = A_0 \cdot \exp{\left(-\lambda \cdot t\right)}
 \end{equation}
-berechnen, hierbei ist $A_0$ die Aktivität am Produktionstag, $\lambda = \SI{1.6244(19)e-9}{\per\second}$ \cite{referenz1} 
+berechnen, hierbei ist $A_0$ die Aktivität am Produktionstag,
+$\lambda = \SI[per-mode = reciprocal-positive-first]{1.6244(19)e-9}{\per\second}$ \cite{referenz1} 
 die Zerfallskonstante und $t$ die Zeit. Es ist aus \cite{V18} bekannt, dass die Probe am Produktionstag, dem
 $01.10.2000$ eine Aktivität von $\SI{4130(60)}{\becquerel}$ besaß.
 Die Aktivität am Versuchstag beläuft sich damit auf
@@ -79,7 +80,7 @@ aus der Abbildung \ref{fig:Detektor} ablesen lässt. Damit lässt sich der Raumw
   \frac{\Omega}{4\pi} = \num{0.0156(3)}
 \end{equation*}
 bestimmen.
-Unter zu Hilfe nahme von
+Unter Zuhilfenahme von
 \begin{equation}
   Z_\text{i} = \sqrt{2\pi} h_\text{i} \sigma_{i}
 \end{equation}
@@ -88,16 +89,16 @@ die Nachweiswahrscheinlichkeit des Detektors errechnen. Dabei ist die Messzeit v
 zu berücksichtigen. Die sich ergeben Werte sind in Tabelle \ref{tab:det_eff} gelistet.
 Anhand der Werte aus Tabelle \ref{tab:det_eff} lässt sich ein Fit der Form
 \begin{equation}
-  Q(E) = a \cdot \left(E-b \right)^c + d
+  Q(E) = a \cdot \left(\frac{E-b}{\SI{1}{\kilo\electronvolt}}\right)^c + d
 \end{equation}
 durchführen. Dabei werden nur Peaks der Energie $E_\text{i} > \SI{150}{\kilo\electronvolt}$ berücksichtigt,
 da nur hier gegebenen ist, dass sie die Aluminiumhaube und die äußere Schicht des Detektors nahezu
 ungehindert durchdringen. Die Parameter ergeben sich dabei zu
 \begin{align*}
-  a &= \SI{-0.01(5)}{\per\kilo\electronvolt} \\
-  b &= \SI{122(1)}{\kilo\electronvolt} \\
-  c &= \num{0.5(6)} \\
-  d &= \num{0.4(3)}.
+  a &= \num{-0.01(11)} \\
+  b &= \SI{121.81(5)}{\kilo\electronvolt} \\
+  c &= \num{0.4(8)} \\
+  d &= \num{0.4(5)}.
 \end{align*}
 Eine graphische Darstellung dieser Ausgleichsrechnung ist in Abbildung \ref{fig:effizenz} zu finden.
 
@@ -115,7 +116,7 @@ Eine graphische Darstellung dieser Ausgleichsrechnung ist in Abbildung \ref{fig:
 \label{sec:Detektoreigenschaften}
 Um die Detektoreigenschaften genauer zu untersuchen wird das Spektrum von ${}^{137}$Cs über eine Zeit
 von $t_\text{mess} = \SI{3365}{\second}$ aufgenommen. Wie in Abbildung \ref{fig:Cs_log} zu erkennen, besitzt Cäsium
-ein monochromatisches Spektrum. Im Folgendem wird dieser und die beiden anderen charakteristischen Peaks, der Rückstreupeak
+ein monochromatisches Spektrum. Im Folgendem wird dieser und die beiden anderen Charakteristiker, der Rückstreupeak
 sowie die Comptonkante näher untersucht. Die detektierten Peaks sind in Tabelle \ref{tab:zuordnung_Cs} zugeordnet. 
 Die theoretischen Emissionsenergie des Cäsium liegt bei \SI{661.657(3)}{\kilo\electronvolt} \cite{referenz1}. Mit Hilfe
 ihrer, kann nach Formel \ref{eqn:Com_Kante} der theoretische Wert der Comptonkante auf $\SI{477.27}{\kilo\electronvolt}$
@@ -134,8 +135,8 @@ Rückstreupeak. Für das Ablesen wir eine Genauigkeit von \num{10} Kanälen ange
 Für den Vollenergiepeak wir erneut wie in Abschnitt \ref{sec:Energiekalibration} ein Gauß-Fit durchgeführt.
 Die Parameter ergeben sich zu
 \begin{align*}
-  \mu &= \num{661.562(7)} \\
-  \sigma &= \num{1.259(10)} \\
+  \mu &= \SI{661.562(7)}{\kilo\electronvolt} \\
+  \sigma &= \SI{1.259(10)}{\kilo\electronvolt} \\
   h &= \num{2167(15)} \\
   a &= \num{4(3)}.
 \end{align*}
@@ -166,6 +167,7 @@ als theoretischer Wert.
  \caption{Der Vollenergiepeak des Cäsium zur Bestimmung der Halbwerts-/Zehntelsbreite.}
  \label{fig:Halb}
 \end{figure}
+
 Der Vollenergiepeak kann maßgeblich durch den Photo- und Comptoneffekt entstehen. Mit Hilfe der Formel \ref{eq:Absorbtion} und 
 der Extinktionskoeffizienten, welche aus Abbildung \ref{fig:Germanium} abgelesen werden, lassen sich die Absorbtionwahrscheinlichkeiten
 zu
@@ -180,12 +182,13 @@ Die Extinktionskoeffizienten lassen sich auf
   \mu_\text{Com} = \SI{0.37(7)}{\per\centi\meter}
 \end{gather*}
 bestimmen, die Länge des Detektors wurde aus Abbildung \ref{fig:Detektor} entnommen und beträgt \SI{3.9}{\centi\meter}.
-
+Das Verhältnis der Absorbtionwahrscheinlichkeiten beträgt $\num{28(12)}$.
 Der Inhalt des Vollenergiepeaks lässt sich bestimmen, in dem analog zu Abschnitt \ref{sec:Vollenergienachweiseffizenz} 
 vorgegangen wird. Dabei werden die auf beiden Seiten nächstliegenden \num{50} Kanäle verwendet.
 Für das Comptonkontiuums wird die numerischen Integration im Bereich von
 \SIrange{18.70}{467.27}{\kilo\electronvolt} verwendet. Der Inhalt beträgt für den
-Vollenergiepeak \SI{3.89(7)e4}{\kilo\electronvolt} und für das Comptonkontiuum \SI{1.75(14)e5}{\kilo\electronvolt}.
+Vollenergiepeak \SI{3.89(7)e4}{\kilo\electronvolt} und für das Comptonkontiuum \SI{1.75(14)e5}{\kilo\electronvolt}. 
+Berechnung des Verhältnis der Inhalte ergibt einen Wert von $\num{106(8)}$.
 \FloatBarrier
 
 \subsection{Aktivitätsbestimmung}
@@ -222,16 +225,17 @@ dargestellte Spektrum, welches über eine Zeit von \SI{4510}{\second} gemessen w
 Als erstes werden die auftretenden Peaks identifiziert, diese sind in Tabelle \ref{tab:Salz} dargestellt.
 Mit Hilfe von \cite{referenz1} werden diese identifiziert und ihrem Emissionselement zugeordnet. Die Zuordnung ist
 ebenfalls in der Tabelle \ref{tab:Salz} zu erkennen.
-Auf Grund der Absorbtion durch die Aluminiumhaube und der äußeren Schicht des Detektors ist eine Aktivitätsbestimmung
-nur ab einer Energie von \SI{150}{\kilo\electronvolt} möglich und ist in Tabelle \ref{tab:aktivitaet_e} aufgeführt.
+In Tabelle \ref{tab:aktivitaet_e} lassen sich die ermittelten Werte zur Bestimmung der Aktivität einsehen.
 Die mittleren Aktivitäten der Nuklide lassen sich auf
 \begin{align*}
-  A_\text{Pa} & = \SI{1.5(8)e2}{\becquerel} \\
-  A_\text{Ra} & = \SI{7.0(2)e3}{\becquerel} \\
-  A_\text{Pd} & = \SI{5.82(16)e3}{\becquerel} \\
-  A_\text{Bi} & = \SI{3.8(2)e3}{\becquerel}
+  A_\text{Ra} & = \SI{6.25(24)e3}{\becquerel} \\
+  A_\text{Pd} & = \SI{5.6(10)e3}{\becquerel} \\
+  A_\text{Bi} & = \SI{3.74(17)e3}{\becquerel}
 \end{align*}
-bestimmen.
+bestimmen. Dabei werden nur die Werte im Bereich der \SIrange{150}{1700}{\kilo\electronvolt} verwendet, 
+da nur in diesem Bereich die Effizentz nach Abschnitt \ref{sec:Vollenergienachweiseffizenz} ihre Gültigkeit besitzt.
+Auf Grund der auftretenden Elemente lässt sich auf die Zerfallsreihe
+von ${}^{238}$Ur schließen, was mit \cite{referenz1} bestätigt wird.
 \input{data/2_0/Salz_Peaks.tex}
 \input{build/tables/aktivitaet_e.tex}
 \begin{figure}[htb]
