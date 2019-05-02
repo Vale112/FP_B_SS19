@@ -118,9 +118,9 @@ Eine graphische Darstellung dieser Ausgleichsrechnung ist in Abbildung \ref{fig:
 Um die Detektoreigenschaften genauer zu untersuchen wird das Spektrum von ${}^{137}$Cs über eine Zeit
 von $t_\text{mess} = \SI{3365}{\second}$ aufgenommen. Wie in Abbildung \ref{fig:Cs_log} zu erkennen, besitzt Cäsium
 ein monochromatisches Spektrum. Im Folgendem wird dieser und die beiden anderen Charakteristika, der Rückstreupeak
-sowie die Comptonkante näher untersucht. Die detektierten Peaks sind in Tabelle \ref{tab:zuordnung_Cs} zugeordnet. 
+sowie die Compton-Kante näher untersucht. Die detektierten Peaks sind in Tabelle \ref{tab:zuordnung_Cs} zugeordnet. 
 Die theoretischen Emissionsenergie des Cäsium liegt bei \SI{661.657(3)}{\kilo\electronvolt} \cite{referenz1}. Mit Hilfe
-ihrer, kann nach Formel \ref{eqn:Com_Kante} der theoretische Wert der Comptonkante auf $\SI{477.27}{\kilo\electronvolt}$
+ihrer, kann nach Formel \ref{eqn:Com_Kante} der theoretische Wert der Compton-Kante auf $\SI{477.27}{\kilo\electronvolt}$
 bestimmt werden. Des Weiteren lässt sich nach Formel \ref{eqn:rueck} auch der theoretische Wert für den Rückstreupeak
 auf \SI{184.32}{\kilo\electronvolt} ermitteln. Der Wert von $m_\text{e} c^2 = \SI{510.9989461(31)}{\kilo\electronvolt}$ wird 
 der Referenz \cite{codata} entnommen. 
@@ -131,7 +131,7 @@ der Referenz \cite{codata} entnommen.
  \label{fig:Cs_log}
 \end{figure}
 \input{data/2_0/Cs_Zuordnung.tex}
-Dabei wird die Energie der Comptonkante aus der Abbildung \ref{fig:Cs_log} abgelesen, ebenso wie für den 
+Dabei wird die Energie der Compton-Kante aus der Abbildung \ref{fig:Cs_log} abgelesen, ebenso wie für den 
 Rückstreupeak. Für das Ablesen wir eine Genauigkeit von \num{3} Kanälen angenommen.
 Für den Vollenergiepeak wir erneut wie in Abschnitt \ref{sec:Energiekalibration} ein Gauß-Fit durchgeführt.
 Die Parameter ergeben sich zu
@@ -142,24 +142,24 @@ Die Parameter ergeben sich zu
   a &= \num{4(3)}.
 \end{align*}
 
-Eine weiter wichtige Größe des Detektors ist Halbwertsbreite $E_{\sfrac{1}{2}}$, welche ein Maß für das Auflösungsvermögen ist
-und den Ge-Detektor auszeichnet. Diese, sowie die Zehntelbreite $E_{\sfrac{1}{10}}$ lassen sich aus Abbildung \ref{fig:Halb} ablesen, 
+Eine weiter wichtige Größe des Detektors ist Halbwertsbreite $\Delta E_{\sfrac{1}{2}}$, welche ein Maß für das Auflösungsvermögen ist
+und den Ge-Detektor auszeichnet. Diese, sowie die Zehntelbreite $\Delta E_{\sfrac{1}{10}}$ lassen sich aus Abbildung \ref{fig:Halb} ablesen, 
 dabei ergibt sich 
 \begin{gather*}
-  E_{\sfrac{1}{2}} = \SI{2.20(10)}{\kilo\electronvolt} \\
-  E_{\sfrac{1}{10}} = \SI{3.90(10)}{\kilo\electronvolt}.
+  \Delta E_{\sfrac{1}{2}} = \SI{2.20(10)}{\kilo\electronvolt} \\
+  \Delta E_{\sfrac{1}{10}} = \SI{3.90(10)}{\kilo\electronvolt}.
 \end{gather*}
 Bei den angegebenen Fehlern handelt es sich um Ablesefehler aus der Abbildung \ref{fig:Halb}.
 Der Quotient dieser beiden Größen ist ein Maß für das Energieauflösungsvermögen des Detektors. Der hier ermittelte 
 Quotient der gemessenen Größen beläuft sich auf
 \begin{equation*}
-  \frac{E_{\sfrac{1}{10}}}{E_{\sfrac{1}{2}}} = \SI{1.77(9)}{\kilo\electronvolt}.
+  \frac{\Delta E_{\sfrac{1}{10}}}{\Delta E_{\sfrac{1}{2}}} = \SI{1.77(9)}{\kilo\electronvolt}.
 \end{equation*}
 
 Die theoretischen Werte ergeben sich aus der Standardabweichung $\sigma$ des Fits. Da aber nur der Quotient interessiert, 
 kürzt sich diese und es ergibt sich
 \begin{equation}
-  \frac{E_{\sfrac{1}{10}}}{E_{\sfrac{1}{2}}} = \frac{\sqrt{8 \cdot \log{(10)}} \cdot \sigma_\text{fit}}{\sqrt{8 \cdot \log{(2)}} \cdot \sigma_\text{fit}} = \sqrt{\frac{\log{(10)}}{\log{(2)}}} = \num{1.823}
+  \frac{\Delta E_{\sfrac{1}{10}}}{\Delta E_{\sfrac{1}{2}}} = \frac{\sqrt{8 \cdot \ln{(10)}} \cdot \sigma_\text{fit}}{\sqrt{8 \cdot \ln{(2)}} \cdot \sigma_\text{fit}} = \sqrt{\frac{\ln{(10)}}{\ln{(2)}}} = \num{1.823}
 \end{equation}
 als theoretischer Wert.
 \begin{figure}[htb]
@@ -186,9 +186,9 @@ bestimmen, die Länge des Detektors wurde aus Abbildung \ref{fig:Detektor} entno
 Das Verhältnis der Absorptionwahrscheinlichkeiten beträgt $\num{28(12)}$.
 Der Inhalt des Vollenergiepeaks lässt sich bestimmen, in dem analog zu Abschnitt \ref{sec:Vollenergienachweiseffizenz} 
 vorgegangen wird. Dabei werden die auf beiden Seiten nächstliegenden \num{50} Kanäle verwendet.
-Für das Comptonkontiuums wird die numerischen Integration im Bereich von
+Für das Compton-Kontiuums wird die numerischen Integration im Bereich von
 \SIrange{18.70}{467.27}{\kilo\electronvolt} verwendet. Der Inhalt beträgt für den
-Vollenergiepeak \SI{3.89(7)e4}{\kilo\electronvolt} und für das Comptonkontiuum \SI{1.75(14)e5}{\kilo\electronvolt}. 
+Vollenergiepeak \SI{3.89(7)e4}{\kilo\electronvolt} und für das Compton-Kontiuum \SI{1.75(14)e5}{\kilo\electronvolt}. 
 Berechnung des Verhältnis der Inhalte ergibt einen Wert von $\num{106(8)}$.
 \FloatBarrier
 
