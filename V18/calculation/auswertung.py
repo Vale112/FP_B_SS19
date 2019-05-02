@@ -211,7 +211,7 @@ print(f'     Verschiebung_y c = {c}')
 print(f'     Exponent e = {e}')
 
 #Plotten der Effizenz gegen die Energie mit Exponential-Fit-Funktion
-x=np.linspace(1,1600,10000)
+x=np.linspace(10,1600,10000)
 plt.plot(x, potenz(x,*params2),'r-',label='Fit')
 plt.errorbar(noms(E_det),noms(Q), yerr=sdevs(Q), xerr=sdevs(E_det),fmt=' x', ecolor='b',label='Daten')
 plt.legend()
@@ -288,7 +288,7 @@ a_fit=ufloat(params_gauss_b[2],errors_gauss_b[2])
 mu_fit=ufloat(params_gauss_b[3],errors_gauss_b[3])
 Z_photo=h_fit*sigma_fit*np.sqrt(2*np.pi)
 print(f'Gauß-Fitparameter für Vollenergiepeak des Cs: \n     sigma = {sigma_fit}, \n     h = {h_fit}, \n     a = {a_fit}, \n     mu = {mu_fit}')
-print('Fehler für 10 Kanäle', lin(10, *params))
+print('Fehler für 10 Kanäle', 10*params[0])
 print(f'Der Inhalt des Vollenergiepeaks beträgt {Z_photo} keV.')
 #-------------------------------------------------------------------------------
 Z_3 = data_b[a:b+1]*sigma_fit*np.sqrt(2*np.pi)
@@ -580,7 +580,6 @@ W_e_tab = np.delete(W_e, [0,1,4,5,6,7,18,19,26], None)
 Z_e_tab = np.delete(Z_e, [0,1,4,5,6,7,18,19,26], None)
 Q_e_tab = np.delete(Q_e, [0,1,4,5,6,7,18,19,26], None)
 A_e_tab = np.delete(A_e, [0,1,4,5,6,7,18,19,26], None)
-print(Q_e_tab)
 make_table(
     header= ['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$Z_\\text{i}$ / \kilo\electronvolt', '$Q_\\text{i}$', '$A_\\text{i}$ / \\becquerel'],
     data=[E_e_tab, W_e_tab, Z_e_tab, noms(Q_e_tab) , A_e_tab],
