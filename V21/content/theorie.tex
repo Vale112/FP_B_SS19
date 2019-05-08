@@ -19,9 +19,10 @@ tem­pe­ra­tur­ab­hän­gig besetzt. Dabei bezeichenen die $N_\text{i}$ die 
 der Energieniveaus $W_\text{i}$, wobei $W_2 > W_1$ gilt. Damit die Formel auch ihre Gültigkeit besetzt
 muss sich das Atom bei Temperatur $T$ auch im thermischen Gleichgewicht befinden.
 Um zwischen den Energieniveaus zu wechseln müssen Quanten der Energie
-\begin{equation*}
+\begin{equation}
+  \label{eqn:energiedifferenz}
   h \nu = W_2 - W_1
-\end{equation*}
+\end{equation}
 emittiert oder absorbiert werden. 
 In dem versuch werden Alkaliatome untersucht, diese zeichnen sich dadurch aus, dass sich nur ein 
 Elektron auf dem äußersten Niveau befindet, was die Rechnungen deutlich vereinfacht.
@@ -101,8 +102,8 @@ ergibt sich der Landé-Faktor
 \label{sec:pumpen}
 Als optisches Pumpen wird eine Umbesetzung der thermischen Besetzung der Energieniveaus bezeichnet.
 Um dieses Pumpen zu ermöglichen wird die in Abschnitt \ref{sec:atomhülle} beschriebene Zeeman-Aufspaltung benötigt.
-Für ein Alkaliatome ergibt sich im Grundzustand ein $\ce{^{2}S\sfrac{1}{2}}$ Niveau, sowie die Niveaus
-${}^2\text{P}_\sfrac{1}{2}$ und ${}^2\text{P}_\sfrac{3}{2}$ für den ersten angeregten Zustand, wenn der
+Für ein Alkaliatome ergibt sich im Grundzustand ein $\ce{^2 S_{\sfrac{1}{2}}}$ Niveau, sowie die Niveaus
+$\ce{^2 P_{\sfrac{1}{2}}}$ und $\ce{^2 P_{\sfrac{3}{2}}}$ für den ersten angeregten Zustand, wenn der
 Kerndrehimpuls vernachlässigt wird. Abbildung \ref{fig:aufspaltung} zeigt die Zeeman-Aufspaltung in die Zeeman-Niveaus für
 die beiden Zustände mit $J=\sfrac{1}{2}$, also den optischen $\text{D}_1$-Übergang. Unter zu Hilfe nahme der Auswahlregeln für erlaubte Übergänge
 \begin{align*}
@@ -111,7 +112,7 @@ die beiden Zustände mit $J=\sfrac{1}{2}$, also den optischen $\text{D}_1$-Über
 \end{align*}
 \begin{figure}
   \centering
-  \includegraphics[height=5.5cm]{content/pictures/Energieniveaus.png}
+  \includegraphics[height=8cm]{content/pictures/Energieniveaus.png}
   \caption{Die Energieniveau-Aufspaltung unter Einfluss eines $\vec{B}$-Feldes \cite{anleitung}.}
   \label{fig:aufspaltung}
 \end{figure}
@@ -124,15 +125,15 @@ handelt es sich um emittiertes beziehungsweise absorbiertes Licht, welches linea
 Wird eine Dampfzelle bei der Temperatur $T$ mit einem Dampf aus Alkaliatomen befüllt und durchsetzt
 dieses mit einem Magnetfeld so befinden sich die Atome zunächst im Grundzustand. Nun wird rechtszirkular-polarisiertes
 $\text{D}_1$-Licht eingestrahlt und damit der Übergang mit $\Delta M_\text{J} = +1$ ermöglicht. 
-Dadurch werden die Elektronen aus dem ${}^2\text{S}_\sfrac{1}{2}$-Niveau mit $M_\text{J}=\sfrac{-1}{2}$ in das 
-${}^2\text{P}_\sfrac{1}{2}$-Niveau mit $M_\text{J}=\sfrac{1}{2}$ angehoben. Da es für die Emission
+Dadurch werden die Elektronen aus dem $\ce{^2 S_{\sfrac{1}{2}}}$-Niveau mit $M_\text{J}=\sfrac{-1}{2}$ in das 
+$\ce{^2 P_{\sfrac{1}{2}}}$-Niveau mit $M_\text{J}=\sfrac{1}{2}$ angehoben. Da es für die Emission
 keine weiteren Einschränkungen gibt, finden beide Übergänge ins Grundniveau statt. Da aber immer nur
 Elektronen aus dem Niveau mit $M_\text{J}=\sfrac{-1}{2}$ angeregt werden und kein Übergang inerhalb des
-${}^2\text{S}_\sfrac{1}{2}$-Niveaus erlaubt ist, reichern sich die Elektronen im Niveau mit 
+$\ce{^2 S_{\sfrac{1}{2}}}$-Niveaus erlaubt ist, reichern sich die Elektronen im Niveau mit 
 $M_\text{J}=\sfrac{1}{2}$ an und das mit $M_\text{J}=\sfrac{-1}{2}$ wird entleert. Somit ergibt sich eine 
 nicht nach \eqref{eqn:boltz} gegebene thermische Besetzung. 
 Mit Hilfe einer Photozelle auf der anderen Seite der Zelle wir die Transparenz des Gases beobachtet.
-Wird das ${}^2\text{S}_\sfrac{1}{2}$-Niveau ($M_\text{J}=\sfrac{1}{2}$) entleert, so wird kein $\text{D}_1$-Licht
+Wird das $\ce{^2 S_{\sfrac{1}{2}}}$-Niveau ($M_\text{J}=\sfrac{1}{2}$) entleert, so wird kein $\text{D}_1$-Licht
 mehr absorbiert und die Intensität steigt an. Dieser Verlauf ist exemplarisch in Abbildung \ref{fig:intensität}
 dargestellt.
 \begin{figure}
@@ -141,6 +142,124 @@ dargestellt.
   \caption{Exemplarischer Verlauf für die Transparenz der Dampfzelle in Abhängigkeit der Zeit \cite{anleitung}.}
   \label{fig:intensität}
 \end{figure}
+
+\subsection{Induzierte Emission}
+\label{sec:emission}
+Wie im vorherigen Abschnitt beschrieben kommt es zur Aregung des angeregten
+Niveaus durch Emission von Lichtquanten. Dabei entspricht die Energie der Quanten genau der 
+Energiedifferenz der beiden beteiligten Niveaus. Dies Emissionen können nicht nur
+spontan auftreten, sondern auch eingeleitet werden, die so genannte induzierte Emission.
+Dabei wird ein Lichtquant mit der Energie der Energiedifferenz der beiden beteiligten 
+Niveaus \eqref{eqn:energiedifferenz} eingestrahlt, es werden anschließend zwei Lichtquanten emittiert. Ob die spontane
+oder die induzierte Emission  überwiegt ist rein von der Energiedifferenz des Übergangs abhängig.
+Betrachtet man eine große Menge an Gasatomen im Temperaturgleichgewicht der Temperatur $T$, befinden 
+sich $N_2$ davon im angeregtem Zustand $W_2$ und $N_1$ im Grundzustand der Energie $W_1$.
+Mit der Übergangswahrscheinlichkeit für die spontane Emission $A_{21}$ ergibt sich die Anzahl an 
+spontanen Emissionen pro Zeiteinheit zu
+\begin{equation*}
+  n_\text{spon} = A_{21} N_2.
+\end{equation*}
+Auf Grund des Temperaturgleichgewichts, steht das Gas im Gleichgewicht mit seiner
+Temperaturstrahlung, was der Strahlung eines schwarzen Körpers
+\begin{equation*}
+  u(\nu) = \frac{8 \pi h \nu^3}{c^2 \cdot \left(\exp{\frac{\nu h}{k_\text{B} T}} -1 \right)}
+\end{equation*}
+entspricht. Dabei können die Lichtquanten der Frequenz $\nu$ welche genau der Energiedifferenz zweier Niveaus entspricht
+eine induzierte Emission auslösen. Dabei ergibt sich die Anzahl der induzierten Emission pro Zeiteinheit zu 
+\begin{equation*}
+  n_\text{ind} = B_{21} N_2 u(\nu),
+\end{equation*}
+mit dem Proportionalitätsfaktor der spontanen Emission $B_{21}$, auch als Einstein-Koeffizient bezeichnet.
+Es ist aber nicht nur die Abregung dieses Übergangs möglich sondern ebenso die Anregung, also der Übergang
+vom Grundzustand in den angereten Zustand. Dabei ergibt sich die Anzahl der von Grundzustand in den angeregten Zustand
+übergehenden Elektronen pro Zeiteinheit mit dem Einstein-Koeffizient für die Anregung zu
+\begin{equation*}
+  n_\text{an} = B_{12} N_1 u(\nu).
+\end{equation*}
+Da sich das System im thermischen Gleichgewicht befindet, darf sich die Besetzungszahl der Zustand in die ändern,
+es müssen sich also zu jedem Zeitpunkt die nach Formel \eqref{eqn:boltz} gegebenen Besetzungen ergeben. In Formeln ausgedrückt
+ergibt sich dann
+\begin{equation*}
+  n_\text{spon} + n_\text{ind} = n_\text{an}.
+\end{equation*}
+Für den Fall nicht entarteter Niveaus gilt $B_{21} = B_{12}$, damit ergibt sich
+\begin{equation}
+  \label{eqn:a}
+  A_{21} = \frac{8 \pi h B_{12} \nu^3}{c^3}.
+\end{equation}
+\begin{figure}
+  \centering
+  \includegraphics[height=5.5cm]{content/pictures/Resonanz.png}
+  \caption{Die Transparenz der Dampfzelle in Abhängigkeit der Zeit für den Fall der Resonaz. \cite{anleitung}.}
+  \label{fig:resonanz}
+\end{figure}
+Der Einstein-Koeffizient kann als Konstante betrachtet werden, da dieser nur von der Gestalt der 
+Wellenfunktionen der beteiligten Niveaus abhängt. Da die Energiedifferenz zweier benachbarten Zeeman-Niveaus viel kleiner als
+die der Übergänge zwischen Grundzustand und angeregtem Zustand deutlich kleiner ist, spielt die
+spontane Emission also hier keine große Rolle. Bei der Ausmessung der Zeeman-Niveaus tritt also hauptsächlich
+nur induzierte Emission durch die eingestrahlte Hochfrequenzstrahlung statt.
+Stellt man also die eingestrahlte Hochfrequenzstrahlung durch das frequenzvariable Hochfrequenzfeld (RF) so ein,
+dass genau solch eine Energiedifferenz getroffen wird kommt es zur Resonanz.
+Diese Resonanz tritt also auf, wenn die eingestrahlten Quanten genau der Energie der Zeemanaufspaltung nach Formel \eqref{eqn:zeeman} entsprechen.
+Also 
+\begin{equation*}
+  h \nu = g_\text{J} \mu_\text{B} B_\text{m} \Delta M_\text{J}
+\end{equation*}
+entspricht. Dabei bricht dann die Transparenz der Gaszelle wieder ein, da nun das $\ce{^2 S_{\sfrac{1}{2}}}$-Niveau mit $M_\text{J}=\sfrac{-1}{2}$ wieder 
+bevölkert wird. Es ergibt sich der in Abbildung \ref{fig:resonanz} skizzierte Verlauf.
+Das Absinken der Transparenz um den Wert $\vec{B}=\vec{0}$ hängt damit zusammen, dass hier keine Aufspaltung in Zeeman-Niveaus vorliegt
+und somit kein pumpen möglich ist. In der Realität muss man das Erdmagnetfeld beachten, denn das 
+künstlich erzeugte Magnetfeld hat zwar den Wert Null, allerdings erzeugt das Erdmagnetfeld eine Aufspaltung. Die Einstellung der Nullfeld-Linie
+stellt also eine gute Möglichkeit dar das Erdmagnetfeld zu bestimmen.
+
+\begin{figure}
+  \centering
+  \includegraphics[height=10cm]{content/pictures/Energieniveaus2.png}
+  \caption{Die Energieniveau-Aufspaltung unter Einfluss eines $\vec{B}$-Feldes und unter Beachtung des Kernspins \cite{anleitung}.}
+  \label{fig:aufspaltung2}
+\end{figure}
+Wird nur auch der Kernspin beachtet, so ergeben sich leichte Änderungen. Das verwendete Licht wird durch eine Spektrallampe erzeugt und 
+auf Grund des Doppler-Effekts ist die Energieverteilung sobreit, dass alle Übergänge der 
+Hyperfeinstruktur und der Zeeman-Aufspaltung (siehe hierzu Abbildung \ref{fig:aufspaltung2}) möglich sind und nicht nur der Übergang aus
+dem Grundzustand in den ersten angeregten Zustand. Da das Licht rechtszirkular-polarisiert ist
+muss sich allerdings $M_\text{F} = +1$ erfüllt werden. Aus eben diesem Grund kann der Zustand $F = 2, M_\text{J} = 2$ kleine
+eingestrahlten Lichtquanten absorbieren, da kein angeregter Zustand mit $M_\text{F} = 3$ existiert. Die Besetzung diese Zustands
+kann also während des Pumpens nur zunehmen, da er durch angeregte Zustand mit $M_\text{F} = 2, 1$ bevölkert wird aber nicht entleer.
+Nun kann aber wieder mit Hilfe von Hochfrequenzstrahlung eine induzierte Emission zwischen den Zeeman-Niveaus erzwungen werden.
+
+Wird das äußere Magnetfeld zu stark, so wird die wird ein Teil der inneren Kopplungen aufgehoben und 
+es müssen Terme höherer Ordnung beachtet werden. Der sogenannte quadratische Zeeman-Effekt, dabei sind nicht mehr alle 
+Zeeman-Übergänge gleich groß. Die Energiedifferenz der Zeeman-Aufspaltung ergibt sich nun nach
+\begin{equation}
+  \label{eqn:zeemanquadrat}
+  U_\text{Z} = g_\text{F} \mu_\text{B} |\vec{B}| + g_\text{F}^2 \mu_\text{B}^2 |\vec{B}|^2 \frac{1-2 M_\text{F}}{\Delta E_\text{Hy}}
+\end{equation}
+mit der Hyperfeinstrukturaufspaltungsenergie $\Delta E_\text{Hy}$ zwischen $F$ und $F+1$.
+
+\subsection{Transidente Effekte}
+\label{sec:transident}
+Bisher wurde immer der Fall betrachtet, dass das RF-Feld fest ist und das Magnetfeld verfahren wird. Nun wird
+das Magnetfeld festgehalten und die RF schnell ein- und ausgeschaltet. Dabei sind das Magnetfeld und die Frequenz
+so zu wählen, dass es zur Resonanz kommt. Diese Frequenz wird auch Larmor-Frequenz
+\begin{equation}
+  \label{eqn:larmor}
+  \omega_0 = \frac{g_\text{f} \mu_0 B_0}{h} = \gamma B_0
+\end{equation}
+genannt. Dadurch wir auch das gyromagnetische Verhältnis $\gamma$ definiert.
+Betrachtet man nun die Präzession des Gesmatdrehimpulses des Atoms $F$ um das statische Magnetfeld $B$, auf dem das RF-Magnetfeld senkrecht steht 
+ergibt sich 
+\begin{equation*}
+  |\vec{B_\text{eff}}| = \left|\frac{\vec{a}}{\gamma}\right|
+\end{equation*}
+mit 
+\begin{equation*}
+  |\vec{a}| = \frac{\omega_0 |\vec{B_\text{RF}}|}{B}.
+\end{equation*}
+Somit präzidiert $\vec{F}$ mit der Frequenz $\omega = \gamma B_\text{RF}$ im rotierendem Koordinatensystem um
+$\vec{B_\text{eff}} = \vec{B_\text{RF}}$. Damit folgt die Relation der Perioden zweier Isotope nach
+\begin{equation*}
+  \frac{T_1}{T_2} = \frac{\gamma_2}{\gamma_1}
+\end{equation*}
 
 \FloatBarrier
 % \begin{figure}
