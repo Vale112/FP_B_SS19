@@ -36,21 +36,6 @@ make_table(
         filename = 'build/tables/zuordnung_Eu.tex'
         )
 
-def lin(x,m,b):
-    return m*x+b
-
-#Erzeugt einen Plot der Messdaten
-x=np.linspace(1,8192,8192)
-plt.bar(x, data, label='Balken')     #Histogrambalken
-plt.plot(x, data, 'rx', label='Messdaten') #Messpunkte
-plt.plot(x, lin(x), 'y-', label='Fit') #Ausgleichsrechnung
-plt.xlim(0, 4000)
-plt.xlabel(r'Kanalnummer $i$')
-plt.ylabel(r'Zählrate $N$')
-plt.legend(loc='best')
-plt.yscale('log')
-plt.savefig('build/Eu_log_Kanal.pdf')
-plt.clf()
 
 #Energieeichung: Wird bei jeder Betrachtung eines Spektrums benötigt
 #Lineare Funktion für Ausgleichsgeraden
@@ -66,6 +51,21 @@ print('Achsenabschnitt b =', params[1], '±', errors[1])
 #Zusammenfassen der Werte und Ungenauigkeiten der Fit-Parameter
 m=ufloat(params[0],errors[0])
 b=ufloat(params[1],errors[1])
+
+#Erzeugt einen Plot der Messdaten
+x=np.linspace(1,8192,8192)
+plt.bar(x, data, label='Balken')     #Histogrambalken
+plt.plot(x, data, 'rx', label='Messdaten') #Messpunkte
+plt.plot(x, lin(x, *params), 'y-', label='Fit') #Ausgleichsrechnung
+plt.xlim(0, 4000)
+plt.xlabel(r'Kanalnummer $i$')
+plt.ylabel(r'Zählrate $N$')
+plt.legend(loc='best')
+plt.yscale('log')
+plt.savefig('build/Eu_log_Kanal.pdf')
+plt.clf()
+
+
 
 
 #--------------------Aufgabenteil b)
