@@ -16,15 +16,15 @@ Die Magnetfelder werden aus der Formel
 \begin{equation}
 B=\mu_0\frac{8 I N}{\sqrt{125}R}
 \end{equation}
-für Helmholtzspulen errechnet.
-Hierbei ist $I$ die abgelesene Stromstärke, $N$ die Anzahl der Windungen und $R$ der Radius der Spule.
+für Helmholtzspulenpaare errechnet.
+Hierbei ist $I$ die abgelesene Stromstärke, $N$ die Anzahl der Windungen und $R$ der Radius der Spulen.
 
 Zunächst wird die vertikale Komponente $B_{\text{vert}}$ des Erdmagnetfeldes kompensiert.
 Das dafür angelegte Magnetfeld beträgt
 \begin{equation}
-B_{\text{vert}}=\SI{3.448e-5}{\tesla}
+B_{\text{vert}}=\SI{3.448e-5}{\tesla},
 \end{equation}
-wofür der aufgenommene Peak minimal wird.
+wobei der aufgenommene Peak minimal wird.
 Ein typisches Signalbild ist in Abbildung \ref{fig:Signal} zu sehen.
  \begin{figure}
    \centering
@@ -34,12 +34,12 @@ Ein typisches Signalbild ist in Abbildung \ref{fig:Signal} zu sehen.
  \end{figure}
  \FloatBarrier
 
-Die Resonanzpositionen sind in Tabelle \ref{tab:RF} einzusehen und in Abbildung zusätzlich zu einem linearen Fit graphisch dargestellt.
+Die Resonanzpositionen sind in Tabelle \ref{tab:RF} einzusehen und in Abbildung \ref{fig:B} zusätzlich zu einem linearen Fit graphisch dargestellt.
 Die lineare Regression hat die Form
 \begin{equation*}
 B=a\nu_{\text{RF}}+b.
 \end{equation*}
-Ein Blick auf Formel \ref{eqn:B} verrät, dass 
+Ein Blick auf Formel \eqref{eqn:B} verrät, dass 
 \begin{equation*}
 a=\frac{h}{\mu_{\text{B}}g_{\text{F}}}
 \end{equation*}
@@ -48,31 +48,31 @@ und damit
 g_{\text{F}}=\frac{h}{\mu_{\text{B}}a}
 \end{equation*}
 gilt.
-Aus der ersten Resonanzstelle ergibt sich
+Für die ersten Resonanzstellen ergibt sich
 \begin{align*}
-a&=(142.1\pm0.9)\num{e-6}\frac{\si{\tesla}}{\si{\mega\hertz}}\\
-b&=(19.9\pm0.5)\num{e-6}\si{\tesla}\\
-\Rightarrow g_{\text{F,1}}&=0.502\pm0.003
+a&=\SI{142.1(9)e-6}{\tesla\per\mega\hertz}\\
+b&=\SI{19.9(5)e-6}{\tesla} \\
+\Rightarrow g_{\text{F,1}}&=\num(0.502(3)}
 \end{align*}
-und aus der zweiten
+und aus den zweiten
 \begin{align*}
-a&=(212\pm1)\num{e-6}\frac{\si{\tesla}}{\si{\mega\hertz}}\\
-b&=(20.2\pm0.6)\num{e-6}\si{\tesla}\\
-\Rightarrow g_{\text{F,2}}&=0.336\pm0.001.
+a&=\SI{212(1)e-6}{\tesla\per\mega\hertz}\\
+b&=\SI{20.2(6)e-6}{\tesla}\\
+\Rightarrow g_{\text{F,2}}&=\num(0.336(1)}.
 \end{align*}
 Somit ergibt sich das Verhältnis der beiden Faktoren zu
 \begin{equation*}
-\frac{g_{\text{F,1}}}{g_{\text{F,2}}}=1.49\pm0.01.
+\frac{g_{\text{F,1}}}{g_{\text{F,2}}}=\num{1.49(1)}.
 \end{equation*}
 Die horizontale Komponente des Erdmagnetfeldes lässt sich aus dem Fitparameter $b$ auslesen.
 Der Mittelwert der berechneten Werte beträgt
 \begin{equation*}
- B_{\text{hor}}=(2.01\pm0.04)e-5\si{\tesla}.
+ B_{\text{hor}}=\SI{2.01(4)e-5}{\tesla}.
 \end{equation*}
 \begin{table}[h]
   \centering
-  \begin{tabular}{S[table-format=1.1] S S}
-    {$\nu_\text{RF}$ / MHz} & {$B_1$ / µT} & {$B_2$ / µT} \\
+  \begin{tabular}{S[table-format=1.1] S[table-format=3.2] S[table-format=3.2]}
+    {$\nu_\text{RF}$\;/\;\si{\mega\hertz}} & {$B_1$\;/\;\si{\micro\tesla}} & {$B_2$\;/\;\si{\micro\tesla}} \\
     \midrule
     0.1 &  33.98&   41.28 \\
     0.2 &  48.93 &   63.35 \\
@@ -92,7 +92,7 @@ Der Mittelwert der berechneten Werte beträgt
    \centering
    \includegraphics[width=\textwidth]{build/B.pdf}
    \caption{Frequenz gegen B-Feldstärke der Resonanzstellen aufgetragen.}
-   \label{fig:B.pdf}
+   \label{fig:B}
  \end{figure}
  \FloatBarrier
  \subsection{Kernspins}
@@ -100,19 +100,19 @@ Der Mittelwert der berechneten Werte beträgt
  \begin{equation*}
  L = 0,\quad S = \frac{1}{2},\quad J = \frac{1}{2}
  \end{equation*}
- wodurch mit Hilfe von Gleichung \ref{eqn:gj} sich der Faktor
+ wodurch mit Hilfe von Gleichung \eqref{eqn:gj} sich der Faktor
  \begin{equation*}
- g_{\text{J}}=2.0023
+ g_{\text{J}}=\num{2.0023}
  \end{equation*}
  ergibt.
- Einsetzen von $F=I+J$ in \ref{eqn:lande} und umformen nach dem Kernspin $I$ ergibt
+ Einsetzen von $F=I+J$ in \eqref{eqn:lande} und umformen nach dem Kernspin $I$ ergibt
  \begin{equation}
  I=\frac{g_J-4g_F}{4g_F} + \sqrt{\left(\frac{g_J-4g_F}{4g_F}\right)^2-\frac{3}{4}\left(1-\frac{g_J}{g_F}\right)}.
  \end{equation}
  Mit den vorher berechneten Werten der Landéschen Faktoren ergibt sich
  \begin{align*}
- I_1 &= 1.49 \pm 0.01\\
- I_2 &= 2.57 \pm 0.01 
+ I_1 &= \num{1.49(1)}\\
+ I_2 &= \num{2.57(1)} 
  \end{align*}
  für die Kernspins.
  Der Vergleich mit der Literatur \cite{nudat2}
@@ -127,32 +127,32 @@ Aus Abbildung \ref{fig:Signal} wird das Verhältnis der Amplituden zueinander au
 Da die genaue Messung mit dem Oszilloskop nicht erfolgt ist, wird versucht die Amplitudentiefe per Gimp zu erfassen.
 Die Höhen der Amplituden entsprechen
 \begin{align*}
-h_1&=(92.0\pm0.9)\text{px}\\
-h_2&=(192\pm2)\text{px}
+h_1&=\SI{92.0(9)}{\px}\\
+h_2&=\SI{192(2)}{\px}
 \end{align*}
 mit einem Messfehler von \SI{1}{\percent}.
 Damit ergibt sich ein Verhältnis von
 \begin{equation}
-  \frac{h_1}{h_2}=0.479\pm0.006.
+  \frac{h_1}{h_2}=\num{0.479(6)}.
 \end{equation}
 Aus der Literatur \cite{nudat2} wird das Verhältnis zu 
 \begin{equation}
-  \frac{h_1}{h_2}=0.39
+  \frac{h_1}{h_2}=\num{0.39}
 \end{equation}
 bestimmt.
 \subsection{Quadratischer Zeeman-Effekt}
-Die Effekte des quadratischen Zeemaneffekts werden aus Gleichung \ref{eqn:zeemanquadrat} hergeleitet.
+Die Effekte des quadratischen Zeemaneffekts werden aus Gleichung \eqref{eqn:zeemanquadrat} hergeleitet.
 Die für die Rechnung benutzten Werte sind in Tabelle \ref{tab:qZ} angegeben.
 \begin{align*}
-{}^{87}\text{Rb}: U_{\text{Z}}&=(7.52\pm0.05)\num{e-28}\si{\joule}\\
-{}^{85}\text{Rb}: U_{\text{Z}}&=(7.27\pm0.04)\num{e-28}\si{\joule}
+{}^{87}\text{Rb}: U_{\text{Z}}&=\SI{7.52(5)e-28}{\joule}\\
+{}^{85}\text{Rb}: U_{\text{Z}}&=\SI{7.27(4)e-28}{\joule}
 \end{align*}
 \begin{table}
   \centering
   \caption{Werte zur Bestimmung des quadratischen Zeemaneffekts.}
   \label{tab:qZ}
   \begin{tabular}{c c S[table-format=1.2e2] S[table-format=1.4] @{${}\pm{}$} S[table-format=1.4] S[table-format=3.0]}
-    Isotop & $M_F$ & {$\symup{\Delta}E_\text{Hy}$ / J} & \multicolumn{2}{c}{$g_F$} & {$B$ / µT} \\
+    Isotop & $M_F$ & {$\symup{\Delta}E_\text{Hy}$\;/\;\si{\joule}} & \multicolumn{2}{c}{$g_F$} & {$B$\;/\;\si{\micro\tesla}} \\
     \midrule
     ${}^{85}$Rb & 0 & 2.01e-24 & 0.3361 & 0.0017 & 233.12 \\
     ${}^{87}$Rb & 0 & 4.53e-24 & 0.5026 & 0.0032 & 161.26 \\
