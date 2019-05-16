@@ -1,7 +1,8 @@
 \newpage
 \section{Auswertung}
-\subsection{Erdmagnetfeld und Landé-Faktoren}
 \label{sec:Auswertung}
+\subsection{Erdmagnetfeld und Landé-Faktoren}
+\label{sec:lande}
 % \subsection{Unterkapiel}
 % \label{sec:Unterkapitel}
 
@@ -37,32 +38,32 @@ Ein typisches Signalbild ist in Abbildung \ref{fig:Signal} zu sehen.
 Die Resonanzpositionen sind in Tabelle \ref{tab:RF} einzusehen und in Abbildung \ref{fig:B} zusätzlich zu einem linearen Fit graphisch dargestellt.
 Die lineare Regression hat die Form
 \begin{equation*}
-B=a\nu_{\text{RF}}+b.
+B=a\nu_\text{RF}+b.
 \end{equation*}
 Ein Blick auf Formel \eqref{eqn:B} verrät, dass 
 \begin{equation*}
-a=\frac{h}{\mu_{\text{B}}g_{\text{F}}}
+a=\frac{h}{\mu_\text{B}g_{\text{F}}}
 \end{equation*}
-und damit 
+und damit
 \begin{equation*}
-g_{\text{F}}=\frac{h}{\mu_{\text{B}}a}
+g_\text{F}=\frac{h}{\mu_\text{B}a}
 \end{equation*}
 gilt.
 Für die ersten Resonanzstellen ergibt sich
 \begin{align*}
 a&=\SI{142.1(9)e-6}{\tesla\per\mega\hertz}\\
 b&=\SI{19.9(5)e-6}{\tesla} \\
-\Rightarrow g_{\text{F,1}}&=\num(0.502(3)}
+\Rightarrow g_\text{F,1}&=\num{0.502(3)}
 \end{align*}
 und aus den zweiten
 \begin{align*}
 a&=\SI{212(1)e-6}{\tesla\per\mega\hertz}\\
 b&=\SI{20.2(6)e-6}{\tesla}\\
-\Rightarrow g_{\text{F,2}}&=\num(0.336(1)}.
+\Rightarrow g_\text{F,2}&=\num{0.336(1)}.
 \end{align*}
 Somit ergibt sich das Verhältnis der beiden Faktoren zu
 \begin{equation*}
-\frac{g_{\text{F,1}}}{g_{\text{F,2}}}=\num{1.49(1)}.
+\frac{g_\text{F,1}}{g_\text{F,2}}=\num{1.49(1)}.
 \end{equation*}
 Die horizontale Komponente des Erdmagnetfeldes lässt sich aus dem Fitparameter $b$ auslesen.
 Der Mittelwert der berechneten Werte beträgt
@@ -121,7 +122,7 @@ Der Mittelwert der berechneten Werte beträgt
 \\
 {}^{85}\text{Rb}:\quad I&=\frac{5}{2}
 \end{align*}
-verrät, dass die erste Resonanz zum Isotop $\ce{^{87}Rb}}$ gehört und die zweite zum Isotop $\ce{^{85}Rb}}$.
+verrät, dass die erste Resonanz zum Isotop $\ce{^{87}Rb}$ gehört und die zweite zum Isotop $\ce{^{85}Rb}$.
 \subsection{Isotopenverhältnis}
 Aus Abbildung \ref{fig:Signal} wird das Verhältnis der Amplituden zueinander ausgemessen.
 Da die genaue Messung mit dem Oszilloskop nicht erfolgt ist, wird versucht die Amplitudentiefe per Gimp \cite{gimp} zu erfassen.
@@ -151,8 +152,8 @@ Die für die Rechnung benutzten Werte sind in Tabelle \ref{tab:qZ} angegeben.
   \centering
   \caption{Werte zur Bestimmung des quadratischen Zeemaneffekts.}
   \label{tab:qZ}
-  \begin{tabular}{c c S[table-format=1.2e2] S[table-format=1.4] @{${}\pm{}$} S[table-format=1.4] c[table-format=3.0]}
-    Isotop & $M_F$ & {$\symup{\Delta}E_\text{Hy}$\;/\;\si{\joule}} & \multicolumn{2}{c}{$g_F$} & {$B$\;/\;\si{\micro\tesla}} \\
+  \begin{tabular}{c c S[table-format=1.2e2] S[table-format=1.4] @{${}\pm{}$} S[table-format=1.4] S[table-format=3.2]}
+    Isotop & $M_\text{F}$ & {$\symup{\Delta}E_\text{Hy}$\;/\;\si{\joule}} & \multicolumn{2}{c}{$g_\text{0}F$} & {$B$\;/\;\si{\micro\tesla}} \\
     \midrule
     ${}^{85}$Rb & 0 & 2.01e-24 & 0.3361 & 0.0017 & 233.12 \\
     ${}^{87}$Rb & 0 & 4.53e-24 & 0.5026 & 0.0032 & 161.26 \\
