@@ -1,10 +1,12 @@
 all:  build/main.pdf
 
+build/main.pdf: build/B.pdf
+
+build/B.pdf: calculation/data.txt calculation/auswertung.py
+	python calculation/auswertung.py
+
 build:
 	mkdir -p build
-
-build/main.pdf:
-
 
 build/main.pdf: FORCE | build
 	  TEXINPUTS="$(call translate,build:)" \

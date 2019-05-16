@@ -2,7 +2,7 @@
 \label{sec:Zielsetzung}
 Ziel des Versuchs ist es die Aufspaltung der Energieniveaus durch den Zeeman-Effektes,
 sowie der Hyperfeinstruktur auszumessen. Des Weiteren soll der Landé-Faktor des Gesamtdrehimpulses
-des Atoms bestimmt werden. Ebenso soll das transidente Verhalten näher untersucht werden.
+des Atoms bestimmt werden.
 
 \section{Theorie}
 \label{sec:Theorie}
@@ -29,7 +29,7 @@ Elektron auf dem äußersten Niveau befindet, was die Rechnungen deutlich verein
 
 \subsection{Magnetisches Moment der Atomhülle}
 \label{sec:atomhülle}
-Aus dem Bahndrehimpuls der Eektronen $\vec{L}$ und dem Spin der Elektronen $\vec{S}$ ergibt sich der
+Aus dem Bahndrehimpuls der Elektronen $\vec{L}$ und dem Spin der Elektronen $\vec{S}$ ergibt sich der
 Gesamtdrehimpulses $\vec{J} = \vec{L} + \vec{S}$. Zu jedem Drehimpuls gehört auch ein magnetisches Moment.
 Dabei ergibt sich das magnetische Moment für den Gesamtdrehimpuls 
 \begin{equation*}
@@ -54,9 +54,9 @@ und umstellen
 \end{equation}
 dabei wird $g_\text{S} = \num{2.00232}$ verwendet.
 Wird nun ein äußeres Magnetfeld $\vec{B}$ angelegt, so spalten sich die Energieniveaus in $2J+1$ Unterniveaus auf.
-Dies hat seine Ursache in der Wecheselwirkung des magnetischen Moments mit dem Magnetfeld und der Richtunsquantelung.
-Bekanntlich präzidiert $\vec{\mu_\text{J}}$ um die Feldrichtung des äußeren magnetfeldes und der senkrtechte Anteil mittelt 
-sich herraus. Für die $z$-Komponete ergibt sich mit der Richtungsquantelung die Wecheselwirkungsenergie zu
+Dies hat seine Ursache in der Wechselwirkung des magnetischen Moments mit dem Magnetfeld und der Richtunsquantelung.
+Bekanntlich präzidiert $\vec{\mu_\text{J}}$ um die Feldrichtung des äußeren magnetfeldes und der senkrechte Anteil mittelt 
+sich herraus. Für die $z$-Komponete ergibt sich mit der Richtungsquantelung die Wechselwirkungsenergie zu
 \begin{equation}
   \label{eqn:wwenergie}
   U_\text{magn} = M_\text{J} g_\text{J} \mu_\text{B} |\vec{B}|,
@@ -172,7 +172,7 @@ eine induzierte Emission auslösen. Dabei ergibt sich die Anzahl der induzierten
 \end{equation*}
 mit dem Proportionalitätsfaktor der spontanen Emission $B_{21}$, der auch als Einstein-Koeffizient bezeichnet wird.
 Es ist aber nicht nur die Abregung dieses Übergangs möglich sondern ebenso die Anregung, also der Übergang
-vom Grundzustand in den angereten Zustand. Dabei ergibt sich die Anzahl der von Grundzustand in den angeregten Zustand
+vom Grundzustand in den angeregten Zustand. Dabei ergibt sich die Anzahl der von Grundzustand in den angeregten Zustand
 übergehenden Elektronen pro Zeiteinheit mit dem Einstein-Koeffizient für die Anregung zu
 \begin{equation*}
   n_\text{an} = B_{12} N_1 u(\nu).
@@ -191,7 +191,7 @@ Für den Fall nicht entarteter Niveaus gilt $B_{21} = B_{12}$, damit ergibt sich
 \begin{figure}
   \centering
   \includegraphics[height=5.5cm]{content/pictures/Resonanz.png}
-  \caption{Die Transparenz der Dampfzelle in Abhängigkeit der Zeit für den Fall der Resonaz. \cite{anleitung}.}
+  \caption{Die Transparenz der Dampfzelle in Abhängigkeit der Zeit für den Fall der Resonanz. \cite{anleitung}.}
   \label{fig:resonanz}
 \end{figure}
 Der Einstein-Koeffizient kann als Konstante betrachtet werden, da dieser nur von der Gestalt der 
@@ -203,9 +203,10 @@ Stellt man also die eingestrahlte Hochfrequenzstrahlung durch das frequenzvariab
 dass genau solch eine Energiedifferenz getroffen wird, kommt es zur Resonanz.
 Diese Resonanz tritt also auf, wenn die eingestrahlten Quanten genau der Energie der Zeeman-Aufspaltung nach Formel \eqref{eqn:zeeman} entsprechen.
 Also 
-\begin{equation*}
+\begin{equation}
+\label{eqn:B}
   h \nu = g_\text{J} \mu_\text{B} B_\text{m} \Delta M_\text{J}
-\end{equation*}
+\end{equation}
 entspricht. Dabei bricht dann die Transparenz der Gaszelle wieder ein, da nun das $\ce{^2 S_{\sfrac{1}{2}}}$-Niveau mit $M_\text{J}=\sfrac{-1}{2}$ wieder 
 bevölkert wird. Es ergibt sich der in Abbildung \ref{fig:resonanz} skizzierte Verlauf.
 Das Absinken der Transparenz um den Wert $\vec{B}=\vec{0}$ hängt damit zusammen, dass hier keine Aufspaltung in Zeeman-Niveaus vorliegt
@@ -220,12 +221,12 @@ stellt also eine gute Möglichkeit dar das Erdmagnetfeld zu bestimmen.
   \label{fig:aufspaltung2}
 \end{figure}
 Wird nur auch der Kernspin beachtet, so ergeben sich leichte Änderungen. Das verwendete Licht wird durch eine Spektrallampe erzeugt und 
-auf Grund des Doppler-Effekts ist die Energieverteilung sobreit, dass alle Übergänge der 
+auf Grund des Doppler-Effekts ist die Energieverteilung so breit, dass alle Übergänge der 
 Hyperfeinstruktur und der Zeeman-Aufspaltung (siehe hierzu Abbildung \ref{fig:aufspaltung2}) möglich sind und nicht nur der Übergang aus
 dem Grundzustand in den ersten angeregten Zustand. Da das Licht rechtszirkular-polarisiert ist
 muss $M_\text{F} = +1$ erfüllt werden. Aus eben diesem Grund kann der Zustand $F = 2, M_\text{J} = 2$ keine
 eingestrahlten Lichtquanten absorbieren, da kein angeregter Zustand mit $M_\text{F} = 3$ existiert. Die Besetzung dieses Zustands
-kann also während des Pumpens nur zunehmen, da er durch die angeregten Zustände mit $M_\text{F} = 2, 1$ bevölkert wird, aber nicht entleer.
+kann also während des Pumpens nur zunehmen, da er durch die angeregten Zustände mit $M_\text{F} = 2, 1$ bevölkert wird, aber nicht entleert.
 Nun kann aber wieder mit Hilfe von Hochfrequenzstrahlung eine induzierte Emission zwischen den Zeeman-Niveaus erzwungen werden.
 
 Wird das äußere Magnetfeld zu stark, so wird ein Teil der inneren Kopplungen aufgehoben und 
