@@ -11,7 +11,7 @@ mit den relevanten Peaks dargestellt.
 \label{sec:Energiekalibration}
 Zu Beginn des Versuchs wird zunächst die Probe ${}^{152}$Eu untersucht. Die Messwerte
 sind in Abbildung \ref{fig:Eu_log_Kanal} logarithmisch dargestellt.
-Die für die Kalibrierung verwendeten Peaks sind mit roten Kreuzen makiert. Die Messwerte
+Die für die Kalibrierung verwendeten Peaks sind mit roten Kreuzen markiert. Die Messwerte
 werden mit den theoretischen Werten \cite{referenz1} verglichen, sodass mit Hilfe einer linearen Ausgleichsrechnung
 eine Zuordnung von Kanalnummer $i$ und Energie $E$ möglich ist. Diese Daten sind
 gemeinsam mit den Emissionswahrscheinlichkeit in Tabelle \ref{tab:zuordnung_eu}
@@ -19,20 +19,20 @@ gelistet, dabei werden Energien mit einer Emissionswahrscheinlichkeit $W$
 kleiner als \SI{2}{\percent} vernachlässigt.
 Da die Peaks einen Gauß-Glocken förmigen Verlauf haben, wird zunächst ein Gauß-Fit der Form
 \begin{equation}
-  N(i) = h \cdot \exp{\left(-\frac{\left(i - \mu\right)^2}{\sigma^2}\right)} + a
+  N(i) = h \cdot \exp{\left(-\frac{\left(i - \mu\right)^2}{2\cdot \sigma^2}\right)}
 \end{equation}
 über die identifizierten Peaks durchgeführt. Die Ergebnisse dieses Fits sind in Tabelle \ref{tab:gauss_parameter}
-dargestellt, dabei bezeichnet $\mu$ den Mittelwert, $h$ die Höhe des Peaks, $\sigma$ die Standardabweichung und 
-$a$ ein Parameter, welcher den Untergrund darstellt. Für den Fit wird der detektierte Kanal und die auf jeder Seite 
-\num{40} nebenliegenden Kanäle verwendet. Anschließend wird mit der gefitteten Kanalnummer die Ausgleichsrechnung
+dargestellt, dabei bezeichnet $\mu$ den Mittelwert, $h$ die Höhe des Peaks und $\sigma$ die Standardabweichung.
+Für den Fit wird der detektierte Kanal und die auf jeder Seite 
+\num{15} nebenliegenden Kanäle verwendet. Anschließend wird mit der gefitteten Kanalnummer die Ausgleichsrechnung
 durchgeführt. Für die Ausgleichsrechnung wird eine Gerade der Form
 \begin{equation}
   E = m \cdot i + b
 \end{equation}
 verwendet, wobei $m$ die Steigung und $b$ der y-Achsenabschnitt ist. Dabei lassen sich die Parameter zu
 \begin{gather*}
-  m = \SI{0.40302(2)}{\kilo\electronvolt\per\kanal} \\
-  b = \SI{-2.63(4)}{\kilo\electronvolt}
+  m = \SI{0.40305(5)}{\kilo\electronvolt\per\kanal} \\
+  b = \SI{-2.73(10)}{\kilo\electronvolt}
 \end{gather*}
 bestimmen.
 In der Abbildung \ref{fig:kalibration} ist das Ergebnis der Ausgleichsrechnung graphisch
@@ -43,14 +43,14 @@ y-Achse die errechnete Energie $E_\text{i}$.
 \begin{figure}[htb]
  \centering
  \includegraphics[width=\textwidth]{Eu_log_Kanal.pdf}
- \caption{Die Zählrate $N$ in Abhängigkeit der Kanalnummer $i$ für ${}^{152}$Eu mit logarithmierter y-Skala.}
+ \caption{Die Zählergebnisse $N$ in Abhängigkeit der Kanalnummer $i$ für ${}^{152}$Eu mit logarithmierter y-Skala.}
  \label{fig:Eu_log_Kanal}
 \end{figure}
 
 \begin{figure}[htb]
  \centering
  \includegraphics[width=\textwidth]{build/kalibration.pdf}
- \caption{Die ermittelte Energie anhand der Daten in Abhängigkeit der Kanalnummer zur Kalibartion des Ge-Detektors.}
+ \caption{Die ermittelte Energie anhand der Daten in Abhängigkeit der gefitteten Kanalnummer zur Kalibration des Germanium-Detektors.}
  \label{fig:kalibration}
 \end{figure}
 \input{data/2_0/zuordnung_Eu.tex}
@@ -59,14 +59,14 @@ y-Achse die errechnete Energie $E_\text{i}$.
 
 \subsection{Vollenergienachweiseffizienz}
 \label{sec:Vollenergienachweiseffizenz}
-Die Aktivität der Probe am $15.04.2019$, dem Versuchstag lässt sich mit
+Die Aktivität der Probe am $15.04.2019$, dem Versuchstag, lässt sich mit
 \begin{equation}
   A = A_0 \cdot \exp{\left(-\lambda \cdot t\right)}
 \end{equation}
 berechnen, hierbei ist $A_0$ die Aktivität am Produktionstag,
 $\lambda = \SI[per-mode = reciprocal-positive-first]{1.6244(19)e-9}{\per\second}$ \cite{referenz1} 
 die Zerfallskonstante und $t$ die Zeit. Es ist aus \cite{V18} bekannt, dass die Probe am Produktionstag, dem
-$01.10.2000$ eine Aktivität von $\SI{4130(60)}{\becquerel}$ besaß.
+$01.10.2000$, eine Aktivität von $\SI{4130(60)}{\becquerel}$ besaß.
 Die Aktivität am Versuchstag beläuft sich damit auf
 \begin{equation*}
   \SI{1597(23)}{\becquerel}.
@@ -90,16 +90,14 @@ zu berücksichtigen. Die sich ergeben Werte sind in Tabelle \ref{tab:det_eff} ge
 Anhand der Werte aus Tabelle \ref{tab:det_eff} lässt sich ein Fit der Form
 \begin{equation}
   \label{eqn:Potenz}
-  Q(E) = a \cdot \left(\frac{E-b}{\SI{1}{\kilo\electronvolt}}\right)^c + d
+  Q(E) = a \cdot \left(\frac{E}{\SI{1}{\kilo\electronvolt}}\right)^c
 \end{equation}
 durchführen. Dabei werden nur Peaks der Energie $E_\text{i} > \SI{150}{\kilo\electronvolt}$ berücksichtigt,
 da nur hier gegebenen ist, dass sie die Aluminiumhaube und die äußere Schicht des Detektors nahezu
 ungehindert durchdringen. Die Parameter ergeben sich dabei zu
 \begin{align*}
-  a &= \num{-0.01(11)} \\
-  b &= \SI{121.81(5)}{\kilo\electronvolt} \\
-  c &= \num{0.4(8)} \\
-  d &= \num{0.4(5)}.
+  a &= \num{4(6)e3} \\
+  c &= \num{-1.87(27)}.
 \end{align*}
 Eine graphische Darstellung dieser Ausgleichsrechnung ist in Abbildung \ref{fig:effizenz} zu finden.
 
@@ -120,9 +118,9 @@ von $t_\text{mess} = \SI{3365}{\second}$ aufgenommen. Wie in Abbildung \ref{fig:
 ein monochromatisches Spektrum. Im Folgendem wird dieser und die beiden anderen Charakteristika, der Rückstreupeak
 sowie die Compton-Kante näher untersucht. Die detektierten Peaks sind in Tabelle \ref{tab:zuordnung_Cs} zugeordnet. 
 Die theoretischen Emissionsenergie des Cäsium liegt bei \SI{661.657(3)}{\kilo\electronvolt} \cite{referenz1}. Mit Hilfe
-ihrer, kann nach Formel \ref{eqn:Com_Kante} der theoretische Wert der Compton-Kante auf $\SI{477.27}{\kilo\electronvolt}$
+ihrer, kann nach Formel \ref{eqn:Com_Kante} der theoretische Wert der Compton-Kante auf $\SI{477.3340(28)}{\kilo\electronvolt}$
 bestimmt werden. Des Weiteren lässt sich nach Formel \ref{eqn:rueck} auch der theoretische Wert für den Rückstreupeak
-auf \SI{184.32}{\kilo\electronvolt} ermitteln. Der Wert von $m_\text{e} c^2 = \SI{510.9989461(31)}{\kilo\electronvolt}$ wird 
+auf \SI{184.32298(23)}{\kilo\electronvolt} ermitteln. Der Wert von $m_\text{e} c^2 = \SI{510.9989461(31)}{\kilo\electronvolt}$ wird 
 der Referenz \cite{codata} entnommen. 
 \begin{figure}[htb]
  \centering
@@ -136,24 +134,23 @@ Rückstreupeak. Für das Ablesen wir eine Genauigkeit von \num{3} Kanälen angen
 Für den Vollenergiepeak wir erneut wie in Abschnitt \ref{sec:Energiekalibration} ein Gauß-Fit durchgeführt.
 Die Parameter ergeben sich zu
 \begin{align*}
-  \mu &= \SI{661.562(7)}{\kilo\electronvolt} \\
-  \sigma &= \SI{1.259(10)}{\kilo\electronvolt} \\
-  h &= \num{2167(15)} \\
-  a &= \num{4(3)}.
+  \mu &= \SI{661.528(13)}{\kilo\electronvolt} \\
+  \sigma &= \SI{1.584(23)}{\kilo\electronvolt} \\
+  h &= \num{2200(28)}.
 \end{align*}
 
 Eine weiter wichtige Größe des Detektors ist Halbwertsbreite $\Delta E_{\sfrac{1}{2}}$, welche ein Maß für das Auflösungsvermögen ist
-und den Ge-Detektor auszeichnet. Diese, sowie die Zehntelbreite $\Delta E_{\sfrac{1}{10}}$ lassen sich aus Abbildung \ref{fig:Halb} ablesen, 
+und den Ge-Detektor auszeichnet. Diese, sowie die Zehntelwertsbreite $\Delta E_{\sfrac{1}{10}}$ lassen sich aus Abbildung \ref{fig:Halb} ablesen, 
 dabei ergibt sich 
 \begin{gather*}
-  \Delta E_{\sfrac{1}{2}} = \SI{2.20(10)}{\kilo\electronvolt} \\
-  \Delta E_{\sfrac{1}{10}} = \SI{3.90(10)}{\kilo\electronvolt}.
+  \Delta E_{\sfrac{1}{2}} = \SI{2.91(10)}{\kilo\electronvolt} \\
+  \Delta E_{\sfrac{1}{10}} = \SI{5.17(10)}{\kilo\electronvolt}.
 \end{gather*}
 Bei den angegebenen Fehlern handelt es sich um Ablesefehler aus der Abbildung \ref{fig:Halb}.
 Der Quotient dieser beiden Größen ist ein Maß für das Energieauflösungsvermögen des Detektors. Der hier ermittelte 
 Quotient der gemessenen Größen beläuft sich auf
 \begin{equation*}
-  \frac{\Delta E_{\sfrac{1}{10}}}{\Delta E_{\sfrac{1}{2}}} = \SI{1.77(9)}{\kilo\electronvolt}.
+  \frac{\Delta E_{\sfrac{1}{10}}}{\Delta E_{\sfrac{1}{2}}} = \num{1.78(7)}.
 \end{equation*}
 
 Die theoretischen Werte ergeben sich aus der Standardabweichung $\sigma$ des Fits. Da aber nur der Quotient interessiert, 
@@ -165,7 +162,7 @@ als theoretischer Wert.
 \begin{figure}[htb]
  \centering
  \includegraphics[width=\textwidth]{build/vollpeak.pdf}
- \caption{Der Vollenergiepeak des Cäsium zur Bestimmung der Halbwerts-/Zehntelsbreite.}
+ \caption{Der Vollenergiepeak des Cäsium zur Bestimmung der Halbwerts-/Zehntelwertsbreite.}
  \label{fig:Halb}
 \end{figure}
 
@@ -185,26 +182,28 @@ Die Extinktionskoeffizienten lassen sich auf
 bestimmen, die Länge des Detektors wurde aus Abbildung \ref{fig:Detektor} entnommen und beträgt \SI{3.9}{\centi\meter}.
 Das Verhältnis der Absorptionwahrscheinlichkeiten beträgt $\num{28(12)}$.
 Der Inhalt des Vollenergiepeaks lässt sich bestimmen, in dem analog zu Abschnitt \ref{sec:Vollenergienachweiseffizenz} 
-vorgegangen wird. Dabei werden die auf beiden Seiten nächstliegenden \num{50} Kanäle verwendet.
-Für das Compton-Kontiuums wird die numerischen Integration im Bereich von
-\SIrange{18.70}{467.27}{\kilo\electronvolt} verwendet. Der Inhalt beträgt für den
-Vollenergiepeak \SI{3.89(7)e4}{\kilo\electronvolt} und für das Compton-Kontiuum \SI{1.75(14)e5}{\kilo\electronvolt}. 
-Berechnung des Verhältnis der Inhalte ergibt einen Wert von $\num{106(8)}$.
+vorgegangen wird. Für das Compton~-~Kontiuum wird die numerische Integration im Bereich von
+\SIrange{18.70}{467.27}{\kilo\electronvolt} verwendet. Dazu wird zunächst ein Fit der 
+Form \eqref{eq:wirk} im Bereich von \SIrange{239.11}{467.24}{\kilo\electronvolt} durchgeführt.
+Der freie Parameter ergibt sich zu \SI{25.43(22)}. Der Inhalt beträgt für den
+Vollenergiepeak \num{8.74(17)e3} und für das Compton-Kontiuum \num{399(3)e2}. 
+Berechnung des Verhältnisses der Inhalte ergibt einen Wert von \num{4.57(10)}.
 \FloatBarrier
 
 \subsection{Aktivitätsbestimmung}
 \label{sec:Aktiv}
 In der Abbildung \ref{fig:mystery1} ist das Spektrum eines Strahlers dargestellt. Es soll herausgefunden werden,
-ob es sich um ${}^{133}$Ba oder ${}^{125}$Sb handelt, dafür wird die Aktivität der Peaks bestimmt. Dazu werden
+ob es sich um ${}^{133}$Ba oder ${}^{125}$Sb handelt. Dazu werden
 die Peaks dem passendem Spektrum mit ihrer Emissionswahrscheinlichkeit zugeordnet, was in Tabelle \ref{tab:zuordnung_Ba}
 dargestellt ist. Der Vergleich mit der Literatur \cite{referenz1} zeigt, dass es sich um Barium handelt. 
-Die Emissionswahrscheinlichkeiten werden der Referenz \cite{referenz1} entnommen um damit die Aktivität zu bestimmen. 
+Die Emissionswahrscheinlichkeiten werden der Referenz \cite{referenz1} entnommen, um damit die Aktivität zu bestimmen. 
 Des Weiteren wird der Inhalt der Peaks bestimmt und mit Hilfe der Formel 
 \ref{eqn:eff} die Aktivität errechnet. Mit der Messzeit von \SI{3205}{\second} ergeben sich die Werte in Tabelle 
 \ref{tab:aktivitaet_ba}. Die verwendeten Parameter des durchgeführten Gauß-Fits ergeben sich zu den in Tabelle \ref{tab:Ba} 
-gegebenen Werten. Die gemittelte Aktivität ergibt sich zu
+gegebenen Werten, wobei jeweils \num{20} Kanäle zu beiden Seiten berücksichtigt werden.
+Die gemittelte Aktivität ergibt sich zu
 \begin{equation*}
-  A = \SI{1.32(17)e3}{\becquerel}.
+  A = \SI{185(7)e1}{\becquerel}.
 \end{equation*}
 \input{data/2_0/zuordnung_Ba.tex} 
 \input{data/2_0/aktivitaet_ba.tex}
@@ -221,21 +220,23 @@ gegebenen Werten. Die gemittelte Aktivität ergibt sich zu
 \subsection{Unbekanntes Salz}
 \label{sec:Salz}
 Es soll nun das Spektrum eines unbekannten Strahlers untersucht werden. Hierzu wird das in Abbildung \ref{fig:Salz}
-dargestellte Spektrum, welches über eine Zeit von \SI{4510}{\second} gemessen wurde näher untersucht.
+dargestellte Spektrum, welches über eine Zeit von \SI{4510}{\second} gemessen wurde, näher untersucht.
 Als erstes werden die auftretenden Peaks identifiziert, diese sind in Tabelle \ref{tab:Salz} dargestellt.
 Mit Hilfe von \cite{referenz1} werden diese identifiziert und ihrem Emissionselement zugeordnet. Die Zuordnung ist
 ebenfalls in der Tabelle \ref{tab:Salz} zu erkennen.
 In Tabelle \ref{tab:aktivitaet_e} lassen sich die ermittelten Werte zur Bestimmung der Aktivität einsehen.
 Die mittleren Aktivitäten der Nuklide lassen sich auf
 \begin{align*}
-  A_\text{Ra} & = \SI{6.3(2)e3}{\becquerel} \\
-  A_\text{Pd} & = \SI{5.6(10)e3}{\becquerel} \\
-  A_\text{Bi} & = \SI{3.74(17)e3}{\becquerel}
+  A_\text{Ra} & = \SI{2.0(4)e3}{\becquerel} \\
+  A_\text{Pb} & = \SI{3.21(14)e3}{\becquerel} \\
+  A_\text{Bi} & = \SI{2.64(12)e3}{\becquerel}
 \end{align*}
-bestimmen. Dabei werden nur die Werte im Bereich der \SIrange{150}{1700}{\kilo\electronvolt} verwendet, 
-da nur in diesem Bereich die Effizienz nach Abschnitt \ref{sec:Vollenergienachweiseffizenz} ihre Gültigkeit besitzt.
+bestimmen. Dabei werden nur die Werte ab \SI{150}{\kilo\electronvolt},
+da nur in diesem Bereich die Effizienz nach Abschnitt \ref{sec:Vollenergienachweiseffizenz}
+ihre Gültigkeit besitzt und bis \SI{1700}{\kilo\electronvolt}, da nur bis zu diesem Bereich 
+eine Ausgleichsrechnung erfolgt ist, verwendet.
 Auf Grund der auftretenden Elemente lässt sich auf die Zerfallsreihe
-von ${}^{238}$Ur schließen, was mit \cite{referenz1} bestätigt wird.
+von ${}^{238}$U schließen, was mit \cite{referenz1} bestätigt wird.
 \input{data/2_0/Salz_Peaks.tex}
 \input{data/2_0/aktivitaet_e.tex}
 \begin{figure}[htb]

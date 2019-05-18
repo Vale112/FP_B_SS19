@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import uncertainties.unumpy as unp
 from uncertainties import ufloat
+import scipy.integrate as integrate
 import sympy
 from uncertainties import correlated_values, correlation_matrix
 from scipy.integrate import quad
@@ -49,10 +50,10 @@ peaks_n = [106, 218, 919]
 x=np.linspace(1,8192,8192)
 plt.bar(x, data, label='Messdaten')
 plt.plot(peaks_v, data[peaks_v], 'rx', label='Verwendete Peaks')
-plt.plot(peaks_n, data[peaks_n], 'yx', label='Nicht verwendete Peaks')
+plt.plot(peaks_n, data[peaks_n], 'yx', label='Nicht zuordenbare Peaks')
 plt.xlim(0, 4000)
 plt.xlabel(r'Kanalnummer $i$')
-plt.ylabel(r'Zählrate $N$')
+plt.ylabel(r'Zählergebnis $N$')
 plt.legend(loc='best')
 plt.yscale('log')
 plt.savefig('build/Eu_log_Kanal.pdf')
@@ -66,33 +67,30 @@ def lin(x,m,b):
 #------------Berechnen der Detektoreffizenz & Kalibriereung
 print('\n--------------Kalibration---------------')
 #Gauß-Funktion für Peakhoehenbestimmung
-def gauss(x,sigma,h,a,mu):
- return a+h*np.exp(-((x-mu)/(sigma))**2)
+def gauss(x,sigma,h,mu):
+ return h*np.exp(-((x-mu)/2*(sigma))**2)
 #Verwende Gauß-Fit in jedem Bin des Spektrums um Peakhöhe zu erhalten
 def gaussian_fit_peaks(test_ind):
  peak_inhalt = []
  index_fit = []
  hoehe = []
- unter = []
  sigma = []
  for i in test_ind:
-     a=i-40
-     b=i+40
-     params_gauss,covariance_gauss=curve_fit(gauss,np.arange(a,b+1),data[a:b+1],p0=[1,data[i],0,i-1])
+     a=i-15
+     b=i+15
+     params_gauss,covariance_gauss=curve_fit(gauss,np.arange(a,b+1),data[a:b+1],p0=[1,data[i],i-1])
      errors_gauss = np.sqrt(np.diag(covariance_gauss))
      sigma_fit=ufloat(params_gauss[0],errors_gauss[0])
      h_fit=ufloat(params_gauss[1],errors_gauss[1])
-     a_fit=ufloat(params_gauss[2],errors_gauss[2])
-     mu_fit=ufloat(params_gauss[3],errors_gauss[3])
+     mu_fit=ufloat(params_gauss[2],errors_gauss[2])
      #print(h_fit*sigma_fit*np.sqrt(2*np.pi)
      index_fit.append(mu_fit)
      hoehe.append(h_fit)
-     unter.append(a_fit)
      sigma.append(sigma_fit)
      peak_inhalt.append(h_fit*sigma_fit*np.sqrt(2*np.pi))
- return index_fit, peak_inhalt, hoehe, unter, sigma
+ return index_fit, peak_inhalt, hoehe, sigma
 
-index_f, peakinhalt, hoehe, unter, sigma = gaussian_fit_peaks(peaks_ind.astype('int'))
+index_f, peakinhalt, hoehe, sigma = gaussian_fit_peaks(peaks_ind.astype('int'))
 
 # Linerare Fit mit gefitteten Kanalnummern zu Energie
 params, covariance= curve_fit(lin,noms(index_f),noms(E))
@@ -118,7 +116,7 @@ x=np.linspace(1,8192,8192)
 plt.bar(lin(x,*params), data, label='Messdaten')
 plt.xlim(0, 1600)
 plt.xlabel(r'Energie $E$')
-plt.ylabel(r'Zählrate $N$')
+plt.ylabel(r'Zählergebnis $N$')
 plt.legend(loc='best')
 plt.yscale('log')
 plt.savefig('build/Eu_log_Energie.pdf')
@@ -127,12 +125,12 @@ plt.clf()
 #Plotten der Eichung/Kalibrierung am Eu-Spektrum
 x=np.linspace(250,3700,3450)
 plt.plot(x, lin(x,*params),'r-',label='Fit')
-plt.errorbar(peaks_ind, noms(E), yerr=sdevs(E), fillstyle= None, fmt=' x', label='Daten')
+plt.errorbar(noms(index_f), noms(E), yerr=sdevs(E), xerr=sdevs(index_f), fillstyle= None, fmt=' x', label='Daten')
 plt.ylim(0,1500)
 plt.xlim(0, 4000)
-plt.xlabel(r'Kanalnummer $i$')
+plt.xlabel(r'Kanalnummer $\mu_\mathrm{i}$')
 plt.grid()
-plt.ylabel(r'E$_\gamma\:/\: \mathrm{keV}$')
+plt.ylabel(r'$E_\gamma\:/\: \mathrm{keV}$')
 plt.legend()
 plt.savefig('build/kalibration.pdf')
 plt.clf()
@@ -165,55 +163,52 @@ for i in range(len(W)):
 
 #Erstellen einer Tabelle der Fit-Parameter des Gauß-Fits
 make_table(
- header= ['$i$', '$\mu_\\text{i}$', '$a_\\text{i}$', '$h_\\text{i}$', '$\sigma_\\text{i}$'],
- data=[peaks_v, index_f, unter, hoehe, sigma],
+ header= ['$i$', '$\mu_\\text{i}$', '$h_\\text{i}$', '$\sigma_\\text{i}$'],
+ data=[peaks_v, index_f, hoehe, sigma],
  caption='Parameter des durchgeführten Gauss-Fits pro Kanal.',
  label='tab:gauss_parameter',
- places=[4.0, (4.3, 1.3), (2.1, 1.1), (4.0, 2.0), (1.3, 1.3)],
+ places=[4.0, (4.3, 1.3), (4.0, 2.0), (1.3, 1.3)],
  filename='build/tables/Gauss-Fit-Parameter.tex'
  )
 
 #Erstellen einer Tabelle der Detektoreffizenz und den dazu verwendeten Werten
 make_table(
- header=['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$Z_\\text{i}$ / \kilo\electronvolt' , '$Q_\\text{i}$ / \\becquerel '],
+ header=['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$Z_\\text{i}$' , '$Q_\\text{i}$'],
  data=[E_det, W, Z, Q],
- caption = 'Peakinhalt, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
+ caption = 'Peakinhalt, Energie und Detektoreffizienz als Ergebnis des Gaußfits.',
  label = 'tab:det_eff',
- places = [(4.2, 1.2), (2.3, 1.3), (5.0, 3.0), (1.3, 1.3)],
+ places = [(4.2, 1.2), (2.3, 1.3), (5.0, 3.0), (1.5, 1.5)],
  filename = 'build/tables/det_eff.tex'
  )
 
 #Betrachte Exponential-Fit für Beziehnung zwischen Effizienz und Energie
 # Lasse erste Werte weg, da Energie < 150keV
-# Q=Q[1:]
+Q=Q[1:]
 # E=E[1:]
-# E_det=E_det[1:]
+E_det=E_det[1:]
 
-#Potenzfunktion für Fit
-def potenz(x,a,b,c,e):
- return a*(x-b)**e+c
+#Potenzfunktion für Fit, dass c wird ab und zu auch e genannt
+def potenz(x,a,c):
+ return a*(x)**c
 
 #Durchführung des Exponential-Fits und Ausgabe der Parameter
 #print('Daten für den Exponentialfit:')
-params2, covariance2= curve_fit(potenz,noms(E_det),noms(Q),sigma=sdevs(Q), p0=[0.01, 120, 0.5, 0.5])
+params2, covariance2= curve_fit(potenz,noms(E_det),noms(Q),sigma=sdevs(Q), p0=[0.01, -0.5])
 errors2 = np.sqrt(np.diag(covariance2))
 #Zusammenfassen der Fit-Parameter
 a=ufloat(params2[0],errors2[0])
-b=ufloat(params2[1],errors2[1])
-c=ufloat(params2[2],errors2[2])
-e=ufloat(params2[3],errors2[3])
+e=ufloat(params2[1],errors2[1])
+
 
 #Ausgabe der Fit-Parameter
 print('Kalibrationswerte Potenzfunktion:')
 print(f'     Steigung a = {a}')
-print(f'     Verschiebung_x b = {b}')
-print(f'     Verschiebung_y c = {c}')
-print(f'     Exponent e = {e}')
+print(f'     Exponent c = {e}')
 
 #Plotten der Effizenz gegen die Energie mit Exponential-Fit-Funktion
-x=np.linspace(10,1600,10000)
+x=np.linspace(200,1500,10000)
 plt.plot(x, potenz(x,*params2),'r-',label='Fit')
-plt.errorbar(noms(E_det),noms(Q), yerr=sdevs(Q), xerr=sdevs(E_det),fmt=' x', ecolor='b',label='Daten')
+plt.errorbar(noms(E_det),noms(Q), yerr=sdevs(Q), xerr=sdevs(E_det),fmt='x', ecolor='b',label='Daten')
 plt.legend()
 plt.xlabel(r'Energie $E \:/\: \mathrm{keV}$')
 plt.grid()
@@ -233,71 +228,54 @@ indexes_2 = peaks_2[0]
 peak_heights_2 = peaks_2[1]
 energie_2 = lin(indexes_2, *params_test)
 
-# print('Indices der peaks: ', indexes_2)
-#Identifiziere die charakteristischen Energie-Peaks
-e_photo=energie_2[-1]
-i_photo=indexes_2[-1]
-print('Photo: ', e_photo, i_photo)
-e_compton=energie_2[-2]
-i_compton=indexes_2[-2]
-print('Compton: ', e_compton, i_compton)
-e_rueck=energie_2[14]
-i_rueck=indexes_2[14]
-print('Rueckstreu: ', e_rueck, i_rueck)
-
-
-
-#print(len(energie_2), len(indexes_2))
-#print(e_rueck, e_compton, e_photo)
-#print(indexes_2[-4], indexes_2[-2], indexes_2[-1])
-e_photo_t = ufloat(661.657, 3) #theoretischer Photoenergiepeak
-m_e = ufloat(510.9989461, 0.0000031)    #Elektronenmasse in keV
-#Vergleiche zwischen gemessenen und theoretischen Werten der Peaks
-e_compton_theo = 2*e_photo_t**2/(m_e*(1+2*e_photo_t/m_e))
-vgl_compton = (e_compton-e_compton_theo)/e_compton_theo
-# vgl_compton = 1-e_compton/e_compton_theo
-print('E_compton,theo', e_compton_theo, '\nE_compton,gemessen', e_compton, '\n    rel. Abweichung in %', vgl_compton, '%')
-e_rueck_theo = e_photo_t/(1+2*e_photo_t/m_e)
-vgl_rueck = (e_rueck-e_rueck_theo)/e_rueck_theo
-# vgl_rueck = 1-e_rueck/e_rueck_theo
-print('E_rueck,theo', e_rueck_theo, '\nE_compton,gemessen', e_rueck, '\n     rel. Abweichung', vgl_rueck, '%')
-
-#Plotten des vom Detektor aufgenommenen Cs-Spektrums + logarithmische y_Achse
-plt.bar(lin(x_plot, *params), data_b, label='Messwerte')
-plt.bar(lin(indexes_2[14], *params), noms(energie_2[-2]), label='Rückstreupeak')
-plt.bar(lin(indexes_2[-2], *params), noms(energie_2[-2]), label='Comptonkante')
-plt.bar(lin(indexes_2[-1], *params), noms(energie_2[-1])+2100, label='Vollenergiepeak')
-plt.xlim(0, 800)
-plt.xlabel(r'Energie $E \:/\: \mathrm{keV}$')
-plt.ylabel(r'Zählrate $N$')
-plt.legend(loc='best')
-plt.yscale('log')
-plt.savefig('build/Cs_log.pdf')
-plt.clf()
-
 #Führe wieder Gausß-Fit für den Vollenergiepeak durch, um Peakhöhe bestimmen zu können
-intervall = 50 #Breite des Intervalls auf dem Gauß-Fit für Vollenergiepeak durchgeführt wird in Kanälen
+intervall = 15 #Breite des Intervalls auf dem Gauß-Fit für Vollenergiepeak durchgeführt wird in Kanälen
 a=indexes_2[-1].astype('int')- intervall
 b=indexes_2[-1].astype('int')+ intervall
-params_gauss_b,covariance_gauss_b=curve_fit(gauss,lin(np.arange(a,b+1),*params),data_b[a:b+1],p0=[1,data_b[indexes_2[-1]],0,lin(indexes_2[-1]-0.1,*params)])
+params_gauss_b,covariance_gauss_b=curve_fit(gauss,lin(np.arange(a,b+1),*params),data_b[a:b+1],p0=[1,data_b[indexes_2[-1]],lin(indexes_2[-1]-0.1,*params)])
 errors_gauss_b = np.sqrt(np.diag(covariance_gauss_b))
 #Fasse Wert und Ungenauigkeit der Fit-Parameter wieder jeweils zusammen
 sigma_fit=ufloat(params_gauss_b[0],errors_gauss_b[0])
 h_fit=ufloat(params_gauss_b[1],errors_gauss_b[1])
-a_fit=ufloat(params_gauss_b[2],errors_gauss_b[2])
-mu_fit=ufloat(params_gauss_b[3],errors_gauss_b[3])
+mu_fit=ufloat(params_gauss_b[2],errors_gauss_b[2])
 Z_photo=h_fit*sigma_fit*np.sqrt(2*np.pi)
-print(f'Gauß-Fitparameter für Vollenergiepeak des Cs: \n     sigma = {sigma_fit}, \n     h = {h_fit}, \n     a = {a_fit}, \n     mu = {mu_fit}')
+print(f'Gauß-Fitparameter für Vollenergiepeak des Cs: \n     sigma = {sigma_fit}, \n     h = {h_fit}, \n     mu = {mu_fit}')
 print('Fehler für 10 Kanäle', 10*params[0])
-print(f'Der Inhalt des Vollenergiepeaks beträgt {Z_photo} keV.')
+
+# print('Indices der peaks: ', indexes_2)
+#Identifiziere die charakteristischen Energie-Peaks
+# e_photo=energie_2[-1] # errechnet benutze aber aus Fit
+# i_photo=indexes_2[-1]
+# print('Photo: ', mu_fit, i_photo)
+e_compton=energie_2[-2]
+# i_compton=indexes_2[-2]
+# print('Compton: ', e_compton, i_compton)
+e_rueck=energie_2[14]
+# i_rueck=indexes_2[14]
+# print('Rueckstreu: ', e_rueck, i_rueck)
+
+#print(len(energie_2), len(indexes_2))
+#print(e_rueck, e_compton, e_photo)
+#print(indexes_2[-4], indexes_2[-2], indexes_2[-1])
+e_photo_t = ufloat(661.657, 0.003) #theoretischer Photoenergiepeak
+m_e = ufloat(510.9989461, 0.0000031)    #Elektronenmasse in keV
+#Vergleiche zwischen gemessenen und theoretischen Werten der Peaks
+e_compton_theo = 2*e_photo_t**2/(m_e*(1+2*e_photo_t/m_e))
+# vgl_compton = 1-e_compton/e_compton_theo
+print('E_compton,theo', e_compton_theo, '\nE_compton,gemessen', e_compton, '\n    rel. Abweichung in %', (e_compton-e_compton_theo)/e_compton_theo*100, '%')
+e_rueck_theo = e_photo_t/(1+2*e_photo_t/m_e)
+# vgl_rueck = 1-e_rueck/e_rueck_theo
+print('E_rueck,theo', e_rueck_theo, '\nE_rueck,gemessen', e_rueck, '\n     rel. Abweichung', (e_rueck-e_rueck_theo)/e_rueck_theo*100, '%')
+print('E_photo,theo', e_photo_t, '\nE_photo,gemessen', mu_fit, '\n     rel. Abweichung', (mu_fit-e_photo_t)/e_photo_t, '%')
+
 #-------------------------------------------------------------------------------
-Z_3 = data_b[a:b+1]*sigma_fit*np.sqrt(2*np.pi)
-plt.plot(lin(np.arange(a,b+1, 0.001),*params), gauss(lin(np.arange(a,b+1, 0.001),*params), *params_gauss_b)*noms(sigma_fit)*np.sqrt(2*np.pi), 'k-', label='Fit')
-plt.errorbar(lin(np.arange(a,b+1),*params), noms(Z_3), yerr=sdevs(Z_3), fillstyle= None, fmt=' x', label='Daten')
+# Z_3 = data_b[a:b+1]*sigma_fit*np.sqrt(2*np.pi)
+plt.plot(lin(np.arange(a,b+1, 0.001),*params), gauss(lin(np.arange(a,b+1, 0.001),*params), *params_gauss_b), 'k-', label='Fit')
+plt.errorbar(noms(lin(np.arange(a,b+1),*params_test)), data_b[a:b+1], xerr=sdevs(lin(np.arange(a,b+1),*params_test)), fillstyle= None, fmt=' x', label='Daten')
 plt.xlim(657.5, 665)
-plt.axhline(y=0.5*data_b[indexes_2[-1]]*noms(sigma_fit)*np.sqrt(2*np.pi), xmin = 0.392, xmax = 0.685, color='g',linestyle='dashed', label='Halbwertsbreite')
-plt.axhline(y=0.1*data_b[indexes_2[-1]]*noms(sigma_fit)*np.sqrt(2*np.pi), xmin = 0.278, xmax = 0.8,color='r',linestyle='dashed', label='Zehntelbreite')
-plt.ylabel('Zählrate $N$')
+plt.axhline(y=0.5*data_b[indexes_2[-1]], xmin = 0.392, xmax = 0.683, color='g',linestyle='dashed', label='Halbwertsbreite')
+plt.axhline(y=0.1*data_b[indexes_2[-1]], xmin = 0.278, xmax = 0.795,color='r',linestyle='dashed', label='Zehntelwertsbreite')
+plt.ylabel('Zählergebnis $N$')
 plt.xlabel('Energie $E \:/\: \mathrm{keV}$')
 plt.legend(loc='best')
 plt.grid()
@@ -305,44 +283,19 @@ plt.savefig('build/vollpeak.pdf')
 plt.clf()
 
 #lin beschreibt noch die lineare Regression vom Beginn der Auswertung
-h_g = ufloat(2.2, 0.1)
+h_g = ufloat(2.91, 0.10)
 print('Halbwertsbreite Gemessen ', h_g)
 h_t = np.sqrt(8*np.log(2))*sigma_fit
 print('Halbwertsbreite Theorie ', h_t)
-print(f'     Rel. Fehler der Halbwertsbreiten Werte {(h_g-h_t)/h_t} %')
-z_g = ufloat(3.9, 0.1)
+print(f'     Rel. Fehler der Halbwertsbreiten Werte {(h_g-h_t)*100/h_t} %')
+z_g = ufloat(5.17, 0.10)
 print('Zehntelbreite Gemessen ', z_g)
 z_t = np.sqrt(8*np.log(10))*sigma_fit
 print('Zehntelbreite Theorie ', z_t)
-print(f'      Rel. Fehler der Zehntelbreiten {(z_g-z_t)/z_t} %')
-print('Verhältnis zwischen gemessener', z_g/h_g, 'und \'theoretischer\'', np.round(noms(z_t/h_t), 2), '+/-', np.round(sdevs(z_t/h_t), 2),'Breiten')
+print(f'      Rel. Fehler der Zehntelbreiten {(z_g-z_t)*100/z_t} %')
+print('Verhältnis zwischen gemessener', z_g/h_g, 'und \'theoretischer Breiten', z_t/h_t,' \'mit einer Abweichung von', (z_g/h_g- np.sqrt(np.log(10)/np.log(2)))*100/np.sqrt(np.log(10)/np.log(2)))
 print('Der theoretische Wert ohne sigma beträgt', np.sqrt(np.log(10)/np.log(2)))
-#-------------------------------------------------------------------------------
-# #Plotte das zugeordnete Cs-Spektrum und setze Horizontale bei Zehntel- und Harlbwertsbreite
-# x=np.linspace(1,8192,8192)
-# plt.plot(lin(x, *params), data_b,'r-',label='Fit')
-# plt.plot(lin(indexes_2, *params),data_b[indexes_2],'bx',label='Peaks')
-# plt.axhline(y=0.5*data_b[indexes_2[-1]], color='g',linestyle='dashed', label='Halbwertshöhe')
-# print('Halbwertshöhe', 0.5*data_b[indexes_2[-1]])
-# print('Zehntelwertshöhe', 0.1*data_b[indexes_2[-1]])
-# plt.axhline(y=0.1*data_b[indexes_2[-1]], color='r',linestyle='dashed', label='Zehntelhöhe')
-# plt.xlim(0,700)
-# plt.xlabel(r'E$_\gamma\:/\: \mathrm{keV}$')
-# plt.ylabel(r'Einträge')
-# plt.grid()
-# plt.legend(loc='upper left')
-# plt.savefig('build/Cs.pdf')
-# plt.yscale('log')
-# plt.savefig('build/Cs_log.pdf')
-# plt.clf()
-#
-inhalt_photo = ufloat(sum(data_b[i_photo-13:i_photo+9]*noms(sigma_fit)*np.sqrt(2*np.pi)), sum(np.sqrt(data_b[i_photo-13:i_photo+9]*noms(sigma_fit)*np.sqrt(2*np.pi))))
-print('Inhalt des Photo-Peaks: ', inhalt_photo)
-min_ind_comp = 53
-inhalt_comp = ufloat(sum(data_b[min_ind_comp:i_compton]*noms(sigma_fit)*np.sqrt(2*np.pi)), sum(np.sqrt(data_b[min_ind_comp:i_compton]*noms(sigma_fit)*np.sqrt(2*np.pi))))
-print('Inhalt des Compton-Kontinuums, liegt bei:', inhalt_comp)
-print('Verhältnisse zueinander', inhalt_comp/i_photo)
-# print(f'Verhältnis Comptoninhalt zu Photoninhalt {inhalt_comp / inhalt_photo}')
+
 mu_ph = ufloat(0.007, 0.003) #in cm^-1, abgelesen aus Diagramm
 mu_comp = ufloat(0.36, 0.07)
 l=3.9   #Länge des Detektors
@@ -351,6 +304,40 @@ abs_wahrsch_comp = 1-unp.exp(-mu_comp*l)
 print(f'Wahrscheinlichkeit Photoeffekts {abs_wahrsch_ph*100} %')
 print(f'Die absolute Wahrscheinlichkeit eine Vollenergiepeaks auf Grund des Comptoneffekts liegt bei: {abs_wahrsch_comp*100} %')
 print(f'Verhältnis p_Com zu p_Ph: {abs_wahrsch_comp / abs_wahrsch_ph}')
+
+def e(g):
+    return g/m_e
+eps = noms(e(e_photo_t))
+ener = noms(e_photo_t)
+def wirk(E,a):
+    return a *1/eps**2*(2+(E/(ener-E))**2 * (1/eps**2+(ener-E)/ener-2/eps*(ener-E)/ener))
+
+params_com,covariance_com=curve_fit(wirk,lin(np.arange(600,1167),*params),data_b[600:1167], p0=[200])
+errors_com = np.sqrt(np.diag(covariance_com))
+para = ufloat(params_com[0], errors_com[0])
+inhalt_comp = sum(wirk(lin(np.arange(53, 1166),*params_test), para))
+
+print('Inhalt des Vollenergiepeaks: ', Z_photo)
+print('Parameter a des Compten-Kontinuums', para)
+print('Grenzen des Fits', np.round(lin(600,*params), 2), 'bis', np.round(lin(1166,*params), 2))
+print('Grenzen der Int', np.round(lin(53,*params),2), 'bis', np.round(lin(1166,*params),2))
+print('Inhalt des Compton-Kontinuums, liegt bei:', inhalt_comp)
+print('Verhältnisse zueinander', inhalt_comp/Z_photo)
+# print(f'Verhältnis Comptoninhalt zu Photoninhalt {inhalt_comp / inhalt_photo}')
+
+#Plotten des vom Detektor aufgenommenen Cs-Spektrums + logarithmische y_Achse, Peaks und Fits
+plt.bar(lin(x_plot, *params), data_b, label='Messwerte')
+plt.bar(lin(indexes_2[14], *params), noms(energie_2[-2]), label='Rückstreupeak')
+plt.bar(lin(indexes_2[-2], *params), noms(energie_2[-2]), label='Comptonkante')
+plt.bar(lin(indexes_2[-1], *params), noms(energie_2[-1])+2100, label='Vollenergiepeak')
+plt.plot(lin(np.arange(53,1167),*params), wirk(lin(np.arange(53,1167),*params), noms(para)), 'm-',label='Fit')
+plt.xlim(0, 800)
+plt.xlabel(r'Energie $E \:/\: \mathrm{keV}$')
+plt.ylabel(r'Zählergebnis $N$')
+plt.legend(loc='best')
+plt.yscale('log')
+plt.savefig('build/Cs_log.pdf')
+plt.clf()
 
 
 #------------------Aufgabenteil d) {Barium oder Antimon? Wir werden es erfahren.}
@@ -374,13 +361,44 @@ data_d = np.genfromtxt('data/mystery1.txt', unpack=True)
 # print('Peaks des Barium-Spektrums bei : ',indexes_3, '\n mit Energie', energie_3 , 'keV \n und Höhe: ', data_d[indexes_3])
 E_Ba, dE_Ba, W_Ba, dW_Ba, peaks_Ba_n = np.genfromtxt('data/2_0/Ba_Zuordnung.txt', dtype=float, unpack=True)
 E_Ba_n, dE_Ba_n, W_Ba_n, dW_Ba_n, peaks_Ba = np.genfromtxt('data/2_0/Ba_Zuordnung.txt', dtype=int, unpack=True)
-E_Ba_ist = lin(peaks_Ba, *params_test)
 E_Ba = unp.uarray(E_Ba, dE_Ba)
 W_Ba = unp.uarray(W_Ba, dW_Ba)
 
+def gaussian_fit_peaks_d(test_ind):
+    peak_inhalt = []
+    index_fit = []
+    hoehe = []
+    sigma = []
+    for i in test_ind:
+        a=i-20
+        b=i+20
+        params_gauss_d,covariance_gauss_d=curve_fit(gauss,np.arange(a,b+1),data_d[a:b+1],p0=[1,data_d[i],i-1])
+        errors_gauss_d = np.sqrt(np.diag(covariance_gauss_d))
+        sigma_fit=ufloat(params_gauss_d[0],errors_gauss_d[0])
+        h_fit=ufloat(params_gauss_d[1],errors_gauss_d[1])
+        mu_fit=ufloat(params_gauss_d[2],errors_gauss_d[2])
+        #print(h_fit*sigma_fit*np.sqrt(2*np.pi))
+        #if i == 3316:
+        #    plt.plot(np.arange(a, b+1), datE_Ba_n, W_Ba_n, peaks_Baa_d[a:b+1], label='Daten')
+        #    plt.plot(np.arange(a, b+1), gauss(np.arange(a, b+1), *params_gauss_d), label='Fit')
+        #    plt.savefig('build/test.pdf')
+        #    plt.clf()
+        index_fit.append(mu_fit)
+        hoehe.append(h_fit)
+        sigma.append(sigma_fit)
+        peak_inhalt.append(h_fit*sigma_fit*np.sqrt(2*np.pi))
+    return index_fit, peak_inhalt, hoehe, sigma
+
+#Führe wieder einen Gauß-Fit in den Bins durch um den Peakinhalt zu bestimmen
+index_ba, peakinhalt_ba, hoehe_ba, sigma_ba = gaussian_fit_peaks_d(peaks_Ba.astype('int'))
+
+E_ba_det = []
+for i in range(len(index_ba)):
+    E_ba_det.append(lin(index_ba[i],*params_test))
+
 make_table(
         header = ['$E_\\text{theo}$ / \kilo\electronvolt', '$W_\\text{i}$ / \%', '$i$', '$E_\\text{fit}$ / \kilo\electronvolt'],
-        data = [E_Ba, W_Ba, peaks_Ba, E_Ba_ist],
+        data = [E_Ba, W_Ba, peaks_Ba, E_ba_det],
         places = [(3.4, 1.4), (2.3, 1.3) , 3.0, (3.2, 1.2)],
         caption = 'Die Zuordnung zum Spektrum des ${}^{133}$Ba.',
         label = 'tab:zuordnung_Ba',
@@ -390,7 +408,7 @@ make_table(
 plt.plot(lin(x_plot, *params), data_d,'r-',label='Messwerte')
 plt.plot(lin(peaks_Ba, *params),data_d[peaks_Ba],'bx',label='Peaks')
 plt.xlabel(r'Energie $E \:/\: \mathrm{keV}$')
-plt.ylabel(r'Zählrate $N$')
+plt.ylabel(r'Zählergebnis $N$')
 plt.xlim(0, 500)
 plt.yscale('log')
 plt.grid()
@@ -398,44 +416,8 @@ plt.legend()
 plt.savefig('build/mystery1_log.pdf')
 plt.clf()
 
-def gaussian_fit_peaks_d(test_ind):
-    peak_inhalt = []
-    index_fit = []
-    hoehe = []
-    unter = []
-    sigma = []
-    for i in test_ind:
-        a=i-40
-        b=i+40
-        params_gauss_d,covariance_gauss_d=curve_fit(gauss,np.arange(a,b+1),data_d[a:b+1],p0=[1,data_d[i],0,i-1])
-        errors_gauss_d = np.sqrt(np.diag(covariance_gauss_d))
-        sigma_fit=ufloat(params_gauss_d[0],errors_gauss_d[0])
-        h_fit=ufloat(params_gauss_d[1],errors_gauss_d[1])
-        a_fit=ufloat(params_gauss_d[2],errors_gauss_d[2])
-        mu_fit=ufloat(params_gauss_d[3],errors_gauss_d[3])
-        #print(h_fit*sigma_fit*np.sqrt(2*np.pi))
-        #if i == 3316:
-        #    plt.plot(np.arange(a, b+1), datE_Ba_n, W_Ba_n, peaks_Baa_d[a:b+1], label='Daten')
-        #    plt.plot(np.arange(a, b+1), gauss(np.arange(a, b+1), *params_gauss_d), label='Fit')
-        #    plt.savefig('build/test.pdf')
-        #    plt.clf()
-        index_fit.append(mu_fit)
-        hoehe.append(h_fit)
-        unter.append(a_fit)
-        sigma.append(sigma_fit)
-        peak_inhalt.append(h_fit*sigma_fit*np.sqrt(2*np.pi))
-    return index_fit, peak_inhalt, hoehe, unter, sigma
-
-#Führe wieder einen Gauß-Fit in den Bins durch um den Peakinhalt zu bestimmen
-index_ba, peakinhalt_ba, hoehe_ba, unter_ba, sigma_ba = gaussian_fit_peaks_d(peaks_Ba.astype('int'))
-
-E_ba_det = []
-for i in range(len(index_ba)):
-    E_ba_det.append(lin(index_ba[i],*params_test))
-
-
-def potenz2(x, a, b, c, e):
-    return e * a * (x-b)**(e-1)
+# def potenz2(x, a, b, c, e):
+#     return e * a * (x-b)**(e-1)
 
 #Berechne aktivität der Quelle am Messtag
 #print(f'\nDaten zur Berechnung der Akivität: {E_ba_det}, {params2}')
@@ -454,9 +436,9 @@ for i in A:
 #print(peakinhalt_ba)
 #Fasse Fit-Parameter in Tabelle zusammen
 make_table(
-    header= ['$E_\\text{i}$', '$\mu_\\text{i}$ / \kilo\electronvolt', '$h_\\text{i}$', '$\sigma_\\text{i}$ / \kilo\electronvolt', '$a_\\text{i}$'],
-    data=[lin(peaks_Ba, *params_test), E_ba_det, hoehe_ba, sigma_ba, unter_ba],
-    places=[(3.2, 1.2), (3.2, 1.2), (4.0, 2.0), (1.3, 1.3), (2.2, 1.2)],
+    header= ['$E_\\text{i}$', '$\mu_\\text{i}$ / \kilo\electronvolt', '$h_\\text{i}$', '$\sigma_\\text{i}$ / \kilo\electronvolt'],
+    data=[lin(peaks_Ba, *params_test), E_ba_det, hoehe_ba, sigma_ba],
+    places=[(3.2, 1.2), (3.2, 1.2), (4.0, 2.0), (1.3, 1.3)],
     caption='Parameter des Gauß-Fits für das gegeben Spektrum',
     label='tab:Ba',
     filename='build/tables/Ba.tex'
@@ -479,15 +461,16 @@ for i in range(4, len(W_Ba)):
 #    filename ='build/tables/aktivitaet-ba.tex'
 #)
 make_table(
-    header= ['$W_\\text{i}$\;/\;\si{\percent}', '$E_\\text{i}$ / \kilo\electronvolt', '$Q_\\text{i}$', '$Z_\\text{i}$ / \kilo\electronvolt', '$A_\\text{i}$ / \\becquerel'],
-    data=[W_Ba[4:], E_ba_det[4:], Q_d ,Z_d, A_det],
-    places=[(2.3, 1.3), (3.2, 1.2), (1.4, 1.4), (5.0 , 2.0), (4.0, 3.0)],
+    header= ['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$Q_\\text{i}$', '$Z_\\text{i}$', '$A_\\text{i}$ / \\becquerel'],
+    data=[E_ba_det[4:], W_Ba[4:], Q_d ,Z_d, A_det],
+    places=[(3.2, 1.2), (2.3, 1.3), (1.5, 1.5), (4.0 , 2.0), (4.0, 3.0)],
     caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
     label='tab:aktivitaet_ba',
     filename='build/tables/aktivitaet_ba.tex'
 )
-A_gem = ufloat(np.mean(noms(A)),np.mean(sdevs(A)))
-print('gemittelte Aktivität für Barium',A_gem)
+A_gem = ufloat(np.mean(noms(A_det)),np.mean(sdevs(A_det)))
+A_gem_alt = ufloat(np.mean(noms(A_det[1:-1])),np.mean(sdevs(A_det[1:-1])))
+print('gemittelte Aktivität für Barium',A_gem, 'ohne ersten Wert', A_gem_alt)
 
 
 #-------------Aufgabenteil e) {Was das? Gucken wir mal}
@@ -510,7 +493,7 @@ x=np.linspace(1,8192,8192)
 plt.bar(lin(x,*params), data_e,label='Messdaten')
 plt.plot(lin(peaks_plot, *params),data_e[peaks_plot],'rx',label='verwendete Peaks')
 plt.xlabel(r'E$_\gamma\:/\: \mathrm{keV}$')
-plt.ylabel(r'Zählrate $N$')
+plt.ylabel(r'Zählergebnis $N$')
 plt.xlim(0, 2400)
 plt.yscale('log')
 plt.legend()
@@ -529,17 +512,15 @@ def gaussian_fit_peaks_e(test_ind):
     peak_inhalt = []
     index_fit = []
     hoehe = []
-    unter = []
     sigma = []
     for i in test_ind:
         a=i-10
         b=i+10
-        params_gauss_e,covariance_gauss_e=curve_fit(gauss,np.arange(a,b+1),data_e[a:b+1],p0=[1,data_e[i],0,i-1])
+        params_gauss_e,covariance_gauss_e=curve_fit(gauss,np.arange(a,b+1),data_e[a:b+1],p0=[1,data_e[i],i-1])
         errors_gauss_e = np.sqrt(np.diag(covariance_gauss_e))
         sigma_fit=ufloat(params_gauss_e[0],errors_gauss_e[0])
         h_fit=ufloat(params_gauss_e[1],errors_gauss_e[1])
-        a_fit=ufloat(params_gauss_e[2],errors_gauss_e[2])
-        mu_fit=ufloat(params_gauss_e[3],errors_gauss_e[3])
+        mu_fit=ufloat(params_gauss_e[2],errors_gauss_e[2])
         #print(h_fit*sigma_fit*np.sqrt(2*np.pi))
         if i == 3315:
             plt.plot(np.arange(a, b+1), data_e[a:b+1], label='Daten')
@@ -548,13 +529,12 @@ def gaussian_fit_peaks_e(test_ind):
             plt.clf()
         index_fit.append(mu_fit)
         hoehe.append(h_fit)
-        unter.append(a_fit)
         sigma.append(sigma_fit)
         peak_inhalt.append(h_fit*sigma_fit*np.sqrt(2*np.pi))
-    return index_fit, peak_inhalt, hoehe, unter, sigma
+    return index_fit, peak_inhalt, hoehe, sigma
 
 
-index_e, peakinhalt_e, hoehe_e, unter_e, sigma_e = gaussian_fit_peaks_e(peaks_ind_e.astype('int'))
+index_e, peakinhalt_e, hoehe_e, sigma_e = gaussian_fit_peaks_e(peaks_ind_e.astype('int'))
 
 
 # print(f'Peakinhalt {peakinhalt_e} Hoehe {hoehe_e}, Sigma {sigma_e}')
@@ -572,16 +552,16 @@ for i in range(len(W_e)):
 
 # print(E_e_det)
 # print(potenz(noms(E_e_det[11]),*params2))
-#print(f'\nDaten zur Berechnung der Akivität: {E_e}, {params2}, \n den Peakinhalt Z {Z_e},\n die Effizienz Q {Q_e} \n und der Aktivität {A_e}')
+# print(f'\nDaten zur Berechnung der Akivität: {E_e}, {params2}, \n den Peakinhalt Z {Z_e},\n die Effizienz Q {Q_e} \n und der Aktivität {A_e}')
 # print('Aktivitäten des Nuklids', A_e)
 # print('gemittelte Aktivität für das Salz: ', np.mean(A_e[0:9]))
-E_e_tab = np.delete(E_e, [0,1,4,5,6,7,18,19,26], None)
-W_e_tab = np.delete(W_e, [0,1,4,5,6,7,18,19,26], None)
-Z_e_tab = np.delete(Z_e, [0,1,4,5,6,7,18,19,26], None)
-Q_e_tab = np.delete(Q_e, [0,1,4,5,6,7,18,19,26], None)
-A_e_tab = np.delete(A_e, [0,1,4,5,6,7,18,19,26], None)
+E_e_tab = np.delete(E_e, [0,1,3,4,5,6,17,18,25], None)
+W_e_tab = np.delete(W_e, [0,1,3,4,5,6,17,18,25], None)
+Z_e_tab = np.delete(Z_e, [0,1,3,4,5,6,17,18,25], None)
+Q_e_tab = np.delete(Q_e, [0,1,3,4,5,6,17,18,25], None)
+A_e_tab = np.delete(A_e, [0,1,3,4,5,6,17,18,25], None)
 make_table(
-    header= ['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$Z_\\text{i}$ / \kilo\electronvolt', '$Q_\\text{i}$', '$A_\\text{i}$ / \\becquerel'],
+    header= ['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$Z_\\text{i}$', '$Q_\\text{i}$', '$A_\\text{i}$ / \\becquerel'],
     data=[E_e_tab, W_e_tab, Z_e_tab, noms(Q_e_tab) , A_e_tab],
     places=[(4.3, 1.3), (2.3, 1.3), (5.0 , 3.0), 1.3, (5.0, 4.0)],
     caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
@@ -598,4 +578,4 @@ make_table(
 )
 # print(A_e)
 # print(A_e[18:26])
-print(f'gemittelte Aktivitäten: \n     TH234 zugeringe Energien \n     Ra226 {np.mean(A_e[2:4])} \n     Pb214 {np.mean(A_e[9:18])} \n     Bi214 {np.mean(A_e[20:26])}')
+print(f'gemittelte Aktivitäten: \n     TH234 zugeringe Energien \n     Ra226 {A_e[2]} \n     Pb214 {np.mean(A_e[8:17])} \n     Bi214 {np.mean(A_e[19:25])}')
