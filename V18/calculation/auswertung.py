@@ -578,4 +578,4 @@ make_table(
 )
 # print(A_e)
 # print(A_e[18:26])
-print(f'gemittelte Aktivitäten: \n     TH234 zugeringe Energien \n     Ra226 {A_e[2]} \n     Pb214 {np.mean(A_e[8:17])} \n     Bi214 {np.mean(A_e[19:25])}')
+print(f'gemittelte Aktivitäten: \n     TH234 zugeringe Energien \n     Ra226 {A_e[2]} \n     Pb214 {np.mean(np.abs(A_e[8:17]))} \n     Bi214 {np.mean(np.abs(A_e[19:25]))}')
