@@ -3,7 +3,10 @@ all:  build/main.pdf
 build:
 	mkdir -p build
 
-build/main.pdf:
+build/eichung.pdf: rohdaten/eichung.txt auswertung_test.py |build
+	python auswertung_test.py
+
+build/main.pdf: build/eichung.pdf
 
 
 build/main.pdf: FORCE | build
