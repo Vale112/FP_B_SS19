@@ -3,39 +3,35 @@
 \label{sec:Auswertung}
 \subsection{Termschemata und theoretische Landé-Faktoren}
 Abbildung \ref{fig:cdrot} stellt das Termschema der zu untersuchenden roten Spektrallinien dar.
-In Abbildung \ref{fig:cdrot} ist das Schema der blauen Linie zu sehen.
-Statt das abgebildete Aufspaltungsbild werden jedoch nur 6 Linien beobachtet, da der Übergang $0\arrow 0$ verboten ist.
+In Abbildung \ref{fig:cdblau} ist das Schema der blauen Linie zu sehen.
+Statt das abgebildete Aufspaltungsbild werden jedoch nur 6 Linien beobachtet, da der Übergang für $\Delta L = 0$
+mit $\Delta m_\text{J} = 0$ verboten ist.
 \begin{figure}[htb]
   \centering
   \includegraphics[height=4cm]{content/pictures/cdrot.png}
-  \caption{Aufspaltung der roten Linie.\cite{zeeman}}
+  \caption{Aufspaltung der roten Spektrallinie.\cite{zeeman}}
   \label{fig:cdrot}
 \end{figure}
 \begin{figure}[htb]
   \centering
-  \includegraphics[height=4cm]{content/pictures/cdblau.png\cite{zeeman}}
-  \caption{Aufspaltung der blauen Linie.}
+  \includegraphics[height=4cm]{content/pictures/cdblau.png}
+  \caption{Aufspaltung der blauen Spektrallinie.\cite{zeeman}}
   \label{fig:cdblau}
 \end{figure}
-In Tabelle \ref{tab:Lande_rot} stehen die Landé-Faktoren für den Übergang $^1P_1\leftrightarrow ^1\!\!D_2$.
-Ein Vergleich mit \eqref{eqn:azee} zeigt, dass die Landé-Faktoren mit
-\begin{equation}
-\label{eqn:g}
-g=m_1 \cdot g(L_1, S_1, J_1) - m_2 \cdot g(L_2, S_2, J_2)=\frac{\Delta E}{\mu_\text{B}B}
-\end{equation}
-berechnet werden.
+In Tabelle \ref{tab:Lande_rot} sind die theoretisch berchneten Landé-Faktoren für den Übergang $^1P_1 \leftrightarrow ^1\!\!D_2$,
+unter zu Hilfename von Formel \eqref{eqn:azee} gelistet.
 \begin{table}
 	\centering
-  \caption{Landé-Faktoren für den Übergang $^1P_1\leftrightarrow ^1\!\!D_2$.}
+  \caption{Landé-Faktoren für den Übergang $^1P_1 \leftrightarrow ^1\!\!D_2$.}
 	\label{tab:Lande_rot}
 	\begin{tabular}{cccccc}
 		\toprule
-		{} & \multicolumn{2}{c}{${}^1P_1$}  & \multicolumn{2}{c}{${}^1D_2$}  & $^1P_1\leftrightarrow ^1\!\!D_2$ \\
+		{} & \multicolumn{2}{c}{${}^1P_1$}  & \multicolumn{2}{c}{${}^1D_2$}  & $^1P_1 \leftrightarrow ^1\!\!D_2$ \\
 		\midrule
 		 Übergang &   $m_1$  & $g_{1}$ & $m_2$ & $ g_2$  & $g_{12}$  \\
 		\midrule
 		& 2 & 1 & 1 & 1 & 1\\
-		$\sigma$& 1 & 1 & 0 & 1 & 1\\
+		$\sigma^-$ & 1 & 1 & 0 & 1 & 1\\
 		& 0 & 1 & -1 & 1 & 1\\
 		\midrule
 		& 1 & 1 & 1 & 1 & 0\\
@@ -43,7 +39,7 @@ berechnet werden.
 		& -1 & 1 & -1 & 1 & 0\\
 		\midrule
 		& 0 & 1 & 1 & 1 & -1\\
-		$\sigma$ & -1 & 1 & 0 & 1 & -1\\
+		$\sigma^+$ & -1 & 1 & 0 & 1 & -1\\
 		& -2 & 1 & -1 & 1 & -1\\\bottomrule
 	\end{tabular}
   \end{table}
@@ -60,37 +56,37 @@ berechnet werden.
 		\midrule
     Übergang & $m_1$  & $g_{1}$ & $m_2$ & $ g_2$ & $g_{12}$\\
 		\midrule
-		$\sigma$ & +1 & 2 & 0 & $\frac{3}{2}$& 2\\
+		\multirow{2}{*}{$\sigma^-$} & +1 & 2 & 0 & $\frac{3}{2}$& 2\\
 		& 0 & 2 & -1 & $\frac{3}{2}$ & $\frac{3}{2}$\\
 		\midrule
 		& +1 & 2 & +1 & $\frac{3}{2}$ & $\frac{1}{2}$\\
 		$\pi$ & 2 & 2 & 0 & $\frac{3}{2}$ & 0 \\
 		& -1 & 2 & -1 & $\frac{3}{2}$ & -$\frac{1}{2}$\\
 		\midrule
-		& 0 & 2 & 1 & $\frac{3}{2}$ & -$\frac{3}{2}$\\
-		$\sigma$ & -1 & 2 & 0 & $\frac{3}{2}$& -2\\
+		\multirow{2}{*}{$\sigma^+$} & 0 & 2 & 1 & $\frac{3}{2}$ & -$\frac{3}{2}$\\
+		& -1 & 2 & 0 & $\frac{3}{2}$& -2\\
 		\bottomrule
 	\end{tabular}
 \end{table}
 \FloatBarrier
+
 \subsection{Eichung des Elektromagneten}
-Um im Folgendem die gemessenen Daten zu verwerten muss das B-Feld geeicht werden.
+Um im Folgendem die gemessenen Daten zu verwerten muss das B-Feld kalibriert werden.
 Dazu werden an die in Tabelle \ref{tab:b} zu sehenden Messdaten, mittels scipy \cite{scipy} eine Regressionsfunktion der Form 
 \begin{equation*}
-B = a_0 + a_1I + a_2I^2 + a_3I^3 + a_4I^4
+  B = a_0 + a_1I + a_2I^2 + a_3I^3 + a_4I^4
 \end{equation*}
-gefittet.
-$I$ ist der Strom, $B$ die Magnetfeldstärke.
-Aus der Regression werden die Werte
+gefittet.Dabei ist $I$ der Strom und $B$ die Magnetfeldstärke.
+Mit der Ausgleichsrechnung werden die Werte der Regression auf
 \begin{align*}
-a_0&=\SI{1,56(45)e-2}{\tesla}\\
-a_1&=\SI{5,60(28)e-2}{\tesla\per\ampere}\\
-a_2&=\SI{0,10(5)e-2}{\tesla\per\ampere\squared}\\
-a_3&=\SI{-4(3)e-5}{\tesla\per\ampere\cubed}\\
-a_4&=\SI{-6(8)e-7}{\tesla\per\ampere\tothe{4}}
+  a_0&=\SI{1.56(45)e-2}{\tesla}\\
+  a_1&=\SI{5.60(28)e-2}{\tesla\per\ampere}\\
+  a_2&=\SI{0.10(5)e-2}{\tesla\per\ampere\squared}\\
+  a_3&=\SI{-4(3)e-5}{\tesla\per\ampere\cubed}\\
+  a_4&=\SI{-6(8)e-7}{\tesla\per\ampere\tothe{4}}
 \end{align*}
-erhalten.
-Messdaten und Fit sind in Abbildung \ref{fig:eichung} zu sehen.
+bestimmt.
+Messdaten und Fit sind in Abbildung \ref{fig:eichung} dargestellt.
 Durch diese Funktion kann das angelegte B-Feld bestimmt werden.
 
 \input{content/tables/Eichung.tex}
@@ -106,50 +102,50 @@ Durch diese Funktion kann das angelegte B-Feld bestimmt werden.
 Aus der Verschiebung der Wellenlänge $\delta\lambda$ werden die Landé-Faktoren bestimmt.
 Diese werden aus der Formel
 \begin{equation}
-\label{eqn:lamb_versch}
-\delta\lambda=\frac{1}{2}\frac{\delta s}{\Delta s}\Delta\lambda_\text{D}
+  \label{eqn:lamb_versch}
+  \delta\lambda=\frac{1}{2}\frac{\delta s}{\Delta s}\Delta\lambda_\text{D}
 \end{equation}
 errechnet.
 Hierbei ist $\Delta s$ der Abstand der Spektrallinien ohne B-Feld und $\delta s$ der Abstand zwischen den im B-Feld aufgespaltenen Linien.
-Mit \eqref{eqn:disp} wird $\Delta\lambda_\text{D}$ berechnet.
-Die Werte sind in Tabelle \ref{tab:disp} einzusehen.
+Mit \eqref{eqn:disp} wird $\Delta\lambda_\text{D}$ berechnet, diese Werte sind in Tabelle \ref{tab:disp} einzusehen.
 Aus \eqref{eqn:lamb_versch} lässt sich jetzt die Energieverschiebung $\Delta E$ bestimmen:
 \begin{align}
-\label{eqn:DE}
-\Delta E &= \left |\frac{\partial E}{\partial \lambda}\right |\delta \lambda\nonumber\\
-&=\frac{\symup{hc}}{\lambda^2}\delta\lambda,
+  \label{eqn:DE}
+  \Delta E &= \left |\frac{\partial E}{\partial \lambda}\right |\delta \lambda\nonumber\\
+  &=\frac{\symup{hc}}{\lambda^2}\delta\lambda,
 \end{align}
 wobei $\symup{c}$ die Lichtgeschwindigkeit und $\symup{h}$ das Plank'sche Wirkungsquantum ist.
 \input{content/tables/Dispersion.tex}
 
 
 \subsubsection{Rote Linie}
-In Abbildung \ref{fig:rot_pi_0A} sind die Spektrallinien mit Wellenlänge $\lambda=\SI{643,8}{\nano\meter}$ bei ausgeschaltetem Magnetfeld zu sehen.
-Bei einem Magnetfeld der Stärke $B=\SI{0,63(7)}{\tesla}$ ist in Abbildung \ref{fig:rot_pi_10A} keine Aufspaltung der Spektrallinien zu erkennen, was nach der Theorie zu erwarten war.
+In Abbildung \ref{fig:rot_pi_0A} sind die Spektrallinien mit Wellenlänge $\lambda=\SI{643.8}{\nano\meter}$ bei ausgeschaltetem Magnetfeld zu sehen.
+Bei einem Magnetfeld der Stärke $B=\SI{0.63(7)}{\tesla}$ ist in Abbildung \ref{fig:rot_pi_10A} keine Aufspaltung der Spektrallinien zu erkennen,
+was nach der Theorie zu erwarten war.
 \begin{figure}[htb]
   \centering
   \includegraphics[height=8cm]{content/pictures/rot_pi_0A.png}
-  \caption{Spektrallinie für $\lambda=\SI{643,8}{\nano\meter}$.}
+  \caption{Spektrallinie für $\lambda=\SI{643.8}{\nano\meter}$.}
   \label{fig:rot_pi_0A}
 \end{figure}
 \begin{figure}[htb]
   \centering
   \includegraphics[height=8cm]{content/pictures/rot_pi_10A.png}
-  \caption{$\pi$-Linie für $\lambda=\SI{643,8}{\nano\meter}$.}
+  \caption{$\pi$-Linie für $\lambda=\SI{643.8}{\nano\meter}$.}
   \label{fig:rot_pi_10A}
 \end{figure}
 In Abbildung \ref{fig:rot_sigma_0A} ist das Interferenzbild der Spektrallinie zu sehen, die durch einen \SI{90}{\degree} Polarisationsfilter geht.
-Nach Einschalten des Magnetfelds auf $B=\SI{0,63(7)}{\tesla}$ wird das Bild aus Abbildung \ref{fig:rot_sigma_10A} aufgenommen.
+Nach Einschalten des Magnetfelds auf $B=\SI{0.63(7)}{\tesla}$ wird das Bild aus Abbildung \ref{fig:rot_sigma_10A} aufgenommen.
 \begin{figure}[htb]
   \centering
   \includegraphics[height=8cm]{content/pictures/rot_sigma_0A.png}
-  \caption{Spektrallinie für $\lambda=\SI{643,8}{\nano\meter}$ nach dem Polarisationsfilter.}
+  \caption{Spektrallinie für $\lambda=\SI{643.8}{\nano\meter}$ nach dem Polarisationsfilter.}
   \label{fig:rot_sigma_0A}
 \end{figure}
 \begin{figure}[htb]
   \centering
   \includegraphics[height=8cm]{content/pictures/rot_sigma_10A.png}
-  \caption{$\sigma$-Linie für $\lambda=\SI{643,8}{\nano\meter}$ bei $B=\SI{0,63(7)}{\tesla}$.}
+  \caption{$\sigma$-Linie für $\lambda=\SI{643.8}{\nano\meter}$ bei $B=\SI{0.63(7)}{\tesla}$.}
   \label{fig:rot_sigma_10A}
 \end{figure}
 Durch imageio \cite{imageio} werden die Bilder verarbeitet und die Distanz zwischen den Intensitätsmaxima gemessen.
@@ -157,38 +153,44 @@ Die von dem Programm erfassten Daten sind in den Abbildung \ref{fig:rot_sigma_0A
 \begin{figure}[htb]
   \centering
   \includegraphics[height=10cm]{build/rot_sigma_0A.pdf}
-  \caption{Rotwerte des Interferenzbildes für $\lambda=\SI{643,8}{\nano\meter}$ bei ausgeschaltetem Magnetfeld und einem \SI{90}{\degree} Polarisationsfilter.}
+  \caption{Rotwerte des Interferenzbildes für $\lambda=\SI{643.8}{\nano\meter}$ bei ausgeschaltetem Magnetfeld und einem \SI{90}{\degree} Polarisationsfilter.}
   \label{fig:rot_sigma_0A_plot}
 \end{figure}
 \begin{figure}[htb]
   \centering
   \includegraphics[height=10cm]{build/rot_sigma_10A.pdf}
-  \caption{Rotwerte des Interferenzbildes für $\lambda=\SI{643,8}{\nano\meter}$ bei $B=\SI{0,63(7)}{\tesla}$ und einem \SI{90}{\degree} Polarisationsfilter.}
+  \caption{Rotwerte des Interferenzbildes für $\lambda=\SI{643.8}{\nano\meter}$ bei $B=\SI{0.63(7)}{\tesla}$ und einem \SI{90}{\degree} Polarisationsfilter.}
   \label{fig:rot_sigma_10A_plot}
 \end{figure}
-Die Daten sind in Tabelle \ref{tab:rot_sigma} zusammengefasst.
-Die Landé-Faktoren werden mittels Formeln \eqref{eqn:DE} und \eqref{eqn:g} berechnet.
-Der Mittelwert für $g$ wird zu 
+Die Daten sind in Tabelle~\ref{tab:rot_sigma} zusammengefasst.
+Der Mittelwert der Landé-Faktoren wird auf
 \begin{equation}
-\label{eqn:g_rot_sigma}
-g_{\text{rot},\sigma}=0,99\pm0,11
+  \label{eqn:g_rot_sigma}
+  \bar{g}_{\text{rot},\sigma}=\num{0.99(11)}
 \end{equation}
-bestimmt.
+bestimmt, dazu werden die Daten mit  
+\begin{equation}
+  \label{eqn:g}
+  g=m_1 \cdot g(L_1, S_1, J_1) - m_2 \cdot g(L_2, S_2, J_2)=\frac{\Delta E}{\mu_\text{B}B},
+\end{equation}
+welche aus Formel \eqref{eqn:azee} abgeleitet wird, ausgewertet. Die Energiedifferentz $\Delta E$ ergibt sich aus den 
+Abbildungen nach Formel \eqref{eqn:DE} mit \eqref{eqn:lamb_versch}.
 \input{build/rot_sigma.tex}
 \FloatBarrier
+
 \subsubsection{Blaue Linie}
 Bild \ref{fig:blau_pi_0A} zeigt die Spektrallinie für $\lambda=\SI{480}{\nano\meter}$ bei ausgeschaltetem B-Feld.
-In Abbildung \ref{fig:blau_pi_6A} ist die Aufspaltung der $\sigma-$Linien bei $B=\SI{0,37(3)}{\tesla}$ zu sehen.
+In Abbildung \ref{fig:blau_pi_6A} ist die Aufspaltung der $\sigma-$Linien bei $B=\SI{0.37(3)}{\tesla}$ zu sehen.
 \begin{figure}[htb]
   \centering
-  \includegraphics[height=10cm]{content/pictures/blau_pi_0A.JPG}
+  \includegraphics[height=8cm]{content/pictures/blau_pi_0A.JPG}
   \caption{Interferenzbild für $\lambda=\SI{480}{\nano\meter}$ bei ausgeschaltetem Magnetfeld.}
   \label{fig:blau_pi_0A}
 \end{figure}
 \begin{figure}[htb]
   \centering
-  \includegraphics[height=10cm]{content/pictures/blau_pi_6A.JPG}
-  \caption{$\sigma-$Linie für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{0,37(3)}{\tesla}$.}
+  \includegraphics[height=8cm]{content/pictures/blau_pi_6A.JPG}
+  \caption{$\sigma-$Linie für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{0.37(3)}{\tesla}$.}
   \label{fig:blau_pi_6A}
 \end{figure}
 Die relevanten Daten sind in Abbildungen \ref{fig:blau_pi_0A_plot} und \ref{fig:blau_pi_6A_plot} einzusehen.
@@ -202,30 +204,31 @@ Für die Rechnung wichtige Werte stehen in Tabelle \ref{tab:blau_pi}.
 \begin{figure}[htb]
   \centering
   \includegraphics[height=10cm]{build/blau_pi_6A.pdf}
-  \caption{Blauwerte des Interferenzbildes für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{0,37(3)}{\tesla}$.}
+  \caption{Blauwerte des Interferenzbildes für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{0.37(3)}{\tesla}$.}
   \label{fig:blau_pi_6A_plot}
 \end{figure}
-\input{build/blau_pi.tex}
-Der Mittelwert beträgt somit:
+Der Mittelwert lässt sich auf
 \begin{equation}
-\label{eqn:g_blau_sigma}
-g_{\text{blau},\sigma}=1,82\pm0,13
+  \label{eqn:g_blau_sigma}
+  \bar{g}_{\text{blau},\sigma}=\num{1.82(13)}
 \end{equation}
-\FloatBarrier
+bestimmen.
+\input{build/blau_pi.tex}
+
 Zum Schluss werden die $\pi-$Linien ohne (Abb. \ref{fig:blau_sigma_0A}) und mit (Abb. \ref{fig:blau_sigma_20A}) eingeschaltetem Magnetfeld untersucht.
 \begin{figure}[htb]
   \centering
-  \includegraphics[height=10cm]{content/pictures/blau_sigma_0A.JPG}
+  \includegraphics[height=8cm]{content/pictures/blau_sigma_0A.JPG}
   \caption{Interferenzbild für $\lambda=\SI{480}{\nano\meter}$ bei ausgeschaltetem Magnetfeld.}
   \label{fig:blau_sigma_0A}
 \end{figure}
 \begin{figure}[htb]
   \centering
-  \includegraphics[height=10cm]{content/pictures/blau_sigma_20A.JPG}
-  \caption{Interferenzbild für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{1,1(4)}{\tesla}$.}
+  \includegraphics[height=8cm]{content/pictures/blau_sigma_20A.JPG}
+  \caption{Interferenzbild für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{1.1(4)}{\tesla}$.}
   \label{fig:blau_sigma_20A}
 \end{figure}
-Das Programm rechnet mit den Daten aus Abbildungen \ref{fig:blau_sigma_0A_plot} und \ref{fig:blau_sigma_20A_plot}.
+Dazu werden mit den Daten aus Abbildungen \ref{fig:blau_sigma_0A_plot} und \ref{fig:blau_sigma_20A_plot} die Berechnungen wiederholt.
 \begin{figure}[htb]
   \centering
   \includegraphics[height=10cm]{build/blau_sigma_0A.pdf}
@@ -235,13 +238,14 @@ Das Programm rechnet mit den Daten aus Abbildungen \ref{fig:blau_sigma_0A_plot} 
 \begin{figure}[htb]
   \centering
   \includegraphics[height=10cm]{build/blau_sigma_20A.pdf}
-  \caption{Blauwerte des Interferenzbildes für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{1,1(4)}{\tesla}$.}
+  \caption{Blauwerte des Interferenzbildes für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{1.1(4)}{\tesla}$.}
   \label{fig:blau_sigma_20A_plot}
 \end{figure}
-Die errechneten Werte stehen in Tabelle \ref{tab:blau_sigma}.
-Der Landé-Faktor ist damit
+Die errechneten Werte befinden sich in Tabelle \ref{tab:blau_sigma}.
+Der Mittelwert des Landé-Faktor ist damit
 \begin{equation}
 \label{eqn:g_blau_pi}
-g_{\text{blau},\pi}=0,43\pm0,16.
+\bar{g}_{\text{blau},\pi}=\num{0.43(16)}.
 \end{equation}
 \input{build/blau_sigma.tex}
+\FloatBarrier

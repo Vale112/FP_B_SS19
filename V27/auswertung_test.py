@@ -227,7 +227,7 @@ def auswertung_blau(params, d_lambda_D):
 
     # save results
     make_table(header= ['$\delta s$ / pixel', '$\Delta s$ / pixel', '$\delta\lambda$ / \pico\meter', '$g$'],
-            places= [3.0, 2.0, 1.2, (1.2, 1.2)],
+            places= [3.0, 3.0, 1.2, (1.2, 1.2)],
             data = [delta_s_pi, del_s_pi, d_lambda_pi*1e12, delta_mg_pi],
             caption = 'Werte zur Bestimmung des Lande-Faktors für die $\sigma$-Aufspaltung der blauen Spektrallinie.',
             label = 'tab:blau_pi',
