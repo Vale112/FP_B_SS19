@@ -9,7 +9,7 @@ from scipy.optimize import curve_fit
 import scipy.constants as const
 import imageio
 from scipy.signal import find_peaks
-import pint
+#import pint
 from tab2tex import make_table
 #  c = Q_(const.value('speed of light in vacuum'), const.unit('speed of light in vacuum'))
 #  h = Q_(const.value('Planck constant'), const.unit('Planck constant'))
@@ -97,6 +97,7 @@ def eichung():
     plt.plot(x_plot, eichfunktion(x_plot, *params), 'b-', label='Regression')
     plt.xlabel(r'$I\:/\:$A')
     plt.ylabel(r'$B\:/\:$T')
+    plt.legend()    
     plt.tight_layout()
     plt.grid()
     plt.savefig('build/eichung.pdf')
@@ -104,6 +105,7 @@ def eichung():
 
     I_halb = len(I) // 2
     B_halb = len(B) // 2
+    B = B *10**3
     # Speichern der Messwerte
     make_table(header= ['$I$ / \\ampere', '$B$ / \milli\\tesla', '$I$ / \\ampere', '$B$ / \milli\\tesla'],
             places= [2.1, 4.0, 2.1, 4.0],
@@ -116,11 +118,11 @@ def eichung():
 
 def auswertung_blau(params, d_lambda_D):
     print('Auswertung blaue Linie')
-    lower_sigma = 1800
+    lower_sigma = 1500
     upper_sigma = 3250
 
     ## Image 0 - Sigma 0A
-    im_0 = imageio.imread('rohdaten/blau_sigma_0A.JPG')
+    im_0 = imageio.imread('content/pictures/blau_sigma_0A.JPG')
     im_0 = im_0[:,:,2]  # r g b  also ist blau an position 2
     mitte_0 = im_0[len(im_0) // 2]
     peaks_0 = find_peaks(mitte_0[2000:3450], height=20, distance=50, prominence=20)
@@ -129,21 +131,21 @@ def auswertung_blau(params, d_lambda_D):
     print(f'\t#peak-indices:  {len(peak_indices_0)}')
     print(f'\t#Delta_s_sigma: {len(delta_s_sigma)}')
 
-    ## Image 1 - Sigma 6A
-    im_1 = imageio.imread('rohdaten/blau_sigma_6A.JPG')
+    ## Image 1 - Sigma 20A
+    im_1 = imageio.imread('content/pictures/blau_sigma_20A.JPG')
     im_1 = im_1[:,:,2]  # r g b  also ist blau an position 2
     mitte_1 = im_1[len(im_1) // 2]
     peaks_1 = find_peaks(mitte_1[lower_sigma:upper_sigma], height=20, distance=10, prominence=10)
     peak_indices_1 = peaks_1[0] + lower_sigma
     peak_diffs_1 = np.diff(peak_indices_1)
-    del_s_sigma = peak_diffs_1[::2]
+    del_s_sigma = peak_diffs_1[:18:2]
     print(f'\t#peak-indices:  {len(peak_indices_1)}')
     #  print(f'\tdiffs: {peak_diffs_1}')
     print(f'\t#Del_s:  {len(del_s_sigma)}')
 
     # Berechnung Delta mg
-    current_sigma = 6  # angelegter Strom in ampere
-    B_sigma = eichfunktion(current_sigma, *params)*1e-3
+    current_sigma = 20  # angelegter Strom in ampere
+    B_sigma = eichfunktion(current_sigma, *params)
     print(f'\tB:  {B_sigma}')
     d_lambda_sigma = wellenlaengenAenderung(del_s_sigma, delta_s_sigma, d_lambda_D)
     delta_mg_sigma = g_factor(d_lambda_sigma, B_sigma, lambda_2)
@@ -152,66 +154,70 @@ def auswertung_blau(params, d_lambda_D):
     print(f'\tMittelwert Delta_mg:  {sum(delta_mg_sigma)/len(delta_mg_sigma)}')
 
     # save results
-    make_table(header= ['$\delta s$ / \pixel', '$\Delta s$ / \pixel', '$\delta\lambda$ / \pico\meter', '$\zeta$'],
+    make_table(header= ['$\delta s$ / pixel', '$\Delta s$ / pixel', '$\delta\lambda$ / \pico\meter', '$g$'],
             places= [3.0, 2.0, 1.2, (1.2, 1.2)],
             data = [delta_s_sigma, del_s_sigma, d_lambda_sigma*1e12, delta_mg_sigma],
-            caption = 'Werte zur Bestimmung des Lande-Faktors für die Sigma-Aufspaltung der blauen Spektrallinie.',
+            caption = 'Werte zur Bestimmung des Lande-Faktors für die $\pi$-Aufspaltung der blauen Spektrallinie.',
             label = 'tab:blau_sigma',
             filename = 'build/blau_sigma.tex')
 
-    # plot - Sigma 6A
+    # plot - Sigma 20A
     x_plot_1 = np.array(range(len(mitte_1)))
     plt.plot(x_plot_1, mitte_1, 'k.')
-    plt.plot(peak_indices_1, mitte_1[peak_indices_1], 'rx')
+    plt.plot(peak_indices_1, mitte_1[peak_indices_1], 'rx',label="Verwertete Daten")
     plt.xlabel('Pixel (horizontale Richtung)')
     plt.ylabel('Blauwert')
     plt.grid()
-    plt.savefig('build/blau_sigma_6A.pdf')
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig('build/blau_sigma_20A.pdf')
     plt.clf()
 
     # plot - Sigma 0A
     x_plot_0 = np.array(range(len(mitte_0)))
     plt.plot(x_plot_0, mitte_0, 'k.')
-    plt.plot(peak_indices_0, mitte_0[peak_indices_0], 'rx')
+    plt.plot(peak_indices_0, mitte_0[peak_indices_0], 'rx',label="Verwertete Daten")
     plt.xlabel('Pixel (horizontale Richtung)')
     plt.ylabel('Blauwert')
     plt.grid()
+    plt.legend()
+    plt.tight_layout()
     plt.savefig('build/blau_sigma_0A.pdf')
     plt.clf()
 
     print('\n\tPi-Linie')
-    lower_pi = 800
+    lower_pi = 1500
     upper_pi = 3300
 
     ## Image 2 - Pi 0A
-    im_2 = imageio.imread('rohdaten/blau_pi_0A.JPG')
+    im_2 = imageio.imread('content/pictures/blau_pi_0A.JPG')
     im_2 = im_2[:,:,2]  # r g b  also ist blau an position 2
     mitte_2 = im_2[len(im_2) // 2]
     peaks_2 = find_peaks(mitte_2[lower_pi:upper_pi], height=20, distance=50, prominence=20)
     peak_indices_2 = peaks_2[0] + lower_pi
     delta_s_pi = np.diff(peak_indices_2)
-    #  delta_s_pi =  delta_s_pi[:-1]
+    delta_s_pi =  delta_s_pi[1:-1]
     print(f'\t#peak-indices:  {len(peak_indices_2)}')
     #  print(f'\tDelta_s_pi:  {delta_s_pi}, Numer {len(delta_s_pi)}')
     print(f'\t#Delta_s_pi:  {len(delta_s_pi)}')
 
-    ## Image 3 - Pi 18A
-    im_3 = imageio.imread('rohdaten/blau_pi_18A.JPG')
+    ## Image 3 - Pi 6A
+    im_3 = imageio.imread('content/pictures/blau_pi_6A.JPG')
     im_3 = im_3[:,:,2]  # r g b  also ist blau an position 2
     mitte_3 = im_3[len(im_3) // 2]
-    peaks_3 = find_peaks(mitte_3[lower_pi:upper_pi], height=20, distance=30, prominence=10)
-    peak_indices_3 = peaks_3[0] + lower_pi
-    peak_indices_3 = peak_indices_3[:-2]
+    peaks_3 = find_peaks(mitte_3[1700:upper_pi], height=15, distance=20, prominence=10)
+    peak_indices_3 = peaks_3[0] + 1700
+    #peak_indices_3 = peak_indices_3[1:]
     peak_diffs_3 = np.diff(peak_indices_3)
-    del_s_pi = peak_diffs_3[::2]
+    del_s_pi = peak_diffs_3[2::2]
     print(f'\t#peak-indices:  {len(peak_indices_3)}')
     #  print(f'\tdiffs: {peak_diffs_3}')
     #  print(f'\tDel_s:  {del_s_pi}, Number {len(del_s_pi)}')
     print(f'\t#Del_s:  {len(del_s_pi)}')
 
     # Berechnung Delta mg
-    current_pi = 18  # angelegter Strom in ampere
-    B_pi = eichfunktion(current_pi, *params)*1e-3
+    current_pi = 6  # angelegter Strom in ampere
+    B_pi = eichfunktion(current_pi, *params)
     print(f'\tB:  {B_pi}')
     d_lambda_pi = wellenlaengenAenderung(del_s_pi, delta_s_pi, d_lambda_D)
     delta_mg_pi = g_factor(d_lambda_pi, B_pi, lambda_2)
@@ -220,45 +226,49 @@ def auswertung_blau(params, d_lambda_D):
     print(f'\tMittelwert Delta_mg:  {sum(delta_mg_pi)/len(delta_mg_pi)}')
 
     # save results
-    make_table(header= ['$\delta s$ / \pixel', '$\Delta s$ / \pixel', '$\delta\lambda$ / \pico\meter', '$\zeta$'],
+    make_table(header= ['$\delta s$ / pixel', '$\Delta s$ / pixel', '$\delta\lambda$ / \pico\meter', '$g$'],
             places= [3.0, 2.0, 1.2, (1.2, 1.2)],
             data = [delta_s_pi, del_s_pi, d_lambda_pi*1e12, delta_mg_pi],
-            caption = 'Werte zur Bestimmung des Lande-Faktors für die Pi-Aufspaltung der blauen Spektrallinie.',
+            caption = 'Werte zur Bestimmung des Lande-Faktors für die $\sigma$-Aufspaltung der blauen Spektrallinie.',
             label = 'tab:blau_pi',
             filename = 'build/blau_pi.tex')
 
     # plot - Pi 0A
     x_plot_2 = np.array(range(len(mitte_2)))
     plt.plot(x_plot_2, mitte_2, 'k.')
-    plt.plot(peak_indices_2, mitte_2[peak_indices_2], 'rx')
+    plt.plot(peak_indices_2, mitte_2[peak_indices_2], 'rx',label="Verwertete Daten")
     plt.xlabel('Pixel (horizontale Richtung)')
     plt.ylabel('Blauwert')
     plt.grid()
+    plt.legend()
+    plt.tight_layout()
     plt.savefig('build/blau_pi_0A.pdf')
     plt.clf()
 
-    # plot - Pi 18A
+    # plot - Pi 6A
     x_plot_3 = np.array(range(len(mitte_3)))
-    plt.plot(x_plot_3, mitte_3, 'k.')
-    plt.plot(peak_indices_3, mitte_3[peak_indices_3], 'rx')
+    plt.plot(x_plot_3, mitte_3, 'k.',linewidth=0.6)
+    plt.plot(peak_indices_3, mitte_3[peak_indices_3], 'rx',label="Verwertete Daten")
     plt.xlabel('Pixel (horizontale Richtung)')
     plt.ylabel('Blauwert')
     plt.grid()
-    plt.savefig('build/blau_pi_18A.pdf')
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig('build/blau_pi_6A.pdf')
     plt.clf()
 
 
 def auswertung_rot(params, d_lambda_D):
     print('Auswertung rote Linie')
-    lower = 1800
-    upper = 3000
+    lower = 1700
+    upper = 33000
 
-    ## Pi
-    im_0 = imageio.imread('rohdaten/rot_pi_10,5A-2.JPG')
+    ## sigma0A
+    im_0 = imageio.imread('content/pictures/rot_sigma_0A.png')
     im_0 = im_0[:,:,0]  # r g b  also ist blau an position 2
     mitte_0 = im_0[len(im_0) // 2]
-    peaks_0 = find_peaks(mitte_0[1500:upper], height=20, distance=50, prominence=20)
-    peak_indices_0 = peaks_0[0] + 1500
+    peaks_0 = find_peaks(mitte_0[1900:upper], height=20, distance=50, prominence=20)
+    peak_indices_0 = peaks_0[0] + 1900
     delta_s = np.diff(peak_indices_0)
     #  print(peak_indices_0)
     print(f'\t#Delta_s:  {len(delta_s)}')
@@ -266,21 +276,23 @@ def auswertung_rot(params, d_lambda_D):
     # plot
     x_plot_0 = np.array(range(len(mitte_0)))
     plt.plot(x_plot_0, mitte_0, 'k.')
-    plt.plot(peak_indices_0, mitte_0[peak_indices_0], 'rx')
+    plt.plot(peak_indices_0, mitte_0[peak_indices_0], 'rx',label="Verwertete Daten")
     plt.xlabel('Pixel (horizontale Richtung)')
     plt.ylabel('Rotwert')
     plt.grid()
-    plt.savefig('build/rot_pi_10,5A.pdf')
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig('build/rot_sigma_0A.pdf')
     plt.clf()
 
-    ## Delta
-    im_1 = imageio.imread('rohdaten/rot_sigma_10,5A.JPG')
+    ## Sigma
+    im_1 = imageio.imread('content/pictures/rot_sigma_10A.png')
     im_1 = im_1[:,:,0]  # r g b  also ist blau an position 2
     mitte_1 = im_1[len(im_1) // 2]
     peaks_1 = find_peaks(mitte_1[lower:upper], height=20, distance=50, prominence=10)
     peak_indices_1 = peaks_1[0] + lower
     peak_diffs_1 = np.diff(peak_indices_1)
-    del_s = peak_diffs_1[::2]
+    del_s = peak_diffs_1[1::2]
     #  print(peak_indices_1)
     #  print(peak_diffs_1)
     print(f'\t#Del_s:  {len(del_s)}')
@@ -288,16 +300,18 @@ def auswertung_rot(params, d_lambda_D):
     # plot
     x_plot_1 = np.array(range(len(mitte_1)))
     plt.plot(x_plot_1, mitte_1, 'k.')
-    plt.plot(peak_indices_1, mitte_1[peak_indices_1], 'rx')
+    plt.plot(peak_indices_1, mitte_1[peak_indices_1], 'rx',label="Verwertete Daten")
+    plt.legend()
     plt.xlabel('Pixel (horizontale Richtung)')
     plt.ylabel('Rotwert')
     plt.grid()
-    plt.savefig('build/rot_sigma_10,5A.pdf')
+    plt.tight_layout()
+    plt.savefig('build/rot_sigma_10A.pdf')
     plt.clf()
 
-    #  current = Q_(10.5, 'ampere')  # angelegter Strom
-    current = 10.5  # angelegter Strom in ampere
-    B_1 = eichfunktion(current, *params)*1e-3
+    #  current = Q_(10, 'ampere')  # angelegter Strom
+    current = 10  # angelegter Strom in ampere
+    B_1 = eichfunktion(current, *params)
     print(f'\tB:  {B_1}')
     d_lambda = wellenlaengenAenderung(del_s, delta_s, d_lambda_D)
     delta_mg = g_factor(d_lambda, B_1, lambda_1)
@@ -307,7 +321,7 @@ def auswertung_rot(params, d_lambda_D):
     print(f'\tMittelwert Delta_mg:  {sum(delta_mg)/len(delta_mg)}')
 
     # save results
-    make_table(header= ['$\delta s$ / \pixel', '$\Delta s$ / \pixel', '$\delta\lambda$ / \pico\meter', '$\zeta$'],
+    make_table(header= ['$\delta s$ / pixel', '$\Delta s$ / pixel', '$\delta\lambda$ / \pico\meter', '$g$'],
             places= [3.0, 3.0, 2.2, (1.2, 1.2)],
             data = [delta_s, del_s, d_lambda*1e12, delta_mg],
             caption = 'Werte zur Bestimmung des Lande-Faktors für die rote Spektrallinie.',
