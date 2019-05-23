@@ -8,17 +8,17 @@ Statt das abgebildete Aufspaltungsbild werden jedoch nur 6 Linien beobachtet, da
 mit $\Delta m_\text{J} = 0$ verboten ist.
 \begin{figure}[htb]
   \centering
-  \includegraphics[height=4cm]{content/pictures/cdrot.png}
+  \includegraphics[height=7cm]{content/pictures/cdrot.png}
   \caption{Aufspaltung der roten Spektrallinie.\cite{zeeman}}
   \label{fig:cdrot}
 \end{figure}
 \begin{figure}[htb]
   \centering
-  \includegraphics[height=4cm]{content/pictures/cdblau.png}
+  \includegraphics[height=7cm]{content/pictures/cdblau.png}
   \caption{Aufspaltung der blauen Spektrallinie.\cite{zeeman}}
   \label{fig:cdblau}
 \end{figure}
-In Tabelle \ref{tab:Lande_rot} sind die theoretisch berchneten Landé-Faktoren für den Übergang $^1P_1 \leftrightarrow ^1\!\!D_2$,
+In Tabelle \ref{tab:Lande_rot} sind die theoretisch berechneten Landé-Faktoren für den Übergang $^1P_1 \leftrightarrow ^1\!\!D_2$,
 unter zu Hilfename von Formel \eqref{eqn:azee} gelistet.
 \begin{table}
 	\centering
@@ -121,17 +121,17 @@ wobei $\symup{c}$ die Lichtgeschwindigkeit und $\symup{h}$ das Plank'sche Wirkun
 \subsubsection{Rote Linie}
 In Abbildung \ref{fig:rot_pi_0A} sind die Spektrallinien mit Wellenlänge $\lambda=\SI{643.8}{\nano\meter}$ bei ausgeschaltetem Magnetfeld zu sehen.
 Bei einem Magnetfeld der Stärke $B=\SI{0.63(7)}{\tesla}$ ist in Abbildung \ref{fig:rot_pi_10A} keine Aufspaltung der Spektrallinien zu erkennen,
-was nach der Theorie zu erwarten war.
+was nach der Theorie zu erwarten war, da alle $m_ig_i-m_jg_j=0$ sind und somit keine Abweichung der Energie bzw. Wellenlänge bei einem angelegten B-Feld aufkommt.
 \begin{figure}[htb]
   \centering
   \includegraphics[height=8cm]{content/pictures/rot_pi_0A.png}
-  \caption{Spektrallinie für $\lambda=\SI{643.8}{\nano\meter}$.}
+  \caption{Spektrallinie für $\lambda=\SI{643.8}{\nano\meter}$ (Polarisationsfilter: \SI{0}{\degree}).}
   \label{fig:rot_pi_0A}
 \end{figure}
 \begin{figure}[htb]
   \centering
   \includegraphics[height=8cm]{content/pictures/rot_pi_10A.png}
-  \caption{$\pi$-Linie für $\lambda=\SI{643.8}{\nano\meter}$.}
+  \caption{Spektrallinie für $\lambda=\SI{643.8}{\nano\meter}$ bei $B=\SI{0.63(7)}{\tesla}$ (Polarisationsfilter: \SI{0}{\degree}).}
   \label{fig:rot_pi_10A}
 \end{figure}
 In Abbildung \ref{fig:rot_sigma_0A} ist das Interferenzbild der Spektrallinie zu sehen, die durch einen \SI{90}{\degree} Polarisationsfilter geht.
@@ -139,13 +139,13 @@ Nach Einschalten des Magnetfelds auf $B=\SI{0.63(7)}{\tesla}$ wird das Bild aus 
 \begin{figure}[htb]
   \centering
   \includegraphics[height=8cm]{content/pictures/rot_sigma_0A.png}
-  \caption{Spektrallinie für $\lambda=\SI{643.8}{\nano\meter}$ nach dem Polarisationsfilter.}
+  \caption{Spektrallinie für $\lambda=\SI{643.8}{\nano\meter}$ (Polarisationsfilter: \SI{90}{\degree}).}
   \label{fig:rot_sigma_0A}
 \end{figure}
 \begin{figure}[htb]
   \centering
   \includegraphics[height=8cm]{content/pictures/rot_sigma_10A.png}
-  \caption{$\sigma$-Linie für $\lambda=\SI{643.8}{\nano\meter}$ bei $B=\SI{0.63(7)}{\tesla}$.}
+  \caption{$\sigma$-Linie für $\lambda=\SI{643.8}{\nano\meter}$ bei $B=\SI{0.63(7)}{\tesla}$ (Polarisationsfilter: \SI{90}{\degree}).}
   \label{fig:rot_sigma_10A}
 \end{figure}
 Durch imageio \cite{imageio} werden die Bilder verarbeitet und die Distanz zwischen den Intensitätsmaxima gemessen.
@@ -153,13 +153,13 @@ Die von dem Programm erfassten Daten sind in den Abbildung \ref{fig:rot_sigma_0A
 \begin{figure}[htb]
   \centering
   \includegraphics[height=10cm]{build/rot_sigma_0A.pdf}
-  \caption{Rotwerte des Interferenzbildes für $\lambda=\SI{643.8}{\nano\meter}$ bei ausgeschaltetem Magnetfeld und einem \SI{90}{\degree} Polarisationsfilter.}
+  \caption{Rotwerte des Interferenzbildes für $\lambda=\SI{643.8}{\nano\meter}$ bei ausgeschaltetem Magnetfeld (Polarisationsfilter: \SI{90}{\degree}).}
   \label{fig:rot_sigma_0A_plot}
 \end{figure}
 \begin{figure}[htb]
   \centering
   \includegraphics[height=10cm]{build/rot_sigma_10A.pdf}
-  \caption{Rotwerte des Interferenzbildes für $\lambda=\SI{643.8}{\nano\meter}$ bei $B=\SI{0.63(7)}{\tesla}$ und einem \SI{90}{\degree} Polarisationsfilter.}
+  \caption{Rotwerte des Interferenzbildes für $\lambda=\SI{643.8}{\nano\meter}$ bei $B=\SI{0.63(7)}{\tesla}$ (Polarisationsfilter: \SI{90}{\degree}).}
   \label{fig:rot_sigma_10A_plot}
 \end{figure}
 Die Daten sind in Tabelle~\ref{tab:rot_sigma} zusammengefasst.
@@ -184,13 +184,13 @@ In Abbildung \ref{fig:blau_pi_6A} ist die Aufspaltung der $\sigma-$Linien bei $B
 \begin{figure}[htb]
   \centering
   \includegraphics[height=8cm]{content/pictures/blau_pi_0A.JPG}
-  \caption{Interferenzbild für $\lambda=\SI{480}{\nano\meter}$ bei ausgeschaltetem Magnetfeld.}
+  \caption{Interferenzbild für $\lambda=\SI{480}{\nano\meter}$ bei ausgeschaltetem Magnetfeld (Polarisationsfilter: \SI{90}{\degree}).}
   \label{fig:blau_pi_0A}
 \end{figure}
 \begin{figure}[htb]
   \centering
   \includegraphics[height=8cm]{content/pictures/blau_pi_6A.JPG}
-  \caption{$\sigma-$Linie für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{0.37(3)}{\tesla}$.}
+  \caption{$\sigma-$Linie für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{0.37(3)}{\tesla}$ (Polarisationsfilter: \SI{90}{\degree}).}
   \label{fig:blau_pi_6A}
 \end{figure}
 Die relevanten Daten sind in Abbildungen \ref{fig:blau_pi_0A_plot} und \ref{fig:blau_pi_6A_plot} einzusehen.
@@ -198,13 +198,13 @@ Für die Rechnung wichtige Werte stehen in Tabelle \ref{tab:blau_pi}.
 \begin{figure}[htb]
   \centering
   \includegraphics[height=10cm]{build/blau_pi_0A.pdf}
-  \caption{Blauwerte des Interferenzbildes für $\lambda=\SI{480}{\nano\meter}$ bei ausgeschaltetem Magnetfeld.}
+  \caption{Blauwerte des Interferenzbildes für $\lambda=\SI{480}{\nano\meter}$ bei ausgeschaltetem Magnetfeld (Polarisationsfilter: \SI{90}{\degree}).}
   \label{fig:blau_pi_0A_plot}
 \end{figure}
 \begin{figure}[htb]
   \centering
   \includegraphics[height=10cm]{build/blau_pi_6A.pdf}
-  \caption{Blauwerte des Interferenzbildes für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{0.37(3)}{\tesla}$.}
+  \caption{Blauwerte des Interferenzbildes für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{0.37(3)}{\tesla}$ (Polarisationsfilter: \SI{90}{\degree}).}
   \label{fig:blau_pi_6A_plot}
 \end{figure}
 Der Mittelwert lässt sich auf
@@ -219,26 +219,26 @@ Zum Schluss werden die $\pi-$Linien ohne (Abb. \ref{fig:blau_sigma_0A}) und mit 
 \begin{figure}[htb]
   \centering
   \includegraphics[height=8cm]{content/pictures/blau_sigma_0A.JPG}
-  \caption{Interferenzbild für $\lambda=\SI{480}{\nano\meter}$ bei ausgeschaltetem Magnetfeld.}
+  \caption{Interferenzbild für $\lambda=\SI{480}{\nano\meter}$ bei ausgeschaltetem Magnetfeld (Polarisationsfilter: \SI{0}{\degree}).}
   \label{fig:blau_sigma_0A}
 \end{figure}
 \begin{figure}[htb]
   \centering
   \includegraphics[height=8cm]{content/pictures/blau_sigma_20A.JPG}
-  \caption{Interferenzbild für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{1.1(4)}{\tesla}$.}
+  \caption{Interferenzbild für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{1.1(4)}{\tesla}$ (Polarisationsfilter: \SI{0}{\degree}).}
   \label{fig:blau_sigma_20A}
 \end{figure}
 Dazu werden mit den Daten aus Abbildungen \ref{fig:blau_sigma_0A_plot} und \ref{fig:blau_sigma_20A_plot} die Berechnungen wiederholt.
 \begin{figure}[htb]
   \centering
   \includegraphics[height=10cm]{build/blau_sigma_0A.pdf}
-  \caption{Blauwerte des Interferenzbildes für $\lambda=\SI{480}{\nano\meter}$ bei $B=0$.}
+  \caption{Blauwerte des Interferenzbildes für $\lambda=\SI{480}{\nano\meter}$ bei $B=0$ (Polarisationsfilter: \SI{0}{\degree}).}
   \label{fig:blau_sigma_0A_plot}
 \end{figure}
 \begin{figure}[htb]
   \centering
   \includegraphics[height=10cm]{build/blau_sigma_20A.pdf}
-  \caption{Blauwerte des Interferenzbildes für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{1.1(4)}{\tesla}$.}
+  \caption{Blauwerte des Interferenzbildes für $\lambda=\SI{480}{\nano\meter}$ bei $B=\SI{1.1(4)}{\tesla}$ (Polarisationsfilter: \SI{0}{\degree}).}
   \label{fig:blau_sigma_20A_plot}
 \end{figure}
 Die errechneten Werte befinden sich in Tabelle \ref{tab:blau_sigma}.
