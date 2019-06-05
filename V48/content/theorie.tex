@@ -1,21 +1,20 @@
 \section{Zielsetzung}
 \label{sec:Zielsetzung}
-In diesem Experiment werden die charakteristische Relaxationszeit $\tau_0$ und die zur Ausrichtung der Dipole nötigen Aktivierungsenergie $W$ in KBr(Sr) ermittelt. 
+In diesem Experiment werden die charakteristische Relaxationszeit $\tau_0$ und die zur Ausrichtung der Dipole nötigen Aktivierungsenergie $W$ in \ce{KBr(Sr)} ermittelt. 
 \section{Theorie}
 \label{sec:Theorie}
-Dotierung einwertiger Ionengittern mit zweiwertigen Kationen bildet elektrische Dipole im Ionenkristall.
-Der Kristall ist nach außen hin ladungsneutral.
+Dotierung einwertiger Ionengittern mit zweiwertigen Kationen bildet elektrische Dipole im Ionenkristall, da der Kristall nach außen hin ladungsneutral ist.
 Die Dipole entstehen durch die Leerstellen und zweiwertigen Kationen.
-In Abbildung \ref{fig:Dipol} ist der Sachverhalt an $\symup{Sr^{2+}}$ und CsJ zu erkennen.
+In Abbildung \ref{fig:Dipol} ist der Sachverhalt am Beispiel von Strontiumionen (\ce{Sr^{2+}}) in Cäsiumjodid (\ce{CsJ}) zu erkennen.
 \begin{figure}[htb]
   \centering
   \includegraphics[height=6cm]{pics/Dipole.png}
-  \caption{Elektrischer Dipol im Ionenkristall. \cite{anleitung}}
+  \caption{Mit \ce{Sr2+} dotiertes Cäsiumjodid \ce{CsJ} zur Darstellung von elektrischen Dipolen in Ionenkristallen. \cite{anleitung}}
   \label{fig:Dipol}
 \end{figure}
 \FloatBarrier
 
-Die Richtung der Dipole hängt hierbei von der Verbindungsachse zwischen den Störstellen im Gitter ab.
+Die Richtung der Dipole hängt hierbei von der Verbindungsachse zwischen den Störstellen im Gitter ab, sie ist also quantisiert.
 Solange die Temperatur des Kristalls unter \SI{500}{\celsius} ist, verändert sich die Dipolrichtung ausschließlich durch Leerstellendiffusion.
 Dazu muss eine Potentialschwelle überwunden werden, die von dem räumlich periodischen Verlauf des Gitterpotentials abhängt.
 Die nötige Energie ist die materialspezifische Aktivierungsenergie W.
@@ -24,11 +23,11 @@ Die mittlere Zeit zwischen zwei Orientierungen ist nach der Boltzmann-Statistik
     \label{eqn:Relaxzeit}
     \tau(T) = \tau_0 \exp\left(\frac{W}{\symup{k_B} T}\right)
 \end{equation}
-mit $\tau_0$ als charakteristische Relaxationszeit, k für die Boltzmann-Konstante und $T$ für die Temperatur.
+mit $\tau_0$ als charakteristische Relaxationszeit, $\symup{k_B}$ für die Boltzmann-Konstante und $T$ für die Temperatur.
 
 Die zu untersuchende Probe dient als Dielektrikum eines Plattenkondensatoren, an dem vorerst eine Gleichspannung angelegt ist.
-Durch das elektrische Feld werden einige Dipole in Feldrichtung ausgelenkt, die restlichen Dipole, wegen thermischer Gitterbausteinbewegung, in andere Richtungen.
-Insgesamt zeigt also nur ein Bruchteil y der Dipole in Feldrichtung.
+Durch das elektrische Feld werden einige Dipole in Feldrichtung ausgelenkt, die restlichen Dipole, wegen thermischer Gitterbausteinbewegung, zeigen
+in andere Richtungen. Insgesamt zeigt also nur ein Bruchteil $y$ der Dipole in Feldrichtung.
 Dieser Bruchteil lässt sich durch die Funktion
 \begin{equation}
     y(T)=\frac{pE}{3\symup{k_B}T}
@@ -36,14 +35,15 @@ Dieser Bruchteil lässt sich durch die Funktion
 ausdrücken.
 Hierbei steht $p$ für die Dipolstärke und $E$ für die elektrische Feldstärke.
 
-Sobald diese ausgerichteten Dipole wieder eine statistische Raumverteilung annehmen, was als Dipolrelaxation bezeichnet wird, ist ein Depolarisationsstrom messbar.
-Der Verlauf dieses Stromes ist in Abbildung \ref{fig:Strom} zu sehen.
+Während diese ausgerichteten Dipole wieder eine statistische Raumverteilung annehmen, was als Dipolrelaxation bezeichnet wird, ist ein Depolarisationsstrom messbar.
+Der schematische Verlauf dieses Stromes ist in Abbildung \ref{fig:Strom} zu sehen.
 Die Depolarisationsstromdichte ist durch
 \begin{equation}
-    j(T)=\frac{p^2 E N_\text{p}}{3kT_\text{p}\tau_0}\exp\left(-\frac{1}{h\tau_0}\int_{T_0}^{T}\exp(-W/kT')dT'\right)\exp(-W/kT)
+\label{eqn:Stromdichte}
+    j(T)=\frac{p^2 E N_\text{p}}{3 \symup{k_B} T_\text{p}\tau_0}\exp\left(-\frac{1}{h\tau_0}\int_{T_0}^{T}\exp(\sfrac{-W}{\symup{k_B}T'})d\,T'\right)\exp(\sfrac{-W}{\symup{k_B}T})
 \end{equation}
 gegeben.
-$\text{T}_p$ ist die Polarisationstemperatur, $h$ die Heizrate und $\text{N}_p$ die Zahl der zu Beginn des Aufheizens (Zeitpunkt $\text{t}_0$ und Temperatur $\text{T}_0$) vorhandenden orientierten Dipole pro Volumeneinheit.
+Dabei ist $T_\text{p}$ die Polarisationstemperatur, $h$ die Heizrate und $N_\text{p}$ die Zahl der zu Beginn des Aufheizens (Zeitpunkt $t_0$ und Temperatur $T_0$) vorhandenden orientierten Dipole pro Volumeneinheit.
 \begin{figure}[htb]
     \centering
     \includegraphics[height=6cm]{pics/Strom.png}
