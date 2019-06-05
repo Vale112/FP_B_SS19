@@ -108,14 +108,14 @@ Die in Abbildung \ref{fig:grT1} gezeigte Ausgleichsgerade ergibt die Parameter
 wobei nur die Werte zwischen \SIrange{37.6e-4}{42.4e-4}{\per\kelvin} für die Ausgleichsrechnung herangezogen werden. Dabei ergibt sich
 \begin{align*}
     W_1 &= \SI{1.372(12)e-19}{\joule} \\
-    \tau_{0,1} &= \SI{9(3)e-17}{second}.
+    \tau_{0,1} &= \SI{9(3)e-17}{\second}.
 \end{align*}
 Für die Heizrate von etwa \SI{2}{\kelvin\per\minute} ergeben sich diese Werte zu
 \begin{align*}
     a_2 &= \SI{1124(29)e1}{\kelvin} \\
     b_2 &= \num{-41.6(11)} \\
     W_2 &= \SI{1.55(4)e-19}{\joule} \\
-    \tau_{0,2} &= \SI{9(10)e-18}{second},
+    \tau_{0,2} &= \SI{9(10)e-18}{\second},
 \end{align*}
 dabei beschränkt sich der betrachtete Bereich auf \SIrange{36.8e-4}{42.0e-4}{\per\kelvin}.
 \begin{figure}[htb]
@@ -138,12 +138,13 @@ Des Weiteren lässt sich aus der Position des Maximums auch die Relaxationszeit 
     \label{eqn:tau0}
     \tau_0 = \frac{\symup{k_B}T_\text{max}^2}{W \cdot h} \exp\left(-\frac{W}{\symup{k_B}T_\text{max}} \right),
 \end{equation}
-was sich nach ableiten der Formel \eqref{eqn:Stromdichte} ergibt, bestimmen. Dabei wird für $T_\text{max}$ das Maxiumum der geweiligen Heizrate nach Abzug des Untergrunds bestimmt.
-Für die Aktivierungsenergie $W$ wird der gemittelte Wert für die jeweilige Heizrate aus beiden Verfahren verwendet.
-Für die Heizrate von $h_1=\SI{1.015(6)}{\kelvin\per\minute}$, der gemittelten Aktivierungsenergie $W_1 = \SI{1.235(20)e-19}{\joule}$ und dem 
-Maximum bei einer Temperatur von $T_\text{max, 1} = \SI{255}{\kelvin}$ ergibt sich die Relaxationszeit $\tau_{0,1} = \SI{2.5(15)e-15}{\second}$. 
-Für die Heizrate $h_2=\SI{1.734(19)}{\kelvin\per\minute}$, der gemittelten Aktivierungsenergie $W_2 = \SI{1.55(5)e-19}{\joule}$ und dem 
-Maximum bei einer Temperatur von $T_\text{max, 2} = \SI{260.95}{\kelvin}$ ergibt sich die Relaxationszeit $\tau_{0,2} = \SI{0.8(10)e-18}{\second}$.
+was sich nach ableiten der Formel \eqref{eqn:Stromdichte} ergibt, bestimmen. Dabei wird für $T_\text{max}$ das Maxiumum der geweiligen Heizrate nach Abzug
+des Untergrunds bestimmt, was als orange Linie eingezeichnet ist.
+Für die Aktivierungsenergie $W$ wird der gemittelte Wert für die jeweilige Heizraten aus beiden Verfahren verwendet.
+Für die Heizrate von $h_1=\SI{1.015(6)}{\kelvin\per\minute}$ mit der gemittelten Aktivierungsenergie $W_1=\SI{1.235(20)e-19}{\joule}$ und dem 
+Maximum bei einer Temperatur von $T_\text{max, 1}=\SI{255}{\kelvin}$ ergibt sich die Relaxationszeit nach \eqref{eqn:tau0} zu $\tau_{0,1}=\SI{2.5(15)e-15}{\second}$. 
+Für die Heizrate $h_2=\SI{1.734(19)}{\kelvin\per\minute}$, der gemittelten Aktivierungsenergie $W_2~=~\SI{1.55(5)e-19}{\joule}$ und dem 
+Maximum bei einer Temperatur von $T_\text{max, 2}~=~\SI{260.95}{\kelvin}$ ergibt sich die Relaxationszeit $\tau_{0,2}=\SI{0.8(10)e-18}{\second}$.
 
 % \subsection{Unterkapiel}
 % \label{sec:Unterkapitel}
