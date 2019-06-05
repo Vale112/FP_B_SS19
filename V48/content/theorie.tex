@@ -60,6 +60,13 @@ Ist i(t) der durch die Dipolrelaxation erzeugte Strom, gilt die Beziehung
 \begin{equation}
     \frac{W}{\symup{k_B}T}=\ln\frac{\int_T^\infty i(T')dT'}{i(T)\tau_0 h}.
 \end{equation}
+Durch Regression wird $W$ schließlich ermittelt.
+Die Relaxationszeit $\tau_0$ ist gegeben durch
+\begin{equation}
+    \label{eqn:tau0}
+    \tau_0 = \frac{\symup{k_B}T_\text{max}^2}{W \cdot h} \exp\left(-\frac{W}{\symup{k_B}T_\text{max}} \right).
+\end{equation}
+$T_\text{max}$ ist die Temperatur bei dem der größte Strom fließt (siehe Abb. \ref{fig:Strom}). 
 % \begin{figure}[htb]
 %   \centering
 %   \includegraphics[height=5.5cm]{content/Bild.png}
