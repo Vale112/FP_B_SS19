@@ -68,7 +68,7 @@ def lin(x,m,b):
 print('\n--------------Kalibration---------------')
 #Gauß-Funktion für Peakhoehenbestimmung
 def gauss(x,sigma,h,mu):
- return h*np.exp(-((x-mu)/2*(sigma))**2)
+ return h*np.exp(-(x-mu)**2/(2*(sigma)**2))
 #Verwende Gauß-Fit in jedem Bin des Spektrums um Peakhöhe zu erhalten
 def gaussian_fit_peaks(test_ind):
  peak_inhalt = []
@@ -177,7 +177,7 @@ make_table(
  data=[E_det, W, Z, Q],
  caption = 'Peakinhalt, Energie und Detektoreffizienz als Ergebnis des Gaußfits.',
  label = 'tab:det_eff',
- places = [(4.2, 1.2), (2.3, 1.3), (5.0, 3.0), (1.5, 1.5)],
+ places = [(4.2, 1.2), (2.3, 1.3), (5.0, 3.0), (1.3, 1.3)],
  filename = 'build/tables/det_eff.tex'
  )
 
@@ -283,12 +283,12 @@ plt.savefig('build/vollpeak.pdf')
 plt.clf()
 
 #lin beschreibt noch die lineare Regression vom Beginn der Auswertung
-h_g = ufloat(2.91, 0.10)
+h_g = ufloat(2.18, 0.10)
 print('Halbwertsbreite Gemessen ', h_g)
 h_t = np.sqrt(8*np.log(2))*sigma_fit
 print('Halbwertsbreite Theorie ', h_t)
 print(f'     Rel. Fehler der Halbwertsbreiten Werte {(h_g-h_t)*100/h_t} %')
-z_g = ufloat(5.17, 0.10)
+z_g = ufloat(3.88, 0.10)
 print('Zehntelbreite Gemessen ', z_g)
 z_t = np.sqrt(8*np.log(10))*sigma_fit
 print('Zehntelbreite Theorie ', z_t)
@@ -397,7 +397,7 @@ for i in range(len(index_ba)):
     E_ba_det.append(lin(index_ba[i],*params_test))
 
 make_table(
-        header = ['$E_\\text{theo}$ / \kilo\electronvolt', '$W_\\text{i}$ / \%', '$i$', '$E_\\text{fit}$ / \kilo\electronvolt'],
+        header = ['$E_\\text{theo}$ / \kilo\electronvolt', '$W_\\text{i}$ / \%', '$i$', '$\mu_\\text{i}$ / \kilo\electronvolt'],
         data = [E_Ba, W_Ba, peaks_Ba, E_ba_det],
         places = [(3.4, 1.4), (2.3, 1.3) , 3.0, (3.2, 1.2)],
         caption = 'Die Zuordnung zum Spektrum des ${}^{133}$Ba.',
@@ -436,9 +436,9 @@ for i in A:
 #print(peakinhalt_ba)
 #Fasse Fit-Parameter in Tabelle zusammen
 make_table(
-    header= ['$E_\\text{i}$', '$\mu_\\text{i}$ / \kilo\electronvolt', '$h_\\text{i}$', '$\sigma_\\text{i}$ / \kilo\electronvolt'],
-    data=[lin(peaks_Ba, *params_test), E_ba_det, hoehe_ba, sigma_ba],
-    places=[(3.2, 1.2), (3.2, 1.2), (4.0, 2.0), (1.3, 1.3)],
+    header= ['$\mu_\\text{i}$ / \kilo\electronvolt', '$h_\\text{i}$', '$\sigma_\\text{i}$ / \kilo\electronvolt'],
+    data=[E_ba_det, hoehe_ba, sigma_ba],
+    places=[ (3.2, 1.2), (4.1, 2.1), (1.3, 1.3)],
     caption='Parameter des Gauß-Fits für das gegeben Spektrum',
     label='tab:Ba',
     filename='build/tables/Ba.tex'
@@ -461,9 +461,9 @@ for i in range(4, len(W_Ba)):
 #    filename ='build/tables/aktivitaet-ba.tex'
 #)
 make_table(
-    header= ['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$Q_\\text{i}$', '$Z_\\text{i}$', '$A_\\text{i}$ / \\becquerel'],
+    header= ['$\mu_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$Q_\\text{i}$', '$Z_\\text{i}$', '$A_\\text{i}$ / \\becquerel'],
     data=[E_ba_det[4:], W_Ba[4:], Q_d ,Z_d, A_det],
-    places=[(3.2, 1.2), (2.3, 1.3), (1.5, 1.5), (4.0 , 2.0), (4.0, 3.0)],
+    places=[(3.2, 1.2), (2.3, 1.3), (1.4, 1.4), (4.0 , 2.0), (4.0, 3.0)],
     caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
     label='tab:aktivitaet_ba',
     filename='build/tables/aktivitaet_ba.tex'
@@ -560,6 +560,7 @@ W_e_tab = np.delete(W_e, [0,1,3,4,5,6,17,18,25], None)
 Z_e_tab = np.delete(Z_e, [0,1,3,4,5,6,17,18,25], None)
 Q_e_tab = np.delete(Q_e, [0,1,3,4,5,6,17,18,25], None)
 A_e_tab = np.delete(A_e, [0,1,3,4,5,6,17,18,25], None)
+print(sdevs(Q_e_tab))
 make_table(
     header= ['$E_\\text{i}$ / \kilo\electronvolt', '$W_\\text{i}$\;/\;\si{\percent}', '$Z_\\text{i}$', '$Q_\\text{i}$', '$A_\\text{i}$ / \\becquerel'],
     data=[E_e_tab, W_e_tab, Z_e_tab, noms(Q_e_tab) , A_e_tab],
