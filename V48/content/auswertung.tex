@@ -5,12 +5,12 @@ Die gesamte Auswertung wird mit Hilfe der Bibilotheken \cite{matplotlib}, \cite{
 \cite{uncertainties} in \textit{python} durchgeführt. \\
 Berechnungen aus nebeneinander liegenden Temperaturen, geteilt durch die Zeitdifferenz ihrer Aufnhame von \SI{30}{\second}
 ergeben eine Heizrate $h$ von \SI{1.015(6)}{\kelvin\per\minute} beziehungsweise von \SI{1.734(19)}{\kelvin\per\minute}.
-Die Polarisation der Probe fand bei \SI{322.95}{\kelvin} und einem angelegtem Feld von \SI{900}{\volt} statt.
+Die Polarisation der Probe findet bei \SI{322.95}{\kelvin} und einem angelegtem Feld von \SI{900}{\volt} statt.
 
 \subsection{Untergrund}
 \label{sec:Unter}
 Für die Bestimmung des Untergrunds $I(T)$ werden die Messdaten links und rechts neben dem betrachteten Bereich,
-welcher durch zwei senkrechte violette Linien begrentzt ist, 
+welcher durch zwei senkrechte violette Linien begrenzt ist, 
 herangezogen. Diese sind in den Abbildungen \ref{fig:Messdaten1} und \ref{fig:Messdaten2} grün dargestellt.
 Desweiteren ist auch der Fit der Form
 \begin{equation}
@@ -49,7 +49,7 @@ Für die folgenden Rechnungen wird dieser Untergrund den Messwerten abgezogen.
 \label{sec:klT}
 Zur Berechnung der Aktivierungsenergie $W$ bei kleinen Temperaturen werden die Daten vom linken Rand des betrachteten Bereichs bis zum Maximum, welches durch die senkrechte orange Linie gekennzeichnet ist,
 aus den Abbildungen \ref{fig:Messdaten1} und \ref{fig:Messdaten2} verwendet. Es wird die Näherung der Stromdichte für kleine Temperaturen
-herangezogen. Der gemessene Strom $i(T)$ ist dabei bis auf einen konstanten Faktor proportionel zur Stromdichte. Der Strom wird logarithmiert
+herangezogen. Der gemessene Strom $i(T)$ ist dabei bis auf einen konstanten Faktor proportional zur Stromdichte. Der Strom wird logarithmiert
 und in Abhängigkeit von der reziproken Temperatur $\frac{1}{T}$ in Abbildung \ref{fig:klT} aufgetragen. Für jede Heizrate erfolgt eine lineare Ausgleichsrechnung der Form
 \begin{equation}
     \label{eqn:lin}
@@ -133,12 +133,8 @@ dabei beschränkt sich der betrachtete Bereich auf \SIrange{36.8e-4}{42.0e-4}{\p
 
 \subsection{Relaxationszeit}
 \label{sec:relax}
-Des Weiteren lässt sich aus der Position des Maximums auch die Relaxationszeit $\tau_0$ nach
-\begin{equation}
-    \label{eqn:tau0}
-    \tau_0 = \frac{\symup{k_B}T_\text{max}^2}{W \cdot h} \exp\left(-\frac{W}{\symup{k_B}T_\text{max}} \right)
-\end{equation}
-bestimmen. Dabei wird für $T_\text{max}$ das Maxiumum der geweiligen Heizrate nach Abzug des Untergrunds bestimmt.
+Des Weiteren lässt sich aus der Position des Maximums auch die Relaxationszeit $\tau_0$ nach \eqref{eqn:tau0}
+bestimmen. Dabei wird für $T_\text{max}$ das Maximum der jeweiligen Heizrate nach Abzug des Untergrunds bestimmt.
 Für die Aktivierungsenergie $W$ wird der gemittelte Wert für die jeweilige Heizrate aus beiden Verfahren verwendet.
 Für die Heizrate von $h_1=\SI{1.015(6)}{\kelvin\per\minute}$, der gemittelten Aktivierungsenergie $W_1 = \SI{1.235(20)e-19}{\joule}$ und dem 
 Maximum bei einer Temperatur von $T_\text{max, 1} = \SI{255}{\kelvin}$ ergibt sich die Relaxationszeit $\tau_{0,1} = \SI{2.5(15)e-15}{\second}$. 
