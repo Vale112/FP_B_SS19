@@ -58,7 +58,7 @@ Der Compton-Wirkungsquerschnitt nach der Energie der Elektronen abgeleitet entsp
   \label{eq:wirk}
   \frac{\text{d}\sigma}{\text{d}E} = \frac{3}{8}\sigma_\text{Th} \frac{1}{m_0\text{c}^2\varepsilon^2}
     \left[ 2 + \left(\frac{E}{\text{h}\nu - E}\right)^2
-      \left( \frac{1}{\varepsilon^2} + \frac{\text{h}\nu-E}{\text{h}\nu} - \frac{2}{\varepsilon}\frac{\text{h}\nu-E}{\text{h}\nu} \right)
+      \left( \frac{1}{\varepsilon^2} + \frac{\text{h}\nu-E}{\text{h}\nu} - \frac{2}{\varepsilon}\left(\frac{\text{h}\nu-E}{\text{h}\nu} \right) \right)
     \right].
 \end{equation}
 $E$ ist die Energie des Elektrons nach dem Stoß und $E_\gamma=h\nu$ die Energie des einfallenden $\gamma$-Quants.
@@ -73,7 +73,7 @@ $E$ ist die Energie des Elektrons nach dem Stoß und $E_\gamma=h\nu$ die Energie
 Bei der Paarbildung wandelt sich das $\gamma$-Quant in ein Elektron und ein Positron um, falls es die dafür nötige Energie $E_{\gamma}>2m_{\symup{e}}c^2$ besitzt.
 Damit dieser Prozess (vom Ruhesystem des $\gamma$-Quants aus gesehen) stattfinden kann, muss zusätzlich noch ein Stoßpartner vorhanden sein.
 Ist dieser Partner ein Elektron, benötigt das $\gamma$-Quant aufgrund der Rückstoßenergie sogar die vierfache Ruhemasse des Elektrons an Energie, damit es zur Paarbildung kommen kann.
-Der Wirkungsquerschnitt $\sigma_{\symup{Pa}}$ ist je nach Ort, an dem die Paarerzeugung stattfindet unterschiedlich groß, da zum Beispiel im Bereich der K-Schale das gesamte Coulomb-Feld mitwirkt, bei äußeren Schalen
+Der Wirkungsquerschnitt $\sigma_{\symup{Pa}}$ ist je nach Ort, an dem die Paarerzeugung stattfindet, unterschiedlich groß, da zum Beispiel im Bereich der K-Schale das gesamte Coulomb-Feld mitwirkt, bei äußeren Schalen
 jedoch Abschirmungseffekte eine Rolle spielen, wodurch $\sigma_{\symup{Pa}}$ von der Abschirmung abhängt.
  \begin{figure}
    \centering
@@ -106,12 +106,12 @@ Das hat zur Folge, dass der Fehler der (Poisson-) Verteilung durch einen Fano-Fa
 \begin{equation*}
 \sigma = \sqrt{F\bar{n}}.
 \end{equation*}
-Bei Germanium beträgt $F$ etwa $0.1$.
+Bei Germanium beträgt $F$ etwa \num{0.1}.
 Da $n$ sehr viel größer als \num{1} ist, kann die Poisson-Verteilung als Gauß-Verteilung approximiert werden.
 Ist $\sigma_E$ die Standardabweichung, lässt sich die Halbwertsbreite aus
 \begin{equation}
 \label{eq:aufloesung}
-\Delta E_{\sfrac{1}{2}} = 2 \cdot \sqrt{2\ln{(2)}}\cdot\frac{E_{\gamma}\sigma}{\bar{n}} \approx 2.35\sqrt{\num{0.1} \cdot E_\gamma \cdot E_{\symup{El}}}
+\Delta E_{\sfrac{1}{2}} = 2 \cdot \sqrt{2\ln{(2)}}\cdot\frac{E_{\gamma}\sigma}{\bar{n}} \approx \num{2.35}\sqrt{\num{0.1} \cdot E_\gamma \cdot E_{\symup{El}}}
 \end{equation}
 errechnen.
 Die Halbwertsbreite bei einem Germanium-Detektor mit einer typischen $\gamma$-Energie von $\SI{500}{\kilo\electronvolt}$ beträgt somit $\Delta E_{\sfrac{1}{2}} =\SI{895}{\electronvolt}$.
