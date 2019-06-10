@@ -3,7 +3,7 @@
 \label{sec:Auswertung}
 Die gesamte Auswertung wird mit Hilfe der Bibilotheken \cite{matplotlib}, \cite{numpy}, \cite{scipy} und
 \cite{uncertainties} in \textit{python} durchgeführt. \\
-Berechnungen aus nebeneinander liegenden Temperaturen, geteilt durch die Zeitdifferenz ihrer Aufnhame von \SI{30}{\second}
+Berechnungen aus nebeneinander liegenden Temperaturen, geteilt durch die Zeitdifferenz ihrer Aufnahme von \SI{30}{\second}
 ergeben eine Heizrate $h$ von \SI{1.015(6)}{\kelvin\per\minute} beziehungsweise von \SI{1.734(19)}{\kelvin\per\minute}.
 Die Polarisation der Probe findet bei \SI{322.95}{\kelvin} und einem angelegtem Feld von \SI{900}{\volt} statt.
 
@@ -20,7 +20,7 @@ Desweiteren ist auch der Fit der Form
 in den Abbildungen \ref{fig:Messdaten1} und \ref{fig:Messdaten2} eingezeichnet.
 Die Parameter für die Heizrate von etwa \SI{1}{\kelvin\per\minute} ergeben sich zu
 \begin{align*}
-    a &= \SI{0.20(7)e-11}{\ampere} \\
+    a &= \SI{0.2(7)e-11}{\ampere} \\
     b &= \SI{0.019(11)}{\per\kelvin} \\
     c &= \SI{-0.03(7)e-11}{\ampere}.
 \end{align*}
@@ -33,15 +33,27 @@ Und für die Heizrate von etwa \SI{2}{\kelvin\per\minute} auf
 Für die folgenden Rechnungen wird dieser Untergrund den Messwerten abgezogen.
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=\textwidth]{build/Messdaten1.pdf}
+  \includegraphics[width=0.9\textwidth]{build/Messdaten1.pdf}
   \caption{Die Messdaten für eine Heizrate von etwa \SI{1}{\kelvin\per\minute}. Nicht verwendete Messdaten sind blau und die für den Untergrund verwendeten grün dargestellt. Die violetten Linien makieren den betrachtete Bereich, die Orange das Maximum.}
   \label{fig:Messdaten1}
 \end{figure}
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=\textwidth]{build/Messdaten2.pdf}
+  \includegraphics[width=0.9\textwidth]{build/Messdaten1_ohne.pdf}
+  \caption{Die Messdaten nach Abzug des Untergrunds für eine Heizrate von etwa \SI{1}{\kelvin\per\minute}.}
+  \label{fig:Messdaten1_ohne}
+\end{figure}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.9\textwidth]{build/Messdaten2.pdf}
   \caption{Die Messdaten für eine Heizrate von etwa \SI{2}{\kelvin\per\minute}. Nicht verwendete Messdaten sind blau und die für den Untergrund verwendeten grün dargestellt. Die violetten Linien makieren den betrachtete Bereich, die Orange das Maximum.}
   \label{fig:Messdaten2}
+\end{figure}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.9\textwidth]{build/Messdaten2_ohne.pdf}
+  \caption{Die Messdaten nach Abzug des Untergrunds für eine Heizrate von etwa \SI{2}{\kelvin\per\minute}.}
+  \label{fig:Messdaten2_ohne}
 \end{figure}
 \FloatBarrier
 
@@ -66,8 +78,8 @@ Es können die Parameter zu
 bestimmt werden.
 Somit lassen sich die Aktivierungsenergien $W_\text{i} = -a_\text{i} \cdot \symup{k_B}$ zu
 \begin{align*}
-    W_1 &= \SI{1.13(4)e-19}{\joule} \\
-    W_2 &= \SI{1.54(8)e-19}{\joule}
+    W_1 &= \SI{0.708(24)}{\electronvolt} \\
+    W_2 &= \SI{0.96(5)}{\electronvolt}
 \end{align*}
 bestimmen.
 \begin{figure}[htb]
@@ -92,14 +104,15 @@ Die lässt sich für die Heizrate von etwa \SI{1}{\kelvin\per\minute} auf $T^*_1
 auf $T^*_2 = \SI{280.95}{\kelvin}$ approximieren, da diese den kleinsten absoluten Abstand zu \SI{0}{\ampere} haben.
 Wird nun
 \begin{equation*}
-    ln\left(\frac{\int_T^{T^*} |i(T')| \symup{d}\,T'}{h_i \cdot |i(T)|}\right)
+    \ln\left(\frac{\int_T^{T^*} |i(T')| \symup{d}\,T'}{h_i \cdot |i(T)|}\right)
 \end{equation*}
 gegen $\frac{1}{T}$ aufgetragen und eine lineare Ausgleichrechnung der Form
 \begin{equation}
     \label{eqn:lin2}
-    ln\left(\frac{\int_T^{T^*} |i(T')| \symup{d}\,T'}{h_i \cdot |i(T)|}\right) = \frac{W}{\symup{k_B} \cdot T} + ln(\tau_0) = \frac{a}{T} + b
+    \ln\left(\frac{\int_T^{T^*} |i(T')| \symup{d}\,T'}{h_i \cdot |i(T)|}\right) = \frac{W}{\symup{k_B} \cdot T} + \ln(\tau_0) = \frac{a}{T} + b
 \end{equation}
-durchgeführt, lässt sich aus dem Parameter $a$ die Aktivierungsenergie und aus dem Parameter $b$ die Relaxationszeit $\tau_0$ bestimmen.
+durchgeführt, lässt sich aus dem Parameter $a$ die Aktivierungsenergie und theoretisch aus dem Parameter $b$ die Relaxationszeit $\tau_0$ bestimmen,
+was hier auf Grund des unbekannten Offsets nicht möglich ist.
 Die in Abbildung \ref{fig:grT1} gezeigte Ausgleichsgerade ergibt die Parameter
 \begin{align*}
     a_1 &= \SI{994(9)e1}{\kelvin} \\
@@ -107,15 +120,13 @@ Die in Abbildung \ref{fig:grT1} gezeigte Ausgleichsgerade ergibt die Parameter
 \end{align*}
 wobei nur die Werte zwischen \SIrange{37.6e-4}{42.4e-4}{\per\kelvin} für die Ausgleichsrechnung herangezogen werden. Dabei ergibt sich
 \begin{align*}
-    W_1 &= \SI{1.372(12)e-19}{\joule} \\
-    \tau_{0,1} &= \SI{9(3)e-17}{second}.
+    W_1 &= \SI{0.856(7)}{\electronvolt}.
 \end{align*}
 Für die Heizrate von etwa \SI{2}{\kelvin\per\minute} ergeben sich diese Werte zu
 \begin{align*}
     a_2 &= \SI{1124(29)e1}{\kelvin} \\
     b_2 &= \num{-41.6(11)} \\
-    W_2 &= \SI{1.55(4)e-19}{\joule} \\
-    \tau_{0,2} &= \SI{9(10)e-18}{second},
+    W_2 &= \SI{0.968(25)}{\electronvolt},
 \end{align*}
 dabei beschränkt sich der betrachtete Bereich auf \SIrange{36.8e-4}{42.0e-4}{\per\kelvin}.
 \begin{figure}[htb]
@@ -130,16 +141,25 @@ dabei beschränkt sich der betrachtete Bereich auf \SIrange{36.8e-4}{42.0e-4}{\p
   \caption{Werte zur Bestimmung der Relaxationszeit und der Aktivierungsenergie nach dem Polarisationsansatzes für die Heizrate von etwa \SI{2}{\kelvin\per\minute}.}
   \label{fig:grT2}
 \end{figure}
+\FloatBarrier
 
 \subsection{Relaxationszeit}
 \label{sec:relax}
-Des Weiteren lässt sich aus der Position des Maximums auch die Relaxationszeit $\tau_0$ nach \eqref{eqn:tau0}
+Des Weiteren lässt sich aus dem Maximum auch die Relaxationszeit $\tau_0$ nach \eqref{eqn:tau0}
 bestimmen. Dabei wird für $T_\text{max}$ das Maximum der jeweiligen Heizrate nach Abzug des Untergrunds bestimmt.
 Für die Aktivierungsenergie $W$ wird der gemittelte Wert für die jeweilige Heizrate aus beiden Verfahren verwendet.
-Für die Heizrate von $h_1=\SI{1.015(6)}{\kelvin\per\minute}$, der gemittelten Aktivierungsenergie $W_1 = \SI{1.235(20)e-19}{\joule}$ und dem 
+Für die Heizrate von $h_1=\SI{1.015(6)}{\kelvin\per\minute}$, der gemittelten Aktivierungsenergie $W_1 = \SI{1.253(20)e-19}{\joule}$ und dem 
 Maximum bei einer Temperatur von $T_\text{max, 1} = \SI{255}{\kelvin}$ ergibt sich die Relaxationszeit $\tau_{0,1} = \SI{2.5(15)e-15}{\second}$. 
-Für die Heizrate $h_2=\SI{1.734(19)}{\kelvin\per\minute}$, der gemittelten Aktivierungsenergie $W_2 = \SI{1.55(5)e-19}{\joule}$ und dem 
-Maximum bei einer Temperatur von $T_\text{max, 2} = \SI{260.95}{\kelvin}$ ergibt sich die Relaxationszeit $\tau_{0,2} = \SI{0.8(10)e-18}{\second}$.
+Für die Heizrate $h_2=\SI{1.734(19)}{\kelvin\per\minute}$, der gemittelten Aktivierungsenergie von $W_2 = \SI{1.55(5)e-19}{\joule}$ und dem 
+Maximum bei $T_\text{max, 2} = \SI{260.95}{\kelvin}$ ergibt sich die Relaxationszeit $\tau_{0,2} = \SI{0.8(10)e-18}{\second}$.
+Der Fehler ergibt sich dabei nach
+\begin{align*}
+    \label{eqn:FehlerTau}
+    \Delta \tau_0 & = \sqrt{\left(\frac{\symup{k_B}}{W h} \exp\left(-\frac{W}{\symup{k_B} T_\text{max}}\right) \left(\frac{W}{\symup{k_B}} + 2 T_\text{max}\right) \Delta T_\text{max} \right)^2} \\ 
+    &\overline{+ \left(\frac{\symup{k_B} T_\text{max}^2}{h} \exp\left(-\frac{W}{\symup{k_B} T_\text{max}}\right)\left(\frac{W}{\symup{k_B}T_\text{max}} + 1 \right) \Delta W \right)^2} \\ 
+    &\overline{+ \left(\frac{\symup{k_B} T_\text{max}^2}{h} \exp\left(-\frac{W}{\symup{k_B} T_\text{max}}\right)\Delta h \right)^2}.
+\end{align*}
+Zu beachten ist, dass kein Fehler für $T_\text{max}$ angenommen wurde, womit der Teil mit $\Delta T_\text{max}$ in der Gauß'schen Fehlerfortpflanzung enfällt.
 
 % \subsection{Unterkapiel}
 % \label{sec:Unterkapitel}
