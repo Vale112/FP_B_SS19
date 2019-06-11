@@ -1,6 +1,31 @@
-\textbf{Diskrimator:} Erzeugt Spannung proportional zum eingang von Impulsen pro Zeiteinheit
+\textbf{Diskrimator:} Erlaubt die Betrachtung eines definierten Energieauschnitts, der Rest wird diskriminiert. (Erzeugt Spannung proportional zum eingang von Impulsen pro Zeiteinheit)
 \textbf{Multichannelanalyser - Vielkanalanalysator:} Sortiert Impulse nach Ihrer Höhe ein und setzt den Zähler für diese Höhe um eins nach oben.
 \textbf{Least-Square-Fit - Methode der kleinesten Quadrate:} Dabei wird zu einer Datenpunktwolke eine Kurve gesucht, die möglichst nahe an den Datenpunkten verläuft.
 \textbf{Szintillationsdetektor:} Durch Stoßprozesse entstehen in den Szintillatoren Lichtquanten, welche durch einen Photomultiplier verstärkt und regestriert werden. Energie $\approx$ Lichtmenge, Intensität $\approx$ Anzahl Szintillationen pro Zeiteinheit 
 \textbf{Photomultiplier:} Lichtquant löst Elektron aus und wird lawinenartig verstärkt (Zick-Zack durch Beschleunigungskaskade) Amplitude ist abhängig von einfallender Energie
 Anzahl Pulse pro Zeiteiheit Maß für die Intensität
+
+ \begin{equation*}
+   A = \begin{pmatrix}
+              1 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+              0 & 1 & 0 & 0 & 1 & 0 & 0 & 1 & 0 \\
+              0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 1 \\
+              1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+              0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0 \\
+              0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 \\
+              0 & \sqrt{2} & 0 & \sqrt{2} & 0 & 0 & 0 & 0 & 0 \\
+              0 & 0 & \sqrt{2} & 0 & \sqrt{2} & 0 & \sqrt{2} & 0 & 0 \\
+              0 & 0 & 0 & 0 & 0 & \sqrt{2} & 0 & \sqrt{2} & 0 \\
+              0 & 0 & 0 & \sqrt{2} & 0 & 0 & 0 & \sqrt{2} & 0 \\
+              \sqrt{2} & 0 & 0 & 0 & \sqrt{2} & 0 & 0 & 0 & \sqrt{2} \\
+              0 & \sqrt{2} & 0 & 0 & 0 & \sqrt{2} & 0 & 0 & 0
+      \end{pmatrix}.
+      \label{eqn:matrix}
+ \end{equation*}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=\textwidth]{pictures/Würfel.pdf}
+  \caption{Würfelüositionen und der schematische Strahlenverlauf für die Messungen.}
+  \label{fig:Pos}
+\end{figure}
