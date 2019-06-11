@@ -20,15 +20,15 @@ Desweiteren ist auch der Fit der Form
 in den Abbildungen \ref{fig:Messdaten1} und \ref{fig:Messdaten2} eingezeichnet.
 Die Parameter für die Heizrate von etwa \SI{1}{\kelvin\per\minute} ergeben sich zu
 \begin{align*}
-    a &= \SI{0.2(7)e-11}{\ampere} \\
-    b &= \SI{0.019(11)}{\per\kelvin} \\
-    c &= \SI{-0.03(7)e-11}{\ampere}.
+    a &= \SI{0.156(6)e-11}{\ampere} \\
+    b &= \SI{0.0390(9)}{\per\kelvin} \\
+    c &= \SI{0.019(5)e-11}{\ampere}.
 \end{align*}
 Und für die Heizrate von etwa \SI{2}{\kelvin\per\minute} auf
 \begin{align*}
-    a &= \SI{0.82(12)e-11}{\ampere} \\
-    b &= \SI{0.018(4)}{\per\kelvin} \\
-    c &= \SI{-0.30(11)e-11}{\ampere}.
+    a &= \SI{0.421(16)e-11}{\ampere} \\
+    b &= \SI{0.0452(10)}{\per\kelvin} \\
+    c &= \SI{0.013(14)e-11}{\ampere}.
 \end{align*}
 Für die folgenden Rechnungen wird dieser Untergrund den Messwerten abgezogen.
 \begin{figure}[htb]
@@ -59,8 +59,9 @@ Für die folgenden Rechnungen wird dieser Untergrund den Messwerten abgezogen.
 
 \subsection{Stromdichteansatz}
 \label{sec:klT}
-Zur Berechnung der Aktivierungsenergie $W$ bei kleinen Temperaturen werden die Daten vom linken Rand des betrachteten Bereichs bis zum Maximum, welches durch die senkrechte orange Linie gekennzeichnet ist,
-aus den Abbildungen \ref{fig:Messdaten1} und \ref{fig:Messdaten2} verwendet. Es wird die Näherung der Stromdichte für kleine Temperaturen
+Zur Berechnung der Aktivierungsenergie $W$ bei kleinen Temperaturen werden die Daten vom linken Rand des betrachteten Bereichs bis zum Wendepunkt, 
+aus den Abbildungen \ref{fig:Messdaten1} und \ref{fig:Messdaten2} verwendet. Dieser Bereich beläuft sich für die erste Messung auf 
+\SIrange{237.95}{249.15}{\kelvin} und für die Zweite auf \Sirange{238.35}{249.85}{\kelvin}. Es wird die Näherung der Stromdichte für kleine Temperaturen
 herangezogen. Der gemessene Strom $i(T)$ ist dabei bis auf einen konstanten Faktor proportional zur Stromdichte. Der Strom wird logarithmiert
 und in Abhängigkeit von der reziproken Temperatur $\frac{1}{T}$ in Abbildung \ref{fig:klT} aufgetragen. Für jede Heizrate erfolgt eine lineare Ausgleichsrechnung der Form
 \begin{equation}
@@ -70,16 +71,16 @@ und in Abhängigkeit von der reziproken Temperatur $\frac{1}{T}$ in Abbildung \r
 mit der Boltzmann-Konstante $\symup{k_B} = \SI{1.380649e-23}{\joule\per\kelvin}$ \cite{codata}, welche ebenfalls in Abbildung \ref{fig:klT} zusehen ist.
 Es können die Parameter zu
 \begin{align*}
-    a_1 &= \SI{-822(28)e1}{\kelvin} \\
-    b_1 &= \num{31.9(11)} \\
-    a_2 &= \SI{-112(6)e2}{\kelvin} \\
-    b_2 &= \num{43.5(24)}
+    a_1 &= \SI{-957(17)e1}{\kelvin} \\
+    b_1 &= \num{37.6(7)} \\
+    a_2 &= \SI{-1186(28)e1}{\kelvin} \\
+    b_2 &= \num{46.8(12)}
 \end{align*}
 bestimmt werden.
 Somit lassen sich die Aktivierungsenergien $W_\text{i} = -a_\text{i} \cdot \symup{k_B}$ zu
 \begin{align*}
-    W_1 &= \SI{0.708(24)}{\electronvolt} \\
-    W_2 &= \SI{0.96(5)}{\electronvolt}
+    W_1 &= \SI{0.824(15)}{\electronvolt} \\
+    W_2 &= \SI{1.022(24)}{\electronvolt}
 \end{align*}
 bestimmen.
 \begin{figure}[htb]
@@ -115,18 +116,18 @@ durchgeführt, lässt sich aus dem Parameter $a$ die Aktivierungsenergie und the
 was hier auf Grund des unbekannten Offsets nicht möglich ist.
 Die in Abbildung \ref{fig:grT1} gezeigte Ausgleichsgerade ergibt die Parameter
 \begin{align*}
-    a_1 &= \SI{994(9)e1}{\kelvin} \\
-    b_1 &= \num{-36.9(3)},
+    a_1 &= \SI{948(8)e1}{\kelvin} \\
+    b_1 &= \num{-35.1(3)},
 \end{align*}
 wobei nur die Werte zwischen \SIrange{37.6e-4}{42.4e-4}{\per\kelvin} für die Ausgleichsrechnung herangezogen werden. Dabei ergibt sich
 \begin{align*}
-    W_1 &= \SI{0.856(7)}{\electronvolt}.
+    W_1 &= \SI{0.817(7)}{\electronvolt}.
 \end{align*}
 Für die Heizrate von etwa \SI{2}{\kelvin\per\minute} ergeben sich diese Werte zu
 \begin{align*}
-    a_2 &= \SI{1124(29)e1}{\kelvin} \\
-    b_2 &= \num{-41.6(11)} \\
-    W_2 &= \SI{0.968(25)}{\electronvolt},
+    a_2 &= \SI{946(15)e1}{\kelvin} \\
+    b_2 &= \num{-34.6(6)} \\
+    W_2 &= \SI{0.815(13)}{\electronvolt},
 \end{align*}
 dabei beschränkt sich der betrachtete Bereich auf \SIrange{36.8e-4}{42.0e-4}{\per\kelvin}.
 \begin{figure}[htb]
@@ -148,10 +149,10 @@ dabei beschränkt sich der betrachtete Bereich auf \SIrange{36.8e-4}{42.0e-4}{\p
 Des Weiteren lässt sich aus dem Maximum auch die Relaxationszeit $\tau_0$ nach \eqref{eqn:tau0}
 bestimmen. Dabei wird für $T_\text{max}$ das Maximum der jeweiligen Heizrate nach Abzug des Untergrunds bestimmt.
 Für die Aktivierungsenergie $W$ wird der gemittelte Wert für die jeweilige Heizrate aus beiden Verfahren verwendet.
-Für die Heizrate von $h_1=\SI{1.015(6)}{\kelvin\per\minute}$, der gemittelten Aktivierungsenergie $W_1 = \SI{1.253(20)e-19}{\joule}$ und dem 
-Maximum bei einer Temperatur von $T_\text{max, 1} = \SI{255}{\kelvin}$ ergibt sich die Relaxationszeit $\tau_{0,1} = \SI{2.5(15)e-15}{\second}$. 
-Für die Heizrate $h_2=\SI{1.734(19)}{\kelvin\per\minute}$, der gemittelten Aktivierungsenergie von $W_2 = \SI{1.55(5)e-19}{\joule}$ und dem 
-Maximum bei $T_\text{max, 2} = \SI{260.95}{\kelvin}$ ergibt sich die Relaxationszeit $\tau_{0,2} = \SI{0.8(10)e-18}{\second}$.
+Für die Heizrate von $h_1=\SI{1.015(6)}{\kelvin\per\minute}$, der gemittelten Aktivierungsenergie $W_1 = \SI{1.315(13)e-19}{\joule}$ und dem 
+Maximum bei einer Temperatur von $T_\text{max, 1} = \SI{255}{\kelvin}$ ergibt sich die Relaxationszeit $\tau_{0,1} = \SI{4.0(15)e-16}{\second}$. 
+Für die Heizrate $h_2=\SI{1.734(19)}{\kelvin\per\minute}$, der gemittelten Aktivierungsenergie von $W_2 = \SI{1.472(22)e-19}{\joule}$ und dem 
+Maximum bei $T_\text{max, 2} = \SI{260.95}{\kelvin}$ ergibt sich die Relaxationszeit $\tau_{0,2} = \SI{7(4)e-18}{\second}$.
 Der Fehler ergibt sich dabei nach
 \begin{align*}
     \label{eqn:FehlerTau}

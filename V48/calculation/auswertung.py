@@ -44,38 +44,38 @@ hr2m = unp.uarray(hr2m, sem(hr2))
 unterc1 = np.array([])
 unterc1 = np.append(unterc1, current1[0:39])
 unterc1 = np.append(unterc1, current1[41:45])
-unterc1 = np.append(unterc1, current1[110:130])
+unterc1 = np.append(unterc1, current1[110:200])
 untert1 = np.array([])
 untert1 = np.append(untert1, temp1[0:39])
 untert1 = np.append(untert1, temp1[41:45])
-untert1 = np.append(untert1, temp1[110:130])
+untert1 = np.append(untert1, temp1[110:200]) # vorher bis 130
 
 unterc2 = np.array([])
 unterc2 = np.append(unterc2, current2[0:25])
-unterc2 = np.append(unterc2, current2[72:80])
+unterc2 = np.append(unterc2, current2[72:115])
 untert2 = np.array([])
 untert2 = np.append(untert2, temp2[0:25])
-untert2 = np.append(untert2, temp2[72:80])
+untert2 = np.append(untert2, temp2[72:115]) # vorher bis 80
 
 #Fit des Untergrunds
 def expo(T, a, b, c):           #Fitfunktion für den Untergrund
     return a * np.exp(b*T) + c 
 
-params1, covariance1 = curve_fit(expo, untert1, unterc1)
+params1, covariance1 = curve_fit(expo, untert1, unterc1, p0=[0.05, 0.02, -0.03], maxfev=10000)
 errors1 = np.sqrt(np.diag(covariance1))
 print('Parameter des Untergrundfits 1')
 print('Amplitude a1 =', params1[0], '±', errors1[0])
 print('Exponentenfaktor b1 =', params1[1], '±', errors1[1])
 print('Achsenabschnitt c1 =', params1[2], '±', errors1[2])
-# print('Offset d1 =', params1[3], '±', errors1[3])
+#print('Offset d1 =', params1[3], '±', errors1[3])
 
-params2, covariance2 = curve_fit(expo, untert2, unterc2)
+params2, covariance2 = curve_fit(expo, untert2, unterc2, p0=[0.05, 0.02, -0.03], maxfev=10000)
 errors2 = np.sqrt(np.diag(covariance2))
 print('Parameter des Untergrundfits 2')
 print('Amplitude a2 =', params2[0], '±', errors2[0])
 print('Exponentenfaktor b2 =', params2[1], '±', errors2[1])
 print('Achsenabschnitt c2 =', params2[2], '±', errors2[2])
-# print('Offset d2 =', params2[3], '±', errors2[3])
+#print('Offset d2 =', params2[3], '±', errors2[3])
 
 # Strommaxima nach abzug des Untergrunds
 Tmax1 = pytemperature.c2k(-18.15)      #passt besser
@@ -118,8 +118,10 @@ current2 -= expo(temp2,*params2)
 
 #Erzeugt einen Plot der Messdaten nach Abzug des Untergrunds
 tplot1 = np.linspace(-65,58)
-plt.plot(pytemperature.c2k(temp1), current1, 'rx', label='Messdaten ohne UNtergrund') #Messpunkte
+plt.plot(pytemperature.c2k(temp1), current1, 'rx', label='Messdaten ohne Untergrund') #Messpunkte
 plt.bar(Tmax1, 0.7, width=0.3, color='orange', label='Maximum')
+plt.bar(pytemperature.c2k(temp1[45]), 0.7, width=0.3, color='m')
+plt.bar(pytemperature.c2k(temp1[112]), 0.7, width=0.3, color='m')
 plt.xlabel(r'Temperatur $T\:/\: \mathrm{K}$')
 plt.ylabel(r'Strom $I\:/\: 10^{-11}\mathrm{A}$')
 plt.ylim(-0.05, 1)
@@ -130,6 +132,8 @@ plt.clf()
 tplot2 = np.linspace(-60,62)
 plt.plot(pytemperature.c2k(temp2), current2, 'rx', label='Messdaten ohne Untergrund') #Messpunkte
 plt.bar(Tmax2, 1.5, width=0.3, color='orange', label='Maximum')
+plt.bar(pytemperature.c2k(temp2[25]), 1.5, width=0.3, color='m')
+plt.bar(pytemperature.c2k(temp2[75]), 1.5, width=0.3, color='m')
 plt.xlabel(r'Temperatur $T\:/\: \mathrm{°C}$')
 plt.ylabel(r'Strom $I\:/\: 10^{-11}\mathrm{A}$')
 plt.ylim(-0.05, 3)
@@ -139,38 +143,45 @@ plt.clf()
 
 #------------------------kleine Tempearuren 
 print('--------------kl Temperaturen-------------')
-lncurrent1 = np.log(current1[45:82])
-lncurrent2 = np.log(current2[25:59])
+lncurrent1 = np.log(current1[45:70]) #vorher bis 82
+temp1_fit = 1/pytemperature.c2k(temp1[45:70])
+lncurrent2 = np.log(current2[25:45]) #vorher bis 59
+temp2_fit = 1/pytemperature.c2k(temp2[25:45])
+
 kB = const.Boltzmann #Boltzmann Konstante
 e = const.e
-W = unp.uarray(1.06e-19,2e-19)
-print('Aktivierungsenergie aus Literatur', W/e)
+W = unp.uarray(1.06e-19,2e-19) # in Joule
+WW = unp.uarray(0.66, 0.01) #in eV
+print('Aktivierungsenergie aus Literatur', WW)
+
 
 #Fit für Daten
 def lin (x, a, b):
     return a*x+b
 
-params1_2, covariance1_2 = curve_fit(lin, 1/pytemperature.c2k(temp1[45:82]), lncurrent1)
+params1_2, covariance1_2 = curve_fit(lin, temp1_fit, lncurrent1)
 errors1_2 = np.sqrt(np.diag(covariance1_2))
 print('Parameter der kl T 1')
 print('Steigung a1 =', params1_2[0], '±', errors1_2[0])
 print('Achsenabschnitt b1 =', params1_2[1], '±', errors1_2[1])
 a1=unp.uarray(params1_2[0], errors1_2[0])
-print('Aktivierungsenergie W1 =', -a1*kB/e, 'mit Abweichung von ', -noms((W + a1*kB)/W*100))
+print('Verwendeter Bereich von', 1/temp1_fit[0], 'bis', 1/temp1_fit[-1])
+print('Aktivierungsenergie W1 =', -a1*kB/e, 'mit Abweichung von ', -noms((WW + a1*kB/e)/WW*100))
 
-params2_2, covariance2_2 = curve_fit(lin, 1/pytemperature.c2k(temp2[25:59]), lncurrent2)
+params2_2, covariance2_2 = curve_fit(lin, temp2_fit, lncurrent2)
 errors2_2 = np.sqrt(np.diag(covariance2_2))
 print('Parameter der kl T 2')
 print('Steigung a2 =', params2_2[0], '±', errors2_2[0])
 print('Achsenabschnitt b2 =', params2_2[1], '±', errors2_2[1])
 a2=unp.uarray(params2_2[0], errors2_2[0])
-print('Aktivierungsenergie W2 =', -a2*kB/e, 'mit Abweichung von ', -noms((W + a2*kB)/W*100))
+print('Verwendeter Bereich von', 1/temp2_fit[0], 'bis', 1/temp2_fit[-1])
+print('Aktivierungsenergie W2 =', -a2*kB/e, 'mit Abweichung von ', -noms((WW + a2*kB/e)/WW*100))
 
 #Plott für kleine T 
-plt.plot(1/pytemperature.c2k(temp1[45:82])*10**3, lncurrent1, 'rx', label='Messdaten Heizrate 1') #Messpunkte
-plt.plot(1/pytemperature.c2k(np.linspace(-36.5, -18.2))*10**3, lin(1/pytemperature.c2k(np.linspace(-36.5, -18.2)),*params1_2), 'y-', label='Fit Heizrate 1') #Fitkurve für kleine T
-plt.plot(1/pytemperature.c2k(temp2[25:59])*10**3, lncurrent2, 'mx', label='Messdaten Heizrate 2') #Messpunkte
-plt.plot(1/pytemperature.c2k(np.linspace(-37, -12))*10**3, lin(1/pytemperature.c2k(np.linspace(-37, -12)),*params2_2), 'b-', label='Fit Heizrate 2') #Fitkurve für kleine T
+plt.plot(temp1_fit*10**3, lncurrent1, 'rx', label='Messdaten Heizrate 1') #Messpunkte
+plt.plot(1/pytemperature.c2k(np.linspace(-36.5, -22))*10**3, lin(1/pytemperature.c2k(np.linspace(-36.5, -22)),*params1_2), 'y-', label='Fit Heizrate 1') #Fitkurve für kleine T
+plt.plot(temp2_fit*10**3, lncurrent2, 'mx', label='Messdaten Heizrate 2') #Messpunkte
+plt.plot(1/pytemperature.c2k(np.linspace(-37, -22))*10**3, lin(1/pytemperature.c2k(np.linspace(-37, -22)),*params2_2), 'b-', label='Fit Heizrate 2') #Fitkurve für kleine T
 plt.xlabel(r'Temperatur $1\:/\:T\:/\:10^{-3}\:/\:\mathrm{K}$')
 plt.ylabel(r'Strom $ln(I\:/\: 10^{-11}\mathrm{A})$')
 plt.legend(loc='best')
@@ -213,7 +224,7 @@ print('Steigung a1 =', params1_3[0], '±', errors1_3[0])
 print('Achsenabschnitt b1 =', params1_3[1], '±', errors1_3[1])
 a1=unp.uarray(params1_3[0], errors1_3[0])
 b1=unp.uarray(params1_3[1], errors1_3[1])
-print('Aktivierungsenergie W1 =', a1*kB/e, 'mit Abweichung von ', -noms((W - a1*kB)/W*100))
+print('Aktivierungsenergie W1 =', a1*kB/e, 'mit Abweichung von ', -noms((WW - a1*kB/e)/WW*100))
 # print('Relaxationszeit T_0 =', unp.exp(b1))
 
 params2_3, covariance2_3 = curve_fit(lin, 1/pytemperature.c2k(temp2[25:71]), lnint2[25:71])
@@ -223,7 +234,7 @@ print('Steigung a2 =', params2_3[0], '±', errors2_3[0])
 print('Achsenabschnitt b2 =', params2_3[1], '±', errors2_3[1])
 a2=unp.uarray(params2_3[0], errors2_3[0])
 b2=unp.uarray(params2_3[1], errors2_3[1])
-print('Aktivierungsenergie W2 =', a2*kB/e, 'mit Abweichung von ', -noms((W - a2*kB)/W*100))
+print('Aktivierungsenergie W2 =', a2*kB/e, 'mit Abweichung von ', -noms((WW - a2*kB/e)/WW*100))
 # print('Relaxationszeit T_0 =', unp.exp(b2))
 
 W1 = unp.uarray([noms(W1_1), noms(a1*kB)], [stds(W1_1), stds(a1*kB)])
