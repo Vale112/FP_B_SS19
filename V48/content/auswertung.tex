@@ -61,7 +61,7 @@ Für die folgenden Rechnungen wird dieser Untergrund den Messwerten abgezogen.
 \label{sec:klT}
 Zur Berechnung der Aktivierungsenergie $W$ bei kleinen Temperaturen werden die Daten vom linken Rand des betrachteten Bereichs bis zum Wendepunkt, 
 aus den Abbildungen \ref{fig:Messdaten1} und \ref{fig:Messdaten2} verwendet. Dieser Bereich beläuft sich für die erste Messung auf 
-\SIrange{237.95}{249.15}{\kelvin} und für die Zweite auf \Sirange{238.35}{249.85}{\kelvin}. Es wird die Näherung der Stromdichte für kleine Temperaturen
+\SIrange{237.95}{249.15}{\kelvin} und für die Zweite auf \SIrange{238.35}{249.85}{\kelvin}. Es wird die Näherung der Stromdichte für kleine Temperaturen
 herangezogen. Der gemessene Strom $i(T)$ ist dabei bis auf einen konstanten Faktor proportional zur Stromdichte. Der Strom wird logarithmiert
 und in Abhängigkeit von der reziproken Temperatur $\frac{1}{T}$ in Abbildung \ref{fig:klT} aufgetragen. Für jede Heizrate erfolgt eine lineare Ausgleichsrechnung der Form
 \begin{equation}
@@ -157,8 +157,8 @@ Der Fehler ergibt sich dabei nach
 \begin{align*}
     \label{eqn:FehlerTau}
     \Delta \tau_0 & = \sqrt{\left(\frac{\symup{k_B}}{W h} \exp\left(-\frac{W}{\symup{k_B} T_\text{max}}\right) \left(\frac{W}{\symup{k_B}} + 2 T_\text{max}\right) \Delta T_\text{max} \right)^2} \\ 
-    &\overline{+ \left(\frac{\symup{k_B} T_\text{max}^2}{h} \exp\left(-\frac{W}{\symup{k_B} T_\text{max}}\right)\left(\frac{W}{\symup{k_B}T_\text{max}} + 1 \right) \Delta W \right)^2} \\ 
-    &\overline{+ \left(\frac{\symup{k_B} T_\text{max}^2}{h} \exp\left(-\frac{W}{\symup{k_B} T_\text{max}}\right)\Delta h \right)^2}.
+    &\overline{+ \left(\frac{\symup{k_B} T_\text{max}^2}{h} \exp\left(-\frac{W}{\symup{k_B} T_\text{max}}\right)\left(\frac{1}{\symup{k_B}T_\text{max}W} + \frac{1}{W^2} \right) \Delta W \right)^2} \\ 
+    &\overline{+ \left(\frac{\symup{k_B} T_\text{max}^2}{W h^2} \exp\left(-\frac{W}{\symup{k_B} T_\text{max}}\right)\Delta h \right)^2}.
 \end{align*}
 Zu beachten ist, dass kein Fehler für $T_\text{max}$ angenommen wurde, womit der Teil mit $\Delta T_\text{max}$ in der Gauß'schen Fehlerfortpflanzung enfällt.
 
