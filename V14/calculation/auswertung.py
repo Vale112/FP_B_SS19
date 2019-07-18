@@ -21,60 +21,75 @@ if not os.path.isdir('build'):
 if not os.path.isdir('build/tables'):
     os.mkdir('build/tables')
 
-#------------------------Aufgabenteil a) 
-print('--------------Aufgabenteil a)-------------')
-data, E, dE = np.genfromtxt('data/Eu152.txt', unpack=True)  #liest die Messdaten ein
-E = unp.uarray(E, dE) # Erzeugt aus den Daten Messwerte inkl Fehler für die vereinfachte Fehlerrechnung mit uncertainties
-
-# Erzeugt eine Tabelle aus den gegebenen Daten, beachte E ist Fehlerbehaftet
-make_table(
-        header = [' $E_\\text{i}$ / \kilo\electronvolt', '$i$'],
-        data = [E, data],
-        places = [(4.4, 1.4), 4.0],
-        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{referenz1}.',
-        label = 'tab:zuordnung_eu',
-        filename = 'build/tables/zuordnung_Eu.tex'
-        )
-
-#Lineare Funktion für Ausgleichsgeraden
-def lin(x,m,b):
-    return m*x+b
-
-# Linerare Fit mit gefitteten Kanalnummern zu Energie
-params, covariance= curve_fit(lin,noms(index_f),noms(E))
-errors = np.sqrt(np.diag(covariance))
-print('Kalibrationswerte mit gefitteten Kanälen:')
-print('Steigung m =', params[0], '±', errors[0])
-print('Achsenabschnitt b =', params[1], '±', errors[1])
-#Zusammenfassen der Werte und Ungenauigkeiten der Fit-Parameter
-m=ufloat(params[0],errors[0])
-b=ufloat(params[1],errors[1])
-
-#Erzeugt einen Plot der Messdaten
-x=np.linspace(1,8192,8192)
-plt.bar(x, data, label='Balken')     #Histogrambalken
-plt.plot(x, data, 'rx', label='Messdaten') #Messpunkte
-plt.plot(x, lin(x, *params), 'y-', label='Fit') #Ausgleichsrechnung
-plt.xlim(0, 4000)
-plt.xlabel(r'Kanalnummer $i$')
-plt.ylabel(r'Zählrate $N$')
-plt.legend(loc='best')
-plt.yscale('log')
-plt.savefig('build/Eu_log_Kanal.pdf')
+#------------------------Nullmessung 
+data = np.genfromtxt('data/nullmessung', unpack=True)  #liest die Messdaten ein
+x=np.linspace(1,len(data),len(data))
+plt.plot(x,data)
+plt.xlabel("Channel")
+plt.ylabel("Counts")
+plt.savefig("build/Nullmessung.pdf")
 plt.clf()
+#------------------------Würfel 1
+print('--------------Würfel 1-------------')
+
+I_1=np.array([93.2, 36.5, 108.8, 63.2, 45.6, 66.2, 57.8, 34.8, 64, 65.8, 61.1, 49.1])
+I_1_err=np.array([2.4, 1.7, 2.5, 2.1, 2, 2.3, 2.1, 1.8, 2.2, 2.3, 3.1, 2.0])
+def ac(I,I_err):
+    A =[[1, 0, 0, 1, 0, 0, 1, 0, 0],
+    [0,1, 0, 0, 1,0, 0, 1, 0],
+    [0, 0, 1, 0, 0, 1, 0, 0, 1],
+    [1, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 1, 1],
+    [0, np.sqrt(2), 0, np.sqrt(2), 0, 0, 0, 0, 0],
+    [0, 0, np.sqrt(2), 0, np.sqrt(2), 0, np.sqrt(2), 0, 0],
+    [0, 0, 0, 0, 0, np.sqrt(2), 0, np.sqrt(2), 0],
+    [0, 0, 0, np.sqrt(2), 0, 0, 0, np.sqrt(2), 0],
+    [np.sqrt(2), 0, 0, 0, np.sqrt(2), 0, 0, 0, np.sqrt(2)],
+    [0, np.sqrt(2), 0, 0, 0, np.sqrt(2), 0, 0, 0]]
+    A_T=np.transpose(A)    
+
+    I_0=110#Eingangsintensität
+    I_0_err=1.7
+
+    N=np.log(I_0/I)
+    temp=np.linalg.inv(np.dot(A_T,A))
+    ac=np.dot(temp,np.dot(A_T,N))
+    print("ac=",ac)
+    sigma_I=np.sqrt((I_0_err/I_0)**2+(I_err/I)**2)
+    sigma_I_sqrd=np.dot(sigma_I,sigma_I)
+    C=sigma_I_sqrd*temp
+    ac_err=np.sqrt(np.diag(C))
+    print("ac_err=",ac_err)
+    print("Mittelwert: ",np.sum(ac)/np.size(ac),"+-",np.sum(ac_err)/np.size(ac_err))
+    return 0
+ac(I_1,I_1_err)
+#N_1=np.log(I/I_1)
+#temp=np.linalg.inv(np.dot(A_T,A))
+#ac=np.dot(temp,np.dot(A_T,N_1))
+#print("ac=",ac)
+#sigma_I_1=np.sqrt((I_1_err/I_1)**2+(I_err/I)**2)#Fehler sigma_i
+#print(sigma_I_1)
+#sigma_I_1_sqrd=np.dot(sigma_I_1,sigma_I_1)
+#C=sigma_I_1_sqrd*temp
+#ac_err=np.sqrt(np.diag(C))
+#print("ac_err=",ac_err)
 
 
+#------------------------Würfel 2
+print('--------------Würfel 2-------------')
+I_2=np.array([9.4, 9.5, 9.4, 9.4, 9.5, 9.4, 11.3, 7.2, 11.3, 11.3, 7.2, 11.3])
+I_2_err=np.array([0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 2.8, 0.2, 2.8, 2.8, 0.2, 2.8])
+ac(I_2,I_2_err)
 
+#------------------------Würfel 3
+print('--------------Würfel 3-------------')
+I_3=np.array([38.6, 36.5, 38.6, 38.6, 36.5, 38.6, 48, 37.5, 48, 48, 37.5, 48])
+I_3_err=np.array([0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.7, 0.6, 0.7, 0.7, 0.6, 0.7])
+ac(I_3,I_3_err)
 
-#--------------------Aufgabenteil b)
-
-#Erzeugt ein leeres Array und berechnet dann die Werte, welche nach und nach eingetragen werden
-Q=[]
-Z=[]
-for i in range(len(data)):
- Z.append(np.sqrt(2*np.pi)*E[i]*data[i])
- Q.append(Z[i]/(E[i]/100*4676))
-
-# Ruft den letzten wert eines Arrays ab, und gibt diesen aus
-e_photo=E[-1]
-print('Photo: ', e_photo)
+#------------------------Würfel 5
+print('--------------Würfel 5-------------')
+I_5=np.array([9.4, 27, 25.9, 14.6, 24.7, 15, 20.9, 14.9, 16.2, 46, 12.8, 13.2])
+I_5_err=np.array([0.3, 0.5, 0.4, 0.4, 0.4, 0.3, 0.4, 0.4, 0.4, 0.6, 0.3, 0.3])
+ac(I_5,I_5_err)

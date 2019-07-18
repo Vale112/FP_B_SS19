@@ -1,14 +1,224 @@
 \newpage
 \section{Auswertung}
 \label{sec:Auswertung}
+\subsection{Nullmessung}
+Für die Bestimmung von der Eingangsintensität $I_0$, wird eine Nullmessung durchgeführt.
+Das aufgenommene Spektrum ist in Abbildung \ref{fig:Nullmessung} zu sehen.
+Die Intensität wird aus dem Verhältnis der gezählten Counts $C$ pro Zeitintervall $\Delta t$ bestimmt mit
+\begin{equation}
+    I_0=\frac{C}{\Delta t}.
+\end{equation}
+Nach Gauß ergibt sich der Fehler zu
+\begin{equation}
+    \sigma_{I_0}=\frac{\sigma_C}{\Delta t}.
+\end{equation}
+Es werden $\num{6645\pm104}$ Ereignisse in \SI{60,48}{\second} vom Programm registriert.
+Daraus folgt eine Eingangsintensität von $I_0=\SI{110.0\pm1.7}{\becquerel}$.
 
-% \subsection{Unterkapiel}
-% \label{sec:Unterkapitel}
+ \begin{figure}[htb]
+   \centering
+   \includegraphics[width=\textwidth]{calculation/build/Nullmessung.pdf}
+   \caption{Nullmessung.}
+   \label{fig:Nullmessung}
+ \end{figure}
+\subsection{Würfelmessungen}
+Die Würfelgeometrie wird durch Matrix \eqref{eqn:matrix} beschrieben.
+\begin{equation*}
+    A = \begin{pmatrix}
+               1 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+               0 & 1 & 0 & 0 & 1 & 0 & 0 & 1 & 0 \\
+               0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 1 \\
+               1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+               0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0 \\
+               0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 \\
+               0 & \sqrt{2} & 0 & \sqrt{2} & 0 & 0 & 0 & 0 & 0 \\
+               0 & 0 & \sqrt{2} & 0 & \sqrt{2} & 0 & \sqrt{2} & 0 & 0 \\
+               0 & 0 & 0 & 0 & 0 & \sqrt{2} & 0 & \sqrt{2} & 0 \\
+               0 & 0 & 0 & \sqrt{2} & 0 & 0 & 0 & \sqrt{2} & 0 \\
+               \sqrt{2} & 0 & 0 & 0 & \sqrt{2} & 0 & 0 & 0 & \sqrt{2} \\
+               0 & \sqrt{2} & 0 & 0 & 0 & \sqrt{2} & 0 & 0 & 0
+       \end{pmatrix}.
+       \label{eqn:matrix}
+  \end{equation*}
+Die gemessenen Counts $C$ und errechneten Ausgangsintensitäten $I_j$ des ersten und fünften Würfels sind in Tabelle \ref{tab:W15} einzusehen.
+Die Messzeiten sind \SI{30}{\second} für Würfel 1 und \SI{300}{\second} für Würfel 5.
+Die entsprechenden Werte für Würfel 2 und 3 stehen in Tabelle \ref{tab:W23} mit den Messzeiten \SI{400}{\second} für Würfel 2 und \SI{250}{\second} für Würfel 3.
+Da beide Würfel homogen sind werden äquivalente Projektionen nicht erwähnt.
+Es werden die selben Intensitäten für diese Richtungen angenommen.
+Der Extinktionskoeffizient $\mu$ wird nach \eqref{eqn:Absorbtionskoeffizenten} berechnet.
+Dessen Fehler ergeben sich aus \eqref{eqn:Unsicherheit}.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}  
+    \cline{2-5}
+    \multicolumn{1}{c|}{} &\multicolumn{2}{c|}{Würfel 1} & \multicolumn{2}{c|}{Würfel 5}\tabularnewline
+    \hline
+    j & C & $I_{j}\,\left[\text{s}^{-1}\right]$ & C & $I_{j}\,\left[\text{s}^{-1}\right]$\tabularnewline
+    \hline
+    1 & $2796\pm73$ & $93,2\pm2,4$ & $2812\pm82$& $9,4\pm0,3$\tabularnewline
+    \hline
+    2 & $1096\pm52$& $36,5\pm1,7$ & $8101\pm136$ & $27,0\pm0,5$\tabularnewline
+    \hline
+    3 & $3265\pm76$ & $108,8\pm2,5$ & $7769\pm133$ & $25,9\pm0,4$\tabularnewline
+    \hline
+    4 & $1897\pm64$ & $63,2\pm2,1$ & $4391\pm112$ & $14,6\pm0,4$\tabularnewline
+    \hline
+    5 & $1368\pm59$ & $45,6\pm2,0$ & $7408\pm132$ & $24,7\pm0,4$\tabularnewline
+    \hline
+    6 & $1985\pm69$ & $66,2\pm2,3$ & $4500\pm96$ & $15,0\pm0,3$\tabularnewline
+    \hline
+    7 & $1735\pm63$ & $57,8\pm2,1$ & $6279\pm121$ & $20,9\pm0,4$\tabularnewline
+    \hline
+    8 & $1046\pm53$ & $34,8\pm1,8$ & $4480\pm105$ & $14,9\pm0,4$\tabularnewline
+    \hline
+    9 & $1920\pm67$ & $64,0\pm2,2$ & $4855\pm113$ & $16,2\pm0,4$\tabularnewline
+    \hline
+    10 & $1973\pm70$ & $65,8\pm2,3$ & $13795\pm170$ & $46,0\pm0,6$\tabularnewline
+    \hline
+    11 & $1833\pm93$ & $61,1\pm3,1$ & $3839\pm92$ & $12,8\pm0,3$\tabularnewline
+    \hline
+    12 & $1474\pm59$ & $49,1\pm2,0$ & $3961\pm95$ & $13,2\pm0,3$\tabularnewline
+    \hline
+    \end{tabular}
+    \caption{Messwerte der Würfel 1 und 5.}
+    \label{tab:W15}
+    \end{table}
 
-% \begin{figure}[htb]
-%   \centering
-%   \includegraphics[width=\textwidth]{Plot.pdf}
-%   \caption{Bildunterschrift}
-%   \label{fig:Plot1}
-% \end{figure}
+
+\begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|c|c|}
+        \cline{2-5}
+        \multicolumn{1}{c|}{} &\multicolumn{2}{c|}{Würfel 2} & \multicolumn{2}{c|}{Würfel 3}\tabularnewline
+        \hline
+        j & C & $I_{j}\,\left[\text{s}^{-1}\right]$ & C & $I_{j}\,\left[\text{s}^{-1}\right]$\tabularnewline
+        \hline
+        1 & $3766\pm95$ & $9,4\pm0,2$  & $9656\pm154$ & $38,6\pm0,6$\tabularnewline
+        \hline
+        2 & $3799\pm94$& $9,5\pm0,2$  & $9113\pm153$ & $36,5\pm0,6$\tabularnewline
+        \hline
+        3 & $3766\pm95$ & $9,4\pm0,2$  & $9656\pm154$ & $38,6\pm0,6$\tabularnewline
+        \hline       
+        10 & $1973\pm70$ & $11,3\pm2,8$   & $12011\pm170$ & $48,0\pm0,7$\tabularnewline
+        \hline
+        11 & $1833\pm93$ & $7,2\pm0,2$  & $9366\pm147$ & $37,5\pm0,6$\tabularnewline
+        \hline
+        12 & $1973\pm70$ & $11,3\pm2,8$  & $12011\pm170$ & $48,0\pm0,7$\tabularnewline
+        \hline
+        \end{tabular}
+        
+        \caption{Messwerte der Würfel 2 und 3.}
+        \label{tab:W23} 
+        \end{table}
+
 \FloatBarrier
+Aus der Berechnung mit den Daten aus den vorherigen Tabellen folgen die Extinktionskoeffizienten in Tabelle \ref{tab:Ex}.
+Die Würfel 1,2 und 3 bestehen alle aus homogenen Elementarwürfeln (Würfel 1 ist komplett leer).
+Daher ist es sinnvoll einen Mittelwert anzugeben. 
+Der Mittelwert errechnet sich nach 
+\begin{equation*}
+    \bar{\mu}=\frac{\sum_{j=1}^9\mu_j}{9}
+\end{equation*}
+und dessen Fehler nach 
+\begin{equation*}
+    \bar{\sigma_\mu}=\frac{\sum_{j=1}^9\sigma_{\mu_j}}{9}.
+\end{equation*}
+Es wird 
+\begin{align*}
+    \bar{\mu_1}=0,18\pm0,08\\
+    \bar{\mu_2}=0,77\pm0,28\\
+    \bar{\mu_3}=0,31\pm0,05
+\end{align*}
+berechnet.
+Ein Vergleich mit den Theoriewerten (siehe Tabelle \ref{tab:Theo}) lässt darauf schließen, dass es sich bei Würfel 2 um Eisen (rel. Abweichung \SI{35}{\percent}) und bei Würfel 3 um Messing (rel. Abweichung \SI{50}{\percent}) handelt.
+Die Extinktionskoeffizienten für den inhomogenen Würfel 5 stehen in Tabelle \ref{tab:W5}.
+Dazu wird dieser noch mit dem Material dessen theoretischer Extinktionskoeffizienten am nähesten liegt verglichen und eine relative Abweichung bestimmt.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}  
+    \cline{2-5}
+    \multicolumn{1}{c|}{} & \multicolumn{4}{c|}{$\mu_j/\si{\per\centi\meter}$} \tabularnewline
+    \hline
+    \multicolumn{1}{|c|}{j} &\multicolumn{1}{c|}{Würfel 1} & \multicolumn{1}{c|}{Würfel 2} & \multicolumn{1}{c|}{Würfel 3} & \multicolumn{1}{c|}{Würfel 5}\tabularnewline
+    \hline
+    1 & $-0,03\pm0,09$ & $0,75\pm0,33$ & $0,31\pm0,05$& $1,00\pm0,06$\tabularnewline
+    \hline
+    2 & $0,40\pm0,07$& $0,85\pm0,24$ & $0,33\pm0,04$ & $0,77\pm0,65$\tabularnewline
+    \hline
+    3 & $0,06\pm0,09$ & $0,75\pm0,33$ & $0,31\pm0,05$ & $0,18\pm0,06$\tabularnewline
+    \hline
+    4 & $0,08\pm0,07$ & $0,85\pm0,24$ & $0,33\pm0,04$ & $0,034\pm0,4$\tabularnewline
+    \hline
+    5 & $0,54\pm0,07$ & $0,54\pm0,25$ & $0,24\pm0,04$ & $0,17\pm0,05$\tabularnewline
+    \hline
+    6 & $0,15\pm0,07$ & $0,85\pm0,24$ & $0,33\pm0,04$ & $0,87\pm0,05$\tabularnewline
+    \hline
+    7 & $0,22\pm0,09$ & $0,75\pm0,33$ & $0,31\pm0,05$ & $1,11\pm0,06$\tabularnewline
+    \hline
+    8 & $0,26\pm0,07$ & $0,85\pm0,24$ & $0,33\pm0,04$ & $0,41\pm0,05$\tabularnewline
+    \hline
+    9 & $-0,09\pm0,09$ & $0,75\pm0,33$ & $0,31\pm0,05$ & $0,40\pm0,06$\tabularnewline
+    \hline
+    \end{tabular}
+    
+    \caption{Extinktionskoeffizienten der Würfel.}
+    \label{tab:Ex}
+    \end{table}
+\FloatBarrier
+
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}  
+    \hline
+    j & {$\mu_j/\si{\per\centi\meter}$} & {Material} & {$\mu_{theo}/\si{\per\centi\meter}$} & {rel. Abw.}\tabularnewline
+    \hline
+    1 & $1,00\pm0,06$ & {Blei} & 1,25 & {\SI{20}{\percent}}\tabularnewline
+    \hline
+    2 & $0,77\pm0,05$ & {Messing} & 0,62 & {\SI{24}{\percent}}\tabularnewline
+    \hline
+    3 & $0,18\pm0,06$ & {Aluminium} & 0,20 & {\SI{10}{\percent}}\tabularnewline
+    \hline
+    4 & $0,34\pm0,05$ & {Eisen} & 0,57 & {\SI{40}{\percent}}\tabularnewline
+    \hline
+    5 & $0,17\pm0,05$ & {Aluminium} & 0,20 & {\SI{15}{\percent}}\tabularnewline
+    \hline
+    6 & $0,87\pm0,05$ & {Messing} & 0,62 & {\SI{40}{\percent}}\tabularnewline
+    \hline
+    7 & $1,11\pm0,06$ & {Blei} & 1,25 & {\SI{11}{\percent}}\tabularnewline
+    \hline
+    8 & $0,41\pm0,05$ & {Eisen} & 0,57 & {\SI{28}{\percent}}\tabularnewline
+    \hline
+    9 & $0,40\pm0,06$ & {Eisen} & 0,57 & {\SI{30}{\percent}}\tabularnewline
+    \hline
+    \end{tabular}
+    
+    \caption{Extinktionskoeffizienten des Würfels 5.}
+    \label{tab:W5}
+    \end{table}
+\FloatBarrier
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline 
+    Material & $\sigma\,\left[\frac{\text{cm}^{2}}{\text{g}}\right]$ & $\rho\,\left[\frac{\text{g}}{\text{cm}^{3}}\right]$ & $\mu\,\left[\text{cm}^{-1}\right]$\tabularnewline
+    \hline 
+    \hline 
+    Aluminium & 0,075 & 2,70 & 0,20\tabularnewline
+    \hline 
+    Blei & 0,110 & 11,34 & 1,25\tabularnewline
+    \hline 
+    Eisen & 0,074 & 7,87 & 0,57\tabularnewline
+    \hline 
+    Messing & 0,073 & 8,45 & 0,62\tabularnewline
+    \hline 
+    Delrin & 0,081 & 1,42 & 0,11\tabularnewline
+    \hline 
+    \end{tabular}
+    \caption{Literaturwerte der Stoffdichte, Massenschwächungskoeffizient ($E_{\gamma}=\SI{661}{\kilo\electronvolt}$) und der
+    Absorptionskoeffizienten \cite{Theorie}}
+    \label{tab:Theo}
+    \end{table}
