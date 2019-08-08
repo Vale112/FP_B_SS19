@@ -1,6 +1,6 @@
 \section{Zielsetzung}
 \label{sec:Zielsetzung}
-Es wird eine $\gamma$-Strahler verwendet um durch Tomographie die Zusammensetzung eines Würfels zu untersuchen.
+Zur Untersuchung der Zusammensetzung eines Würfels wird die Tomographie mittels Gamma-Strahlung genutzt.
 Dazu werden aus verschiedenen Positionen die Absorptionsspektren aufgezeichnet.
 
 \section{Theorie}
@@ -8,14 +8,14 @@ Dazu werden aus verschiedenen Positionen die Absorptionsspektren aufgezeichnet.
 
 \subsection{Wechselwirkung von \texorpdfstring{$\gamma$}{gamma}-Quanten mit Materie}
 \label{sec:WW}
-Ein $\gamma$-Quanten verliert nach jeder Wechselwirkung einen Teil seiner ursprünglichen Energie, bis die gesamte Energie im Absorber deponiert wird oder das $\gamma$-Quant heraus gestreut wird.
+Ein $\gamma$-Quant verliert nach jeder Wechselwirkung einen Teil seiner ursprünglichen Energie, bis die gesamte Energie im Absorber deponiert wird oder das $\gamma$-Quant heraus gestreut wird.
 Die Teilchenzahl des $\gamma$-Strahls und damit die Intensität
 \begin{equation}
   \label{eq:Absorbtion}
   I(D)=I_0\exp(-\sum_i \mu_\text{i} D_\text{i})
 \end{equation}
-hängt von der Schichtdicken $D_\text{i}$ der Absorber und den Extinktionskoeffizienten $\mu_\text{i}$ ab. 
-Misst man nun die Intensität $I(D)$ nach Durchdringen eines Materials mit bekannter Dicke $D$ und ist die Eingangsintensität $I_0$ bekannt, so ergibt sich ein lineares 
+hängt von der Schichtdicken $D_\text{i}$ der Absorber und den Absorptionskoeffizienten $\mu_\text{i}$ ab. 
+Wird die Intensität $I(D)$ nach Durchdringen eines Materials mit bekannter Dicke $D$ gemessen und ist die Eingangsintensität $I_0$ bekannt, so ergibt sich ein lineares 
 Gleichungssystem.
 Bei $\gamma$-Strahlung treten hauptsächlich die Wechselwirkungen Photoeffekt, Compton-Effekt und Paarbildung auf.
 
@@ -52,7 +52,7 @@ Der maximale Übertrag tritt bei einem Streuwinkel von \SI{180}{\degree} auf und
 
 \subsubsection{Paarbildung}
 \label{sec:Paar}
-Bei der Paarbildung wandelt sich das $\gamma$-Quant in ein Elektron und ein Positron um, falls es die dafür nötige Energie $E_{\gamma}>2m_{\symup{e}}c^2$ besitzt.
+Bei der Paarbildung wandelt sich das $\gamma$-Quant um, falls es die dafür nötige Energie $E_{\gamma}>2m_{\symup{e}}c^2 = \SI{1.02}{\mega\electronvolt}$ \cite{Theorie} besitzt.
 Damit dieser Prozess (vom Ruhesystem des $\gamma$-Quants aus gesehen) stattfinden kann, muss zusätzlich noch ein Stoßpartner vorhanden sein.
 Ist dieser Partner ein Elektron, benötigt das $\gamma$-Quant aufgrund der Rückstoßenergie sogar die vierfache Ruhemasse des Elektrons an Energie, damit es zur Paarbildung kommen kann.
 Der Wirkungsquerschnitt $\sigma_{\symup{Pa}}$ ist je nach Ort, an dem die Paarerzeugung stattfindet, unterschiedlich groß, da zum Beispiel im Bereich der K-Schale das gesamte Coulomb-Feld mitwirkt, bei äußeren Schalen
@@ -60,23 +60,24 @@ jedoch Abschirmungseffekte eine Rolle spielen, wodurch $\sigma_{\symup{Pa}}$ von
 
 \subsection{Tomographie}
 \label{sec:Tomo}
-Unter Tomographie wird ein bildgebendes Verfahren, welches einzelne Schichten auflöst bezeichnet. Durch mehrere solcher Bilder kann dann ein räumliches 
-Abbild geschaffen werden. Dazu sind mehrere Messungen notwendig, dies soll hier bei einem 
-Würfel, welcher aus \num{27} einzelnen Würfeln zusammengesetzt ist untersucht werden, dabei sind die unterschiedlichen Dichten ausschlaggebend.
+Unter Tomographie wird ein bildgebendes Verfahren, welches einzelne Schichten auflöst bezeichnet. Durch mehrere solcher Bilder kann ein räumliches 
+Abbild geschaffen werden. Dazu sind mehrere Messungen notwendig.
+Dies soll hier bei einem Würfel, welcher aus \num{27} einzelnen Würfeln zusammengesetzt ist untersucht werden.
 Wird aus der Messung der Intensität ohne Probe $I_0$ und mit Probe $I_\text{i}$ das logarithmische Verhältnis
 \begin{equation}
     \label{eqn:Verhältnis}
     \ln\left(\frac{I_0}{I_\text{i}}\right) = \sum_i \mu_\text{i} d_\text{i} = N_\text{i}
 \end{equation}
-bestimmt, so lässt sich darauß das lineare Gleichungssystem lösen. Werden nun mehr Messungen als die \num{9} in einer Ebene befindenden Würfel durchgeführt, 
-so ergibt sich ein überbestimmtes Gleichungssystem der Ordnung $m$, wenn $m$ die Anzahl durchgeführter Messungen ist.
-Das Gleichungssystem lässt sich nun nach
+bestimmt, so lässt sich darauß das lineare Gleichungssystem lösen. Werden mehr Messungen als die \num{9} in einer Ebene befindenden Würfel durchgeführt, 
+so ergibt sich ein überbestimmtes Gleichungssystem der Ordnung $m$, dabei ist $m$ die Anzahl durchgeführter Messungen.
+Hierdurch wird die Genauigkeit der bestimmten Absorptionskoeffizienten gesteigert.
+Das Gleichungssystem lässt sich nach
 \begin{equation}
     \label{eqn:Gleichungssystem}
     \textbf{A} \vec{\mu} = \vec{N}
 \end{equation}
 bestimmen, wobei $\vec{\mu} = (\mu_1, \ldots,\mu_9)^\text{T}$ der Spaltenvektor der \num{9} Absorbtionskoeffizenten und $\vec{N} = (N_1, \ldots,N_m)^\text{T}$ ist. 
-\textbf{A} enthält nun die Informationen über die Anordnung der Würfel und ist eine $9 \times m$-Matrix. Werden alle Messungen mit gleicher Unsicherheit 
+\textbf{A} enthält die Informationen über die Anordnung der Würfel und ist eine $9 \times m$-Matrix. Werden alle Messungen mit gleicher Unsicherheit 
 aufgenommen so ergeben sich die Absorbtionskoeffizenten nach
 \begin{equation}
     \label{eqn:Absorbtionskoeffizenten}
@@ -88,8 +89,8 @@ mit der Unsicherheit von
     \sigma = \sigma_I\sqrt{\text{diag}[(\textbf{A}^\text{T} \textbf{A})^{-1}]}.
 \end{equation}
 Es ist zu beachten, dass die Absorbtionskoeffizenten $\mu_\text{i}$ keine Konstanten sind, sondern auch von der verwendeten Energie abhängig sind. 
-Da natürliche Strahler für die Untersuchung verwendet werden, ist es wichtig ihr Energiespektrum zu kennen. Ein Energiespektrum entsteht durch Auftragen der 
-Intensität oder Zählrate nach dem Durchgang einer bekannten Probe gegen die Energie. Das Spektrum für den hier verwendeten \ce{^137Cs}-Strahler ist in Abbildung \ref{fig:spektrum} zu finden.
+Da natürliche Strahler für die Untersuchung verwendet werden, ist es wichtig ihr Energiespektrum zu kennen. Das Energiespektrum wird durch Auftragen der 
+Intensität oder Zählrate nach dem Durchgang einer bekannten Probe gegen die Energie dargestellt. Das Spektrum für den hier verwendeten \ce{^137Cs}-Strahler ist in Abbildung \ref{fig:spektrum} zu finden.
 Es sind die Charakteristika des Compton-Kontinuums für kleine Energien bis hin zur Compton-Kante, an der das $\gamma$-Quant zurück geworfen wird, zu erkennen. 
 Ebenso lässt sich deutlich der Vollenergiepeak, welcher durch den Photo-Effekt dominiert wird zu erkennen. Wird die Wellenlänge noch kleiner, so tritt die Paarerzeugung
 in Erscheinung und die Intensität steigt wieder an.

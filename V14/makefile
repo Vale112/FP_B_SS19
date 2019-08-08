@@ -3,7 +3,10 @@ all:  build/main.pdf
 build:
 	mkdir -p build
 
-build/main.pdf:
+build/main.pdf: build/Nullmessung.pdf | build
+
+build/Nullmessung.pdf: data/nullmessung calculation/auswertung.py 
+	python calculation/auswertung.py
 
 
 build/main.pdf: FORCE | build
