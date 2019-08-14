@@ -29,6 +29,15 @@ plt.xlabel("Channel")
 plt.ylabel("Counts")
 plt.savefig("build/Nullmessung.pdf")
 plt.clf()
+
+def lin(x,m,b):
+    return m*x+b
+params, covariance= curve_fit(lin,[],)
+
+
+
+
+
 #------------------------Würfel 1
 print('--------------Würfel 1-------------')
 
