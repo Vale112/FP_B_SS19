@@ -22,21 +22,20 @@ if not os.path.isdir('build/tables'):
     os.mkdir('build/tables')
 
 #------------------------Nullmessung 
-data = np.genfromtxt('data/nullmessung', unpack=True)  #liest die Messdaten ein
-x=np.linspace(1,len(data),len(data))
-plt.plot(x,data)
-plt.xlabel("Channel")
-plt.ylabel("Counts")
-plt.savefig("build/Nullmessung.pdf")
-plt.clf()
+data = np.genfromtxt('./data/nullmessung', unpack=True)  #liest die Messdaten ein
 
 def lin(x,m,b):
     return m*x+b
-params, covariance= curve_fit(lin,[],)
+params, covariance= curve_fit(lin,[89,np.argmax(data)],[478,662])
+print(params)
 
-
-
-
+x0=np.linspace(1,len(data),len(data))
+x=lin(x0,params[0],params[1])
+plt.plot(x,data)
+plt.xlabel("Energie in kev")
+plt.ylabel("Counts")
+plt.savefig("build/Nullmessung.pdf")
+plt.clf()
 
 #------------------------Würfel 1
 print('--------------Würfel 1-------------')
