@@ -49,17 +49,19 @@ Während diese ausgerichteten Dipole wieder eine statistische Raumverteilung ann
 Der schematische Verlauf dieses Stromes ist in Abbildung \ref{fig:Strom} zu sehen.
 Die Depolarisationsstromdichte $j(T)$ setzt sich als Produkt aus dem Anteil $y$ der bei der Polarisationstemperatur $T_\text{p}$ orientierten Dipole, dem Dipolmoment $p$ und der Zahl $\sfrac{\symup{d}N}{\symup{d}t}$
 der pro Zeit und Volumeneinheit relaxierenden Dipole zusammen:
-\begin{align}
-        j(T) =& y(T_\symup{p})\cdot p\cdot \frac{\symup{d}N}{\symup{d}t} \\
-        =&\frac{p^2E}{3 \symup{k_B} T_\symup{p}}\frac{\symup{d}N}{\symup{d}t}.
-\end{align}
+\begin{equation}
+    \begin{split}
+        j(T) = & y(T_{\symup{p}}) \cdot p \cdot \frac{\symup{d}N}{\symup{d}t} \\
+        = &\frac{p^2E}{3 \symup{k_B} T_{\symup{p}}} \frac{\symup{d}N}{\symup{d}t}.
+    \end{split}
+\end{equation}
 Weil die Dipolrelaxation ein thermisch aktivierter Prozess ist, ist $\sfrac{\symup{d}N}{\symup{d}t}$ proportional zur Anzahl $N$ der orientierten Dipole multipliziert mit der Relaxationsfrequenz $1/\tau$:
 \begin{equation*}
     \frac{\symup{d}N}{\symup{d}t}=-\frac{N}{\tau(T)}.
 \end{equation*}
 Die Lösung für $N$ ist
 \begin{equation*}
-    N=N_\symup{p} \exp{\left(-\frac{1}{h}\int_{T_{\symup{0}}}^{T}\frac{\symup{d}T'}{\tau(T')}\right)},
+    N=N_{\symup{p}} \exp{\left(-\frac{1}{h}\int_{T_0}^{T}\frac{\symup{d}T'}{\tau(T')}\right)},
 \end{equation*}
 wenn die Heizrate $h=\sfrac{\symup{d}T}{\symup{d}t}=\text{const}$ ist.
 $N_{\symup{p}}$ ist die Zahl der zu Beginn des Aufheizens (Zeitpunkt $t_{\symup{0}}$ und Temperatur $T_{\symup{0}}$) vorhandenden, orientierten Dipole pro Volumeneinheit.
